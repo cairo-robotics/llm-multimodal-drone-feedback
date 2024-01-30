@@ -855,7 +855,6 @@
             var id = document.getElementById('workeridval').value;
             sendUserId(id);
             
-            
             document.getElementById("getIDPage").style.display = "none";
             document.getElementById("consentPage").style.display = "block";
         }
@@ -865,6 +864,8 @@
 
 <script>
     function goToGame1() {
+
+        // triggered after completing instruction pages
         
         trial_number = 1;
         // console.log(trial_number);
@@ -884,7 +885,7 @@
 
         // set_alpha(assistanceLevelVal);
 
-        window.restartGame();
+        window.restartGame(id, trial_number);
         //console.log(trial_it);
         //console.log(theta_k);
         //console.log(theta_list)
@@ -1089,7 +1090,7 @@
 
 
             // console.log(automation_input)
-            window.restartGame();
+            window.restartGame(id, trial_number);
             //console.log("theta" + theta_list[trial_it]);
             //console.log(theta_k)
 

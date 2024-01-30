@@ -1064,7 +1064,9 @@ function killGame() {
     return;
 }
 
-function restartGame() {
+function restartGame(id, trial_number) {
+    sendTrialStart(id, trial_number);
+
     myGameArea.canvas.style.display = "block";
    // this.myGameArea.clear();
     myGamePiece = null;
@@ -1089,6 +1091,16 @@ function sendUserId(id) {
     fetch('/process_user_id', {
         method: 'POST',
         body: JSON.stringify({ user_id: id }),
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    })
+}
+
+function sendTrialStart(id, trial_number) {
+    fetch('/process_trial_start', {
+        method: 'POST',
+        body: JSON.stringify({ user_id: id, trial: trial_number }),
         headers: {
             'Content-Type': 'application/json'
         }
