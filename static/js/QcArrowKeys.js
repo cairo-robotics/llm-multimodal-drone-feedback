@@ -1085,11 +1085,13 @@ function restartGame() {
     return;
 }
 
-function create_result_file(id, trial_number) {
-    $.ajax({
-        type: "POST",
-        url: "create_server.php",
-        data: { workerid: id, trial: trial_number }
+function sendUserId(id) {
+    fetch('/process_user_id', {
+        method: 'POST',
+        body: JSON.stringify({ user_id: id }),
+        headers: {
+            'Content-Type': 'application/json'
+        }
     })
 }
 

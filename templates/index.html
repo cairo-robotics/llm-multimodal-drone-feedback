@@ -853,9 +853,9 @@
             //  $("#Val4Modal").modal('show');
         } else {
             var id = document.getElementById('workeridval').value;
-            //  theta_list = group_check();
-            create_result_file(id, trial_number);
-            create_assistance(id, trial_number);
+            sendUserId(id);
+            
+            
             document.getElementById("getIDPage").style.display = "none";
             document.getElementById("consentPage").style.display = "block";
         }
