@@ -21,6 +21,10 @@ def process_user_id():
     # start log file
     add_log_entry(user_id, "Received user ID, start log")
 
+    # create file for survey responses
+    with open(f"Data/{user_id}/survey_responses.csv", "w") as f:
+        f.write("trial,survey1,survey2,survey3\n")
+
     return jsonify({'message': "User ID processed"})
 
 @app.route('/process_trial_start', methods=['POST'])
@@ -32,11 +36,28 @@ def process_trial_start():
     # start log file
     add_log_entry(user_id, f"Trial {trial} started")
 
-    with open(f"Data/{user_id}/trial_{trial}.txt", "w") as f:
-        # make empty file for trial data
-        pass
+    # create file for trial data
+    with open(f"Data/{user_id}/trial_{trial}.csv", "w") as f:
+        f.write("x,y,vx,vy,u_1,u_2,phi,phi_dot")
 
     return jsonify({'message': "Trial started"})
+
+@app.route('/process_survey_responses', methods=['POST'])
+def process_survey_responses():
+    data = request.json
+    user_id = data['user_id']
+    trial = data['trial']
+    trustVal = data['trust']
+    confVal = data['conf']
+    autoAgreeVal = data['autoAgree']
+
+    # start log file
+    add_log_entry(user_id, f"Received survey responses")
+
+    with open(f"Data/{user_id}/survey_responses.csv", "a") as f:
+        f.write(f"{trial},{trustVal},{confVal},{autoAgreeVal}\n")
+
+    return jsonify({'message': "Survey responses received"})
 
 def add_log_entry(user_id, entry):
     with open(f"Data/{user_id}/log.txt", "a") as f:

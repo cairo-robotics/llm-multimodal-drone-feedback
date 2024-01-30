@@ -940,7 +940,10 @@
             // assistanceLevelVal = document.querySelector('input[name="assist"]:checked').value; // assistance selector, turned off for this experiment
             assistanceLevelVal = 9;
             // save_result(id, trial_number);
-            save_result(id, trial_number, assistanceLevelVal, trustVal, confVal, autoAgreeVal);
+            //save_result(id, trial_number, assistanceLevelVal, trustVal, confVal, autoAgreeVal);
+            
+            sendSurveyResponses(id, trial_number, trustVal, confVal, autoAgreeVal);
+            
             save_assistance(id, trial_number);
             trial_number = trial_number + 1;
             goToQualtrics();
@@ -954,7 +957,10 @@
             // assistanceLevelVal = document.querySelector('input[name="assist"]:checked').value; // assistance selector, turned off for this experiment
             assistanceLevelVal = 9;
             // save_result(id, trial_number)
-            save_result(id, trial_number, assistanceLevelVal, trustVal, confVal, autoAgreeVal);
+            //save_result(id, trial_number, assistanceLevelVal, trustVal, confVal, autoAgreeVal);
+            
+            sendSurveyResponses(id, trial_number, trustVal, confVal, autoAgreeVal);
+            
             save_assistance(id, trial_number);
             trial_number = trial_number + 1;
             //  document.getElementById("trust").value = 50;//trustVal;

@@ -1107,6 +1107,16 @@ function sendTrialStart(id, trial_number) {
     })
 }
 
+function sendSurveyResponses(id, trial_number, trustVal, confVal, autoAgreeVal) {
+    fetch('/process_survey_responses', {
+        method: 'POST',
+        body: JSON.stringify({ user_id: id, trial: trial_number, trust: trustVal, conf: confVal, autoAgree: autoAgreeVal }),
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    })
+}
+
 function save_result(id, trial_number, assistanceLevelVal, trustVal, confVal, autoAgreeVal) {
     console.log("hello world")
     $.ajax({

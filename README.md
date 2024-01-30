@@ -11,9 +11,8 @@ How to run locally
 - open http:localhost:5000
 
 What to work on next
-- save user id from Mturk (getIDPage) create userid files
 - update consent form (consentPage)
 - update instruction slide 1 (instruct1Page) remove purdue logo
-- update survey questions (gameSurvey) save survey responses
+- update survey questions (gameSurvey) and change sendSurveyResponses()
 - update exit survey (qualtricsPage)
 - make new feedback page
