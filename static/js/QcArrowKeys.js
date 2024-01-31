@@ -476,7 +476,7 @@ function component(width, height, color, x, y, type) { //We can change the param
     this.timesup = function() {
         if (time_count/100 > 120) {
             ctx = myGameArea.context;
-            ctx.fillStyle = "#e5ff00";
+            ctx.fillStyle = "#660019";
             ctx.fillText("You ran out of time!!!", 20, 550);
             myGameArea.stop();
         }
