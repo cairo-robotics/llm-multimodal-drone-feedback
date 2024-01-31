@@ -38,7 +38,7 @@ def process_trial_start():
 
     # create file for trial data
     with open(f"Data/{user_id}/trial_{trial}.csv", "w") as f:
-        f.write("x,y,vx,vy,u_1,u_2,phi,phi_dot")
+        f.write("x,y,vx,vy,u_1,u_2,phi,phi_dot\n")
 
     return jsonify({'message': "Trial started"})
 
@@ -58,6 +58,21 @@ def process_survey_responses():
         f.write(f"{trial},{trustVal},{confVal},{autoAgreeVal}\n")
 
     return jsonify({'message': "Survey responses received"})
+
+@app.route('/process_trajectory', methods=['POST'])
+def process_trajectory():
+    data = request.json
+    user_id = data['user_id']
+    trial = data['trial']
+    log = data['log']
+
+    # start log file
+    add_log_entry(user_id, f"Received trajectory data")
+
+    with open(f"Data/{user_id}/trial_{trial}.csv", "a") as f:
+        f.write(log)
+
+    return jsonify({'message': "Trajectory data received"})
 
 def add_log_entry(user_id, entry):
     with open(f"Data/{user_id}/log.txt", "a") as f:

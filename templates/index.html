@@ -943,8 +943,9 @@
             //save_result(id, trial_number, assistanceLevelVal, trustVal, confVal, autoAgreeVal);
             
             sendSurveyResponses(id, trial_number, trustVal, confVal, autoAgreeVal);
+            save_trajectory(id, trial_number);
             
-            save_assistance(id, trial_number);
+            //save_assistance(id, trial_number);
             trial_number = trial_number + 1;
             goToQualtrics();
 
@@ -961,7 +962,8 @@
             
             sendSurveyResponses(id, trial_number, trustVal, confVal, autoAgreeVal);
             
-            save_assistance(id, trial_number);
+            save_trajectory(id, trial_number);
+            //save_assistance(id, trial_number);
             trial_number = trial_number + 1;
             //  document.getElementById("trust").value = 50;//trustVal;
             // document.getElementById("conf").value = 50;// confVal;

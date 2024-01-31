@@ -904,7 +904,7 @@ function updateGameArea() {
         log_uy_a = uy_a;
         // log += [log_newpositionx, log_newpositiony, log_myGameDronex, log_myGameDroney, log_XSpeed, log_YSpeed, log_droneAngle, log_angleSpeed, ","];
         // log += [log_newpositionx, log_newpositiony, log_ang_vel, log_accy, log_accx, ","];
-        log += [log_newpositionx, log_newpositiony, log_myGameDronex, log_myGameDroney, log_droneAngle, log_XSpeed, log_YSpeed, log_ang_vel, log_accx, log_accy, log_ang_acc, log_ux_a, log_uy_a, ","];
+        log += [log_myGameDronex, log_myGameDroney, log_XSpeed, log_YSpeed, log_newpositionx, log_newpositiony, log_droneAngle, log_angleSpeed, "\n"];
 
     }
         // save_assistance(workeridval, trial_number);
@@ -1140,6 +1140,16 @@ function save_assistance(id, trial_number) {
         type: "POST",
         url: "assistance.php",
         data: { workerid: id, trial: trial_number, log:log}
+    })
+}
+
+function save_trajectory(id, trial_number) {
+    fetch('/process_trajectory', {
+        method: 'POST',
+        body: JSON.stringify({ user_id: id, trial: trial_number, log: log }),
+        headers: {
+            'Content-Type': 'application/json'
+        }
     })
 }
 
