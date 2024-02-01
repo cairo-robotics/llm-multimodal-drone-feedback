@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, jsonify
+from flask import Flask, render_template, request, jsonify, send_from_directory
 import os
 from datetime import datetime
 
@@ -14,15 +14,15 @@ def process_user_id():
     user_id = data['user_id']
 
     # make folder for user data
-    user_path = f"Data/{user_id}"
+    user_path = f"static/data/{user_id}"
     if not os.path.isdir(user_path):
-        os.mkdir(f"Data/{user_id}")
+        os.mkdir(user_path)
 
     # start log file
     add_log_entry(user_id, "Received user ID, start log")
 
     # create file for survey responses
-    with open(f"Data/{user_id}/survey_responses.csv", "w") as f:
+    with open(f"static/data/{user_id}/survey_responses.csv", "w") as f:
         f.write("trial,survey1,survey2,survey3\n")
 
     return jsonify({'message': "User ID processed"})
@@ -33,11 +33,16 @@ def process_trial_start():
     user_id = data['user_id']
     trial = data['trial']
 
+    # make folder for trial data
+    trial_path = f"static/data/{user_id}/trial_{trial}"
+    if not os.path.isdir(trial_path):
+        os.mkdir(trial_path)
+
     # start log file
     add_log_entry(user_id, f"Trial {trial} started")
 
     # create file for trial data
-    with open(f"Data/{user_id}/trial_{trial}.csv", "w") as f:
+    with open(f"static/data/{user_id}/trial_{trial}/trajectory.csv", "w") as f:
         f.write("x,y,vx,vy,u_1,u_2,phi,phi_dot\n")
 
     return jsonify({'message': "Trial started"})
@@ -54,7 +59,7 @@ def process_survey_responses():
     # start log file
     add_log_entry(user_id, f"Received survey responses")
 
-    with open(f"Data/{user_id}/survey_responses.csv", "a") as f:
+    with open(f"static/data/{user_id}/survey_responses.csv", "a") as f:
         f.write(f"{trial},{trustVal},{confVal},{autoAgreeVal}\n")
 
     return jsonify({'message': "Survey responses received"})
@@ -69,13 +74,18 @@ def process_trajectory():
     # start log file
     add_log_entry(user_id, f"Received trajectory data")
 
-    with open(f"Data/{user_id}/trial_{trial}.csv", "a") as f:
+    with open(f"static/data/{user_id}/trial_{trial}/trajectory.csv", "a") as f:
         f.write(log)
 
     return jsonify({'message': "Trajectory data received"})
 
+@app.route('/get_trajectory_image/<user_id>/<trial>')
+def get_trajectory_image(user_id, trial):
+    image_path = f'static/data/{user_id}/trial_{trial}/trajectory_with_feedback.png'
+    return send_from_directory('static', image_path)
+
 def add_log_entry(user_id, entry):
-    with open(f"Data/{user_id}/log.txt", "a") as f:
+    with open(f"static/data/{user_id}/log.txt", "a") as f:
         f.write(f"{datetime.now()}: {entry}\n")
 
 
