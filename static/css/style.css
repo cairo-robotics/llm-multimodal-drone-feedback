@@ -7,24 +7,11 @@ body {
   
 }
 
- /* canvas {
-  background-image: url("images/Purdue.jpeg");
-  background-repeat: no-repeat;
-  background-size: 1250px 600px;
-  display: block;
-  margin: 0 auto;
-  border: black 2px solid;
-  padding: 100
 
-
-}  */
-/*
-*/
-
-p {
+p, .input-group {
 	margin-left: 20%;
 	margin-right: 20%;
-  text-align: center;
+  	text-align: left;
 }
 
 h2{
@@ -61,9 +48,6 @@ button:hover {
   color: black;
 }
 
-.input-group {
-  text-align:center;
-}
 
 .screentest {
   display: flex;

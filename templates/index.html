@@ -1,1186 +1,172 @@
-﻿<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN">
+
 <html>
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no" />
-    <style>
-        canvas {
-            border: 1px solid #02030f;
-            background-color: white;
-        }
-    </style>
-    <!-- Bootstrap CSS -->
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no" />
+        <style>
+            canvas {
+                border: 1px solid #02030f;
+                background-color: white;
+            }
+        </style>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
-          integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
-</head>
+    </head>
 
+    <script src="{{ url_for('static', filename='js/QuadGame.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/Experiment.js') }}"></script>
 
-<script src="{{ url_for('static', filename='js/QcArrowKeys.js') }}"></script>
-<script src="{{ url_for('static', filename='js/jQuery.js') }}"></script>
-<script src="{{ url_for('static', filename='js/FileSaver.min.js') }}"></script>
-
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
-        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
-        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
-        integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
-
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-
-
-<body>
-    <section>
-        <div id="mainPage" style="display: block">
-            <img src="{{ url_for('static', filename='images/cu_logo.png') }}" alt="CU Logo" >
-
-            <h2 style="text-align: center; text-decoration: underline">
-                AI-generated Multimodal Feedback for Drone Teleoperation
-            </h2>
-            <br><br>
-            <p>
-                <strong>
-                    <span style="font-size:18px;">
-                        <big>
-                            Thank you for your willingness to participate in this
-                            study
-                        </big>
-                    </span>
-                </strong>
-            </p>
-            <br>
-            <p style="color: red">DO NOT use REFRESH or BACK thoughout the study</p>
-            <br>
-            <p style="color:black">
-                If you encounter any technical difficulties while playing the game, please make note of the
-                issue and the point in the game in which you experience this issue in the survey at the end. We greatly
-                appreciate your feedback.
-            </p>
-            <br><br>
-            <p><span><big>Press Next to continue</big></span></p>
-            <p>
-                <span>
-                    <big>
-                        <button onclick="testScreen()">Next</button>
-                    </big>
-                </span>
-            </p>
-        </div>
-    </section>
-
-    <section>
-        <div id="screenTestPage" style="display: none">
-            <p>
-                <strong>
-                    <span style="font-size:18px;">
-                        <big>
-                            Before continuing with this study, please ensure you can see the
-                            black border around all four sides of the green box.
-                        </big>
-                    </span>
-                </strong>
-            </p>
-            <p>If you can not see all four borders, you will not be able to complete this study.</p>
-            <br>
-            <div class="screentest">
-                <div style="width:1250px;height:600px;border:4px solid #000; background-color: honeydew; font-size:xx-large; font-weight: bold;">
-                    Ensure you can see the black border around all 4 sides of this rectangle!
-                </div>
+    <body>
+        <section>
+            <div id="startPage" style="display: block;">
+                <img src="{{ url_for('static', filename='images/cu_logo.png') }}" alt="CU Logo" style="padding-bottom: 20px; padding-top: 20px;">
+                <h1>AI-generated Multimodal Feedback for Drone Teleoperation</h1>
+                <p style="padding-top: 15px;">Thank you for your willingness to participate in this study.</p>
+                <p style="color: red;">Do not use refresh or back throughout the study.</p>
+                <p>If you encounter any technical difficulties while playing the game, please make note of the issue and the point in the game in which you experience this issue in the survey at the end. We greatly appreciate your feedback.</p>
+                <p>Press Next to continue.</p>
+                <button onclick="goToScreenTest()">Next</button>
             </div>
-            <br><br>
-            <p><span><big>Press Next to continue</big></span></p>
-            <p>
-                <span>
-                    <big>
-                        <button onclick="getID()">Next</button>
-                    </big>
-                </span>
-            </p>
-        </div>
-    </section>
+        </section>
 
-    <section>
-        <div id="getIDPage" style="display: none">
-            <h2><strong> Enter your WorkerID from Amazon Mechanical Turk:</strong></h2>
-            <p>
-                In the box below, enter your WorkerID provided by Amazon Mechanical Turk. <br> After entering your WorkerID,
-                press "Next" to continue.
-            </p>
-            <br>
-            <p style="color: red"><strong>Please make sure that your WorkerID is correct.</strong></p>
-            <br><br>
-
-            <form>
-                <div class="col-xs-4 offset-4">
-                    <div class="input-group">
-                        <label for="workeridval">WorkerID</label>
-                        <input type="text" class="form-control" id="workeridval" aria-describedby="idval"
-                               placeholder="Enter WorkerID">
-
+        <section>
+            <div id="screenTestPage" style="display: none;">
+                <h1>Screen Test</h1>
+                <p>Before continuing with this study, please ensure you can see the black border around all four sides of the green box.</p>
+                <p>If you can not see all four borders, you will not be able to complete this study.</p>
+                <div class="screentest">
+                    <div style="width:1250px;height:600px;border:4px solid #000; background-color: honeydew; font-size:xx-large; font-weight: bold;">
+                        Ensure you can see the black border around all 4 sides of this rectangle!
                     </div>
                 </div>
+                <p style="padding-top: 20px;">Press Next to continue.</p>
+                <button onclick="goToWorkerIDPage()">Next</button>
+            </div>
+        </section>
 
-                <br><br><br><br>
-                <input type="button" class="btn btn-primary btnSeccion" id="btnSeccion3" value="Next" onclick="goToConsent()" />
-
-            </form>
-        </div>
-        <!--Pop Up Modal for FormValidation
-        <div class="modal fade" id="Val4Modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-             aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="Val4ModalLabel"><strong><big>Invalid Response</big></strong></h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
+        <section>
+            <div id="workerIDPage" style="display: none;">
+                <h1>Worker ID</h1>
+                <p>In the box below, enter your WorkerID provided by Amazon Mechanical Turk.</p>
+                <p>After entering your WorkerID, press Next to continue.</p>
+                <p style="color: red;">Please make sure your WorkerID is correct.</p>
+                <form>
+                    <div>
+                        <div class="input-group">
+                            <label for="workerID", style="padding-right: 10px;">Worker ID:</label>
+                            <input type="text" id="workerID" placeholder="Enter WorkerID">
+                        </div>
                     </div>
-                    <div class="modal-body">
-                        <p style="text-align: center;"> Please enter your WorkerID</p>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    </div>
-                </div>
+                    <input type="button" value="Next" onclick="goToConsentPage()">
+                </form>
+        </section>
+
+        <section>
+            <div id="consentPage" style="display: none;">
+                <h1>Research Participant Consent Form</h1>
+                <p style="padding-top: 10px;"><b>Primary Investigators:</b> Emily Jensen, Dr. Bradley Hayes, and Dr. Sriram Sankaranarayanan</p>
+                <p>Department of Computer Science, University of Colorado Boulder</p>
+                <br>
+                <p>The link below will direct you to a new tab to read the research consent form. Please read the document carefully. After reading the form, return to this tab and press Next if you consent to participating in the study.</p>
+                <strong><a href="{{ url_for('static', filename='Consent Form - NSF CPS - online game.pdf') }}" target="_blank">Consent Form</a></strong>
+                <br><br>
+                <p>If you have any questions or concerns about the information in the consent form, please send them to emily.jensen@colorado.edu</p>
+                <p>Press Next to continue.</p>
+                <button onclick="goToInstructions1Page()">Next</button>
             </div>
-        </div> -->
-    </section>
+        </section>
 
-    <section>
-        <div id="consentPage" style="display: none">
-            <h2 style="text-align: center;">RESEARCH PARTICIPANT CONSENT FORM</h2>
+        <section>
+            <div id="instructions1Page" style="display: none; padding-bottom: 30px;">
+                <h1>Instructions</h1>
+                <p>Your task in this study is to improve your proficiency at playing a quadrotor (drone) landing game.
+                    In the game, you are tasked with navigating a quadrotor to a landing pad.
+                    A feature of this game is that it includes feedback to help you improve your skill in the game.
+                    The feedback will be presented each time you complete the game.
+                </p>
 
-            <h3 style="text-align: center;">
-                PIs: Emily Jensen and Dr. Bradley Hayes
-                <br>Department of Computer Science
-                <br>University of Colorado Boulder
-            </h3>
-
-            <br><br>
-
-            <p>
-                The hyperlink below will direct you to a new tab to read through the research consent form.
-                Please read through the document carefully.
-                After reading through the form, return to this tab and press "Next" if you consent to participating.
-            </p>
-
-            <a href="{{ url_for('static', filename='Consent Form - NSF CPS - online game.pdf') }}" target="_blank" style="font-size:30px">Consent Form</a>
-            <br><br>
-            <p>
-                If you have any questions or concerns, please send them to <b>emily.jensen@colorado.edu</b>
-            </p>
-            <p>&nbsp;</p>
-
-            <p><span><big>Press "Next" to continue</big></span></p>
-
-            <p><span><big><button onclick="goToInstruct1()">Next</button></big></span></p>
-        </div>
-    </section>
-
-    <section>
-        <div id="instruct1Page" style="display: none">
-            <h2>Instructions</h2>
-
-            <p><big>Your task in this study is to improve your proficiency at playing a Quadrotor landing game.
-            In the game, you are tasked with navigating a Quadrotor to a landing pad.
-            A feature of this game is that it includes feedback to help you improve your skill in the game.
-            The feedback will be presented each time you complete the game.</big></p>
-
-
-        <div class="container">
-            <h2>Game Walkthrough</h2>
-            <div id="myCarousel" class="carousel slide" data-ride="carousel">
-            <!-- Indicators -->
-            <ol class="carousel-indicators">
-                <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-                <li data-target="#myCarousel" data-slide-to="1"></li>
-                <li data-target="#myCarousel" data-slide-to="2"></li>
-                <li data-target="#myCarousel" data-slide-to="3"></li>
-                <li data-target="#myCarousel" data-slide-to="4"></li>
-                <li data-target="#myCarousel" data-slide-to="5"></li>
-            </ol>
-
-          <!-- Wrapper for slides -->
-          <div class="carousel-inner">
-            <div class="item active">
-              <img src="{{ url_for('static', filename='images/instructions/Slide1.png') }}" alt="" style="width:100%;" >
+                <h2>Game Walkthrough</h2>
+                <p>You will be interacting with a simulated training module to learn how to land a quadrotor.</p>
+                <img src="{{ url_for('static', filename='images/instructions/Newer1.png') }}">
+                <p>The goal is to fly the quadrotor from the starting point to the landing pad.</p>
+                <img src="{{ url_for('static', filename='images/instructions/Newer2.png') }}">
+                <p>You will control the quadrotor's <b>thrust force</b> and <b>attitude (tilt angle)</b> using your keyboard.</p>
+                <img src="{{ url_for('static', filename='images/instructions/Newer5.png') }}">
+                <p>Pressing and holding "W" increases thrust force, causing the quadrotor to <b>accelerate</b>.</p>
+                <p>Pressing and holding "S" decreases thrust force, causing the quadrotor to <b>decelerate</b>.</p>
+                <p>If the thrust force is near zero, then <b>gravity is the only force acting on the quadrotor</b>.</p>
+                <img src="{{ url_for('static', filename='images/instructions/Newer6.png') }}">
+                <p>Pressing and holding the <b>right arrow key</b> causes the quadrotor to rotate <b>clockwise</b>.</p>
+                <p>Pressing and holding the <b>left arrow key</b> causes the quadrotor to rotate <b>counter-clockwise</b>.</p>
+                <img src="{{ url_for('static', filename='images/instructions/Newer7.png') }}">
+                <p>Press Next to continue.</p>
+                <button onclick="goToInstructions2Page()">Next</button>
             </div>
-
-            <div class="item">
-                <img src="{{ url_for('static', filename='images/instructions/Newer1.png') }}" alt="" style="width:100%;" >
-            </div>
-
-            <div class="item">
-                <img src="{{ url_for('static', filename='images/instructions/Newer2.png') }}" alt="" style="width:100%;" >
-            </div>
-
-            <div class="item">
-                <img src="{{ url_for('static', filename='images/instructions/Newer5.png') }}" alt="" style="width:100%;" >
-            </div>
-            <div class="item">
-                <img src="{{ url_for('static', filename='images/instructions/Newer6.png') }}" alt="" style="width:100%;" >
-              </div>
-            <div class="item">
-                <img src="{{ url_for('static', filename='images/instructions/Newer7.png') }}" alt="" style="width:100%;" >
-            </div>
-          </div>
-
-          <!-- Left and right controls -->
-          <a class="left carousel-control" href="#myCarousel" data-slide="prev">
-            <span class="glyphicon glyphicon-chevron-left"></span>
-            <span class="sr-only">Previous</span>
-          </a>
-          <a class="right carousel-control" href="#myCarousel" data-slide="next">
-            <span class="glyphicon glyphicon-chevron-right"></span>
-            <span class="sr-only">Next</span>
-          </a>
-        </div>
-      </div>
-    
-</body>
-</html>
-
-<br>
-
-<p>&nbsp;</p>
-
-<p><span style="font-size:20px;"><big>Press Next to continue</big></span></p>
-
-<p><span style="font-size:20px;"><big><button id="next" onclick="goToInstruct2()">Next</button></big></span></p>
-
-<p><span style="font-size:20px;"><big>Press Back to review the previous page</big></span></p>
-
-<p><span style="font-size:20px; color: lightskyblue;"><big><button id="back"
-        onclick="goBackConsent()">Back</button></big></span></p>
-
-</div>
-</section>
-
-<section>
-<div id="instruct2Page" style="display: none">
-    <h2>Instructions</h2>
-
-    <p><big>Your primary goal is to <b>land the Quadrotor</b> as well as <b>minimize the time</b> it takes for you to
-        successfully land the Quadrotor.
-        To accomplish these goals, aim to navigate the Quadrotor to the landing pad in a controlled manner.</big></p>
-
-    <div class="container">
-    <h2>Game Walkthrough</h2>
-    <div id="myCarousel2" class="carousel slide" data-ride="carousel">
-        <!-- Indicators -->
-        <ol class="carousel-indicators">
-        <li data-target="#myCarousel2" data-slide-to="0" class="active"></li>
-        <li data-target="#myCarousel2" data-slide-to="1"></li>
-        <li data-target="#myCarousel2" data-slide-to="2"></li>
-
-        </ol>
-
-        <!-- Wrapper for slides -->
-        <div class="carousel-inner">
-        <div class="item active">
-            <img src="{{ url_for('static', filename='images/instructions/Newer8.png') }}" alt="" style="width:100%;" >
-        </div>
-
-        <div class="item">
-            <img src="{{ url_for('static', filename='images/instructions/Newer9.png') }}" alt="" style="width:100%;" >
-        </div>
-        <div class="item">
-            <img src="{{ url_for('static', filename='images/instructions/Newer10.png') }}" alt="" style="width:100%;" >
-        </div>
-
-        </div>
-
-        <!-- Left and right controls -->
-        <a class="left carousel-control" href="#myCarousel2" data-slide="prev">
-        <span class="glyphicon glyphicon-chevron-left"></span>
-        <span class="sr-only">Previous</span>
-        </a>
-        <a class="right carousel-control" href="#myCarousel2" data-slide="next">
-        <span class="glyphicon glyphicon-chevron-right"></span>
-        <span class="sr-only">Next</span>
-        </a>
-    </div>
-    </div>
-
-    <p>&nbsp;</p>
-
-    <p><span style="font-size:20px;"><big>Press Next to continue</big></span></p>
-
-    <p><span style="font-size:20px;"><big><button id="next" onclick="goToInstruct3()">Next</button></big></span></p>
-
-    <br>
-
-    <p><span style="font-size:20px;"><big>Press Back to review the previous page</big></span></p>
-
-    <p><span style="font-size:20px; color: lightskyblue;"><big><button id="back"
-            onclick="goBackInstruct1()">Back</button></big></span></p>
-</div>
-</section>
-
-<section>
-    <div id="instruct3Page" style="display: none">
-    <h2>Instructions</h2>
-
-    <p><big> To start the game, press either the throttle (W or S keys) or tilt (left or right arrow keys).
-        <br><br>
-        You will play the game 20 times.
-        You will receive feedback each time you play the game.
-        <br>
-        Each time you complete the game, press <b>next</b> and you will be re-directed to play again.
-        </big></p>
-    <p style="color: red"><big>Please maximize the screen size before starting the game!</big></p>
-
-    <p>&nbsp;</p>
-
-    <p><span style="font-size:20px;"><big>Press Next to continue</big></span></p>
-
-    <p><span style="font-size:20px;"><big><button id="next" onclick="goToGame1()">Next</button></big></span></p>
-
-    <br>
-
-    <p><span style="font-size:20px;"><big>Press Back to review the previous page</big></span></p>
-
-    <p><span style="font-size:20px;"><big><button id="back" onclick="goBackInstruct2()">Back</button></big></span></p>
-    </div>
-</section> 
-
-<section>
-    <div id="gamePage" style="display: none">
-        <!-- <h2>
-            Game <span id="gamePage_number"></span>
-        </h2> -->
-       
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <style>
-          * {
-            padding: 0;
-            margin: 0;
-          }
-    
-          canvas {
-            background-image: url("{{ url_for('static', filename='images/white_block.jpg') }}");
-            background-repeat: no-repeat;
-            background-size: 1250px 600px;
-            display: block;
-            margin: 0 auto;
-            border: black 2px solid;
-            padding: 100
-          }
-        </style>
-        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
-
-        
-        <p>
-            <span>
-                Press either the throttle (W or S keys) or tilt (left or right arrow keys) to begin the game. <br> 
-                Use the throttle and tilt to land the Quadrotor.
-            </span>
-        </p>
-        <p><span>Press Next to continue once you complete the game.</span></p>
-
-        <p><span><big><button id="next" onclick="goToGameScore()">Next</button></big></span></p>
-
-    </div>
-</section> 
-
-<section>
-    <div id="gameScorePage" style="display: none">
-        <h2>Game <span id="gameScore_number"></span> Results</h2>
-        <p>The results are provided below.</p>
-
-        <div class="container">
-            <div class="row">
-                <div class="col-10">
-                    <table class="table table-bordered">
-                        <thead class="thead-light">
-                            <tr>
-                                <!-- <th scope="col">Game</th> -->
-                                <th scope="col">Trial No. </th>
-                                <th scope="col">Total Time (seconds) </th>
-                                <th scope="col">Landing Velocity (m/s) </th>
-                                <th scope="col">Landing Attitude(&deg)</th>
-                                <th scope="col">Landing</th>
-                                <th scope="col">Score</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <!-- <th scope="row"><span id="game_number"></span></th> -->
-                                <th><span id="Trial Number"></span></td>
-                                <th><span id="Total Time"></span></td>
-                                <th><span id="Landing Velocity"></span></td>
-                                <th><span id="Landing Attitude"></span></td>
-                                <th><span id="Successful landing"></span></td>
-                                <th><span id="Score"></span></td>
-                            </tr>
-                            <tr>
-                                <!-- <th scope="row"><span id="prev1_game_number"></span></th> -->
-                                <th><span id="Trial Number1"></span></td>
-                                <th><span id="Total Time1"></span></td>
-                                <th><span id="Landing Velocity1"></span></td>
-                                <th><span id="Landing Attitude1"></span></td>
-                                <th><span id="Successful landing1"></span></td>
-                                <th><span id="Score1"></span></td>
-                            </tr>
-                            <tr>
-                                <!-- <th scope="row"><span id="prev2_game_number"></span></th> -->
-                                <th><span id="Trial Number2"></span></td>
-                                <th><span id="Total Time2"></span></td>
-                                <th><span id="Landing Velocity2"></span></td>
-                                <th><span id="Landing Attitude2"></span></td>
-                                <th><span id="Successful landing2"></span></td>
-                                <th><span id="Score2"></span></td>
-                            </tr>
-                            <tr>
-                                <!-- <th scope="row"><span id="prev3_game_number"></span></th> -->
-                                <th><span id="Trial Number3"></span></td>
-                                <th><span id="Total Time3"></span></td>
-                                <th><span id="Landing Velocity3"></span></td>
-                                <th><span id="Landing Attitude3"></span></td>
-                                <th><span id="Successful landing3"></span></td>
-                                <th><span id="Score3"></span></td>
-                            </tr>
-                            <tr>
-                                <!-- <th scope="row"><span id="prev4_game_number"></span></th> -->
-                                <th><span id="Trial Number4"></span></td>
-                                <th><span id="Total Time4"></span></td>
-                                <th><span id="Landing Velocity4"></span></td>
-                                <th><span id="Landing Attitude4"></span></td>
-                                <th><span id="Successful landing4"></span></td>
-                                <th><span id="Score4"></span></td>    
-                            </tr>
-                            <tr>
-                                <!-- <th scope="row"><span id="prev5_game_number"></span></th> -->
-                                <th><span id="Trial Number5"></span></td>
-                                <th><span id="Total Time5"></span></td>
-                                <th><span id="Landing Velocity5"></span></td>
-                                <th><span id="Landing Attitude5"></span></td>
-                                <th><span id="Successful landing5"></span></td>
-                                <th><span id="Score5"></span></td>    
-                            </tr>
-                            <tr>
-                                <!-- <th scope="row"><span id="prev6_game_number"></span></th> -->
-                                <th><span id="Trial Number6"></span></td>
-                                <th><span id="Total Time6"></span></td>
-                                <th><span id="Landing Velocity6"></span></td>
-                                <th><span id="Landing Attitude6"></span></td>
-                                <th><span id="Successful landing6"></span></td>
-                                <th><span id="Score6"></span></td>        
-                            </tr>
-                            <tr>
-                                <!-- <th scope="row"><span id="prev7_game_number"></span></th> -->
-                                <th><span id="Trial Number7"></span></td>
-                                <th><span id="Total Time7"></span></td>
-                                <th><span id="Landing Velocity7"></span></td>
-                                <th><span id="Landing Attitude7"></span></td>
-                                <th><span id="Successful landing7"></span></td>
-                                <th><span id="Score7"></span></td>    
-                            </tr>
-                            <tr>
-                                <!-- <th scope="row"><span id="prev8_game_number"></span></th> -->
-                                <th><span id="Trial Number8"></span></td>
-                                <th><span id="Total Time8"></span></td>
-                                <th><span id="Landing Velocity8"></span></td>
-                                <th><span id="Landing Attitude8"></span></td>
-                                <th><span id="Successful landing8"></span></td>
-                                <th><span id="Score8"></span></td>     
-                            </tr>
-                            <tr>
-                                <!-- <th scope="row"><span id="prev9_game_number"></span></th> -->
-                                <th><span id="Trial Number9"></span></td>
-                                <th><span id="Total Time9"></span></td>
-                                <th><span id="Landing Velocity9"></span></td>
-                                <th><span id="Landing Attitude9"></span></td>
-                                <th><span id="Successful landing9"></span></td>
-                                <th><span id="Score9"></span></td>    
-                            </tr>
-                            <tr>
-                                <!-- <th scope="row"><span id="prev10_game_number"></span></th> -->
-                                <th><span id="Trial Number10"></span></td>
-                                <th><span id="Total Time10"></span></td>
-                                <th><span id="Landing Velocity10"></span></td>
-                                <th><span id="Landing Attitude10"></span></td>
-                                <th><span id="Successful landing10"></span></td>
-                                <th><span id="Score10"></span></td>        
-                            </tr>
-                            <tr>
-                                <!-- <th scope="row"><span id="prev11_game_number"></span></th> -->
-                                <th><span id="Trial Number11"></span></td>
-                                <th><span id="Total Time11"></span></td>
-                                <th><span id="Landing Velocity11"></span></td>
-                                <th><span id="Landing Attitude11"></span></td>
-                                <th><span id="Successful landing11"></span></td>
-                                <th><span id="Score11"></span></td>
-                            </tr>
-                            <tr>
-                                <!-- <th scope="row"><span id="prev12_game_number"></span></th> -->
-                                <th><span id="Trial Number12"></span></td>
-                                <th><span id="Total Time12"></span></td>
-                                <th><span id="Landing Velocity12"></span></td>
-                                <th><span id="Landing Attitude12"></span></td>
-                                <th><span id="Successful landing12"></span></td>
-                                <th><span id="Score12"></span></td>
-                            </tr>
-                            <tr>
-                                <!-- <th scope="row"><span id="prev13_game_number"></span></th> -->
-                                <th><span id="Trial Number13"></span></td>
-                                <th><span id="Total Time13"></span></td>
-                                <th><span id="Landing Velocity13"></span></td>
-                                <th><span id="Landing Attitude13"></span></td>
-                                <th><span id="Successful landing13"></span></td>
-                                <th><span id="Score13"></span></td>
-                            </tr>
-                            <tr>
-                                <!-- <th scope="row"><span id="prev14_game_number"></span></th> -->
-                                <th><span id="Trial Number14"></span></td>
-                                <th><span id="Total Time14"></span></td>
-                                <th><span id="Landing Velocity14"></span></td>
-                                <th><span id="Landing Attitude14"></span></td>
-                                <th><span id="Successful landing14"></span></td>
-                                <th><span id="Score14"></span></td>        
-                            </tr>
-                            <tr>
-                                <!-- <th scope="row"><span id="prev15_game_number"></span></th> -->
-                                <th><span id="Trial Number15"></span></td>
-                                <th><span id="Total Time15"></span></td>
-                                <th><span id="Landing Velocity15"></span></td>
-                                <th><span id="Landing Attitude15"></span></td>
-                                <th><span id="Successful landing15"></span></td>
-                                <th><span id="Score15"></span></td>    
-                            </tr>
-                            <tr>
-                                <!-- <th scope="row"><span id="prev16_game_number"></span></th> -->
-                                <th><span id="Trial Number16"></span></td>
-                                <th><span id="Total Time16"></span></td>
-                                <th><span id="Landing Velocity16"></span></td>
-                                <th><span id="Landing Attitude16"></span></td>
-                                <th><span id="Successful landing16"></span></td>
-                                <th><span id="Score16"></span></td>
-                            </tr>
-                            <tr>
-                                <!-- <th scope="row"><span id="prev17_game_number"></span></th> -->
-                                <th><span id="Trial Number17"></span></td>
-                                <th><span id="Total Time17"></span></td>
-                                <th><span id="Landing Velocity17"></span></td>
-                                <th><span id="Landing Attitude17"></span></td>
-                                <th><span id="Successful landing17"></span></td>
-                                <th><span id="Score17"></span></td>  
-                            </tr>
-                            <tr>
-                                <!-- <th scope="row"><span id="prev18_game_number"></span></th> -->
-                                <th><span id="Trial Number18"></span></td>
-                                <th><span id="Total Time18"></span></td>
-                                <th><span id="Landing Velocity18"></span></td>
-                                <th><span id="Landing Attitude18"></span></td>
-                                <th><span id="Successful landing18"></span></td>
-                                <th><span id="Score18"></span></td>    
-                            </tr>
-                            <tr>
-                                <!-- <th scope="row"><span id="prev19_game_number"></span></th> -->
-                                <th><span id="Trial Number19"></span></td>
-                                <th><span id="Total Time19"></span></td>
-                                <th><span id="Landing Velocity19"></span></td>
-                                <th><span id="Landing Attitude19"></span></td>
-                                <th><span id="Successful landing19"></span></td>
-                                <th><span id="Score19"></span></td>
-                            </tr>
-                            <!-- <tr>
-                                <th scope="row"><span id="prev20_game_number"></span></th>
-                                <th><span id="Trial Number20"></span></td>
-                                <th><span id="Total Time20"></span></td>
-                                <th><span id="Landing Velocity20"></span></td>
-                                <th><span id="Landing Attitude20"></span></td>
-                                <th><span id="Successful landing20"></span></td>
-                            </tr> -->
-                        </tbody>
-                    </table>
-
-                </div>
-            </div>
-
-            <p><span><big><button id="next" onclick="goToSurvey()">Next</button></big></span></p>
-        </div>
-</section>
-
-<section>
-    <div id="gameSurvey" style="display: none">
-        <style>
-            .checkboxgroup {
-              display: inline-block;
-              text-align: center;
-            }
-      
-            .checkboxgroup label {
-              display: block;
-            }
-        </style>
-        
-        <h2>Game <span id="trustGame_number"></span> Survey</h2>
-    <p>The following questions ask about your trust and self-confidence while interacting with the game. In answering
-      the following questions refer to the definitions of trust and self-confidence provided below:</p>
-    <br>
-    <h4><b>Trust</b> is defined as assured reliance on the character, ability, strength, or truth of someone or
-      something. </h4>
-    <h4>In the context of this game, answer the questions below regarding trust as your assured reliance on the ability
-      of the automation in aiding your performance.</h4>
-    <br>
-    <h4><b>Self-confidence</b> is defined as confidence in oneself and in one's powers and abilities. </h4>
-    <h4>In the context of this game, answer the questions below regarding self-confidence as your confidence in
-      performing the game without any assistance.</h4>
-    <br>
-
-    <p><big> Based on your experience in the previous game, please rate your level of trust in the automation:
-      </big></p>
-
-    <div id="trustLevelSlider">
-      <!-- Jake trying to implement the sliders -->
-      <div class="middle">
-        <br>
-        <div class="slider-container">
-          <span class="bar"><span class="fill"></span></span>
-          <input type="range" id="trust" class="slider" min="0" max="100" value="50" step="5">
-          <div class="sliderticks" style="font-family: Helvetica-Neue, Arial, sans-serif; font-size: 14px;">
-            <p>0 Low</p>
-            <p></p>
-            <p>10</p>
-            <p></p>
-            <p>20</p>
-            <p> </p>
-            <p>30</p>
-            <p></p>
-            <p>40</p>
-            <p></p>
-            <p>50 Moderate</p>
-            <p></p>
-            <p>60</p>
-            <p></p>
-            <p>70</p>
-            <p> </p>
-            <p>80</p>
-            <p></p>
-            <p>90</p>
-            <p></p>
-            <p>100 High</p>
-          </div>
-          <!-- <p>Value: <span id="demo"></span></p> -->
-        </div>
-      </div>
-    </div>
-
-    <br><br>
-    <p><big> Based on your experience in the previous game, please rate your agreement with the following statement:
-        <br><br><em>"Using the automation helps to improve my score in the game." </em>
-      </big></p>
-
-    <div id="autoAgreeSlider">
-      <!-- Jake trying to implement the sliders -->
-      <div class="middle">
-        <br>
-        <div class="slider-container">
-          <span class="bar"><span class="fill"></span></span>
-          <input type="range" id="autoagree" class="slider" min="0" max="100" value="50" step="5">
-          <div class="sliderticks" style="font-family: Helvetica-Neue, Arial, sans-serif; font-size: 14px;">
-            <p>0 Strongly Disagree</p>
-            <p></p>
-            <p>10</p>
-            <p></p>
-            <p>20</p>
-            <p> </p>
-            <p>30</p>
-            <p></p>
-            <p>40</p>
-            <p></p>
-            <p>50 Undecided</p>
-            <p></p>
-            <p>60</p>
-            <p></p>
-            <p>70</p>
-            <p> </p>
-            <p>80</p>
-            <p></p>
-            <p>90</p>
-            <p></p>
-            <p>100 Strongly Agree</p>
-          </div>
-          <!-- <p>Value: <span id="demo"></span></p> -->
-        </div>
-      </div>
-    </div>
-
-    <br><br>
-
-    <p><big> Based on your experience in the previous game, please rate your level of self-confidence in playing the
-        game:
-      </big></p>
-
-    <div id="confLevelSlider">
-      <!-- Jake trying to implement the sliders -->
-      <div class="middle">
-        <br>
-        <div class="slider-container">
-          <span class="bar"><span class="fill"></span></span>
-          <input type="range" id="conf" class="slider" min="0" max="100" value="50" step="5">
-          <div class="sliderticks" style="font-family: Helvetica-Neue, Arial, sans-serif; font-size: 14px;">
-            <p>0 Low</p>
-            <p></p>
-            <p>10</p>
-            <p></p>
-            <p>20</p>
-            <p> </p>
-            <p>30</p>
-            <p></p>
-            <p>40</p>
-            <p></p>
-            <p>50 Moderate</p>
-            <p></p>
-            <p>60</p>
-            <p></p>
-            <p>70</p>
-            <p> </p>
-            <p>80</p>
-            <p></p>
-            <p>90</p>
-            <p></p>
-            <p>100 High</p>
-          </div>
-          <!-- <p>Value: <span id="demo"></span></p> -->
-        </div>
-      </div>
-    </div>
-<!-- 
-    <br><br>
-    <h2>Instructions</h2>
-
-    <p><big> In the following games you will have the option of receiving assistance from automation to optimize your
-        performance throughout the game.
-        <br><br>Two options are available: Disable and Enable assistance
-        <br><br>Select your desired option for game <span id="nextGame_number1"></span>
-
-        below:
-      </big></p>
-
-    <br><br> -->
-
-    <!-- Automation Assistance Choice-->
-    <!-- <h2>Game <span id="nextGame_number2"></span> Assistance Selector
-    </h2>
-
-    <br>
-
-    <form id="gameassistance_form">
-      <div id="gameassistance">
-        <div class="btn-group-toggle" data-toggle="buttons">
-          <label class="btn btn-light btn-lg" for="g2_1">
-            <input type="radio" name="assist" id="g2_1" value="0"> Disable
-          </label>
-
-          <label class="btn btn-light btn-lg" for="g2_2">
-            <input type="radio" name="assist" id="g2_2" value="1"> Enable
-          </label>
-        </div>
-      </div>
-    </form> -->
-
-    <p>&nbsp;</p>
-    <br>
-    <p><span style="font-size:20px;"><big>Press Next to continue</big></span></p>
-
-    <p><span style="font-size:20px;"><big><button id="next" onclick="goToGame()">Next</button></big></span></p>
-
-    <!-- Pop Up Modal for FormValidation-->
-    <!-- <div class="modal fade" id="Val2Modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-      aria-hidden="true">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="Val2ModalLabel"><strong><big>Invalid Response</big></strong></h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div class="modal-body">
-            <p style="text-align: center;"> Please make sure to answer all questions.</p>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-          </div>
-        </div>
-      </div>
-    </div> -->
-  </div>
-</section>
-
-<section>
-    <div id="qualtricsPage" style="display:none">
-      <h2>Thank you for completing the study. Please fill out and submit the survey below before closing out of this
-        window. Your completion code for MTurk will be provided at the end of this survey.
-        If you would like to open the survey on a separate new tab, click <a
-          href="https://purdue.ca1.qualtrics.com/jfe/form/SV_bIaKf2viusjEwZw" target="_blank">here</a>.
-      </h2>
-      <br>
-      <iframe src="https://purdue.ca1.qualtrics.com/jfe/form/SV_bIaKf2viusjEwZw" height="800px" width="600px"></iframe>
-    </div>
-  </section>
-
-
-<script>
-    function goToSurvey() {
-        document.getElementById("gameScorePage").style.display = "none";
-        document.getElementById("gameSurvey").style.display = "block";
-    }
-</script>
-<script>
-    function testScreen() {
-        document.getElementById("mainPage").style.display = "none";
-        document.getElementById("screenTestPage").style.display = "block";
-    }
-</script>
-
-<script>
-    function getID() {
-        document.getElementById("screenTestPage").style.display = "none";
-        document.getElementById("getIDPage").style.display = "block";
-    }
-</script>
-
-<script>
-    function goToConsent() {
-        if (document.getElementById('workeridval').value.length == 0) {
-            //  $("#Val4Modal").modal('show');
-        } else {
-            var id = document.getElementById('workeridval').value;
-            sendUserId(id);
-            
-            document.getElementById("getIDPage").style.display = "none";
-            document.getElementById("consentPage").style.display = "block";
-        }
-    }
-</script>
-
-
-<script>
-    function goToGame1() {
-
-        // triggered after completing instruction pages
-        
-        trial_number = 1;
-        // console.log(trial_number);
-        //console.log("trial_it");
-        //console.log(trial_it);
-
-        // assistanceLevelVal = document.querySelector('input[name="assist1"]:checked').value;
-        //console.log(assistanceLevelVal);
-
-
-        var id = document.getElementById('workeridval').value;
-        var trustVal = 9;
-        var confVal = 9;
-        var autoAgreeVal = 9;
-        // save_result(id, trial_number);
-        // save_result(workerid, assistanceLevelVal, trustVal, confVal, autoAgreeVal);
-
-        // set_alpha(assistanceLevelVal);
-
-        window.restartGame(id, trial_number);
-        //console.log(trial_it);
-        //console.log(theta_k);
-        //console.log(theta_list)
-
-        score_last = tot_score
-        document.getElementById("instruct3Page").style.display = "none";
-        document.getElementById("gamePage").style.display = "block";
-
-    }
-</script>
-
-
-<script>
-    function validateForm() {
-        if (trial_number == 0) {
-            if ($('input[name=assist1]:checked').length == 1) {
-                getGamePageNum();
-                goToGame1();
-            } else {
-                $("#Val1Modal").modal('show'); -
-                    console.log("no");
-            }
-        } else if (trial_number < total_games) {
-            if ($('input[name=assist]:checked').length == 1) {
-                getGamePageNum();
-                goToGame();
-            } else {
-                $("#Val2Modal").modal('show');
-                console.log("no");
-            }
-        } else if (trial_number == total_games) {
-            if ($('input[name=assist]:checked').length == 1) {
-                getGamePageNum();
-                goToGame();
-            } else {
-                $("#Val3Modal").modal('show');
-                console.log("no");
-            }
-        }
-    }
-</script>
-
-<script>
-    function goToGame() {
-
-
-        if (trial_number >= total_games) {
-            var id = document.getElementById('workeridval').value;
-            var trustVal = document.getElementById("trust").value;
-            var confVal = document.getElementById("conf").value;
-            var autoAgreeVal = document.getElementById("autoagree").value;
-            // assistanceLevelVal = document.querySelector('input[name="assist"]:checked').value; // assistance selector, turned off for this experiment
-            assistanceLevelVal = 9;
-            // save_result(id, trial_number);
-            //save_result(id, trial_number, assistanceLevelVal, trustVal, confVal, autoAgreeVal);
-            
-            sendSurveyResponses(id, trial_number, trustVal, confVal, autoAgreeVal);
-            save_trajectory(id, trial_number);
-            
-            //save_assistance(id, trial_number);
-            trial_number = trial_number + 1;
-            goToQualtrics();
-
-        } else {
-
-            var id = document.getElementById('workeridval').value;
-             var trustVal = document.getElementById("trust").value;
-             var confVal = document.getElementById("conf").value;
-             var autoAgreeVal = document.getElementById("autoagree").value;
-            // assistanceLevelVal = document.querySelector('input[name="assist"]:checked').value; // assistance selector, turned off for this experiment
-            assistanceLevelVal = 9;
-            // save_result(id, trial_number)
-            //save_result(id, trial_number, assistanceLevelVal, trustVal, confVal, autoAgreeVal);
-            
-            sendSurveyResponses(id, trial_number, trustVal, confVal, autoAgreeVal);
-            
-            save_trajectory(id, trial_number);
-            //save_assistance(id, trial_number);
-            trial_number = trial_number + 1;
-            //  document.getElementById("trust").value = 50;//trustVal;
-            // document.getElementById("conf").value = 50;// confVal;
-            // document.getElementById("autoagree").value = 50;//autoAgreeVal;
-            //document.getElementById("trustLevel_form").reset();
-
-            /* if (trial_number > 1) {
-                 $('[data-toggle="buttons"] :radio').prop('checked', false);
-                 $('[data-toggle="buttons"] label').removeClass('active');
-             } */
-
-            /*  if (trial_number == total_games - 2) {
-                  document.getElementById("trustLast").value = 50;//trustVal;
-                  document.getElementById("confLast").value = 50;//confVal;
-                  document.getElementById("autoagreeLast").value = 50;//autoAgreeVal;
-              }*/
-
-
-            // set_alpha(assistanceLevelVal);
-            console.log("Trial Number:")
-            console.log(trial_number)
-            console.log(iter_array)
-            
-            iter_score = tot_score
-            if (trial_number == 2){
-                score_last = iter_score
-            } 
- 
-            // dec_iter = true
-
-            Conf_Thres_1 = 60
-            Conf_Thres_2 = 80
-            Performance_Thres_1 = 405.9000
-            Performance_Thres_2 = 475.3500
-
-            if (iter_array[trial_number-1] == 'None'){
-                heuristic_input= false
-
-                // // max Performance
-                // if (iter_score < Performance_Thres_1){
-                //     iter_array[trial_number-1] = true
-                //     console.log('on')
-                // }
-                // else{iter_array[trial_number-1] = false
-                //      console.log('off')
-                // }
-
-                // max self-confidence
-                // if (confVal <= Conf_Thres_1){
-                //     iter_array[trial_number-1] = true
-                //     console.log('on')
-                // }
-                // else{iter_array[trial_number-1] = false
-                //      console.log('off')
-                // }
+        </section>
+
+        <section>
+            <div id="instructions2Page" style="display: none; padding-bottom: 30px;">
+                <h1>Instructions</h1>
+                <p>Your primary goal is to <b>land the quadrotor</b> as well as <b>minimize the time</b> it takes for you to successfully land the quadrotor. To accomplish these goals, aim to navigate the quadrotor to the landing pad in a controlled manner.</p>
                 
-                // calibrate SC to P
-                // if (iter_score <= Performance_Thres_2){
-                //     if (confVal<= Conf_Thres_1){
-                //         iter_array[trial_number-1] = true
-                //         console.log('on')
-                //     }
-                //     else{
-                //         iter_array[trial_number-1] = false
-                //         console.log('off')
-                //     }
-                // } 
-                // else{
-                //     if (confVal<= Conf_Thres_2){
-                //         iter_array[trial_number-1] = true
-                //         console.log('on')
-                //     } 
-                //     else{
-                //         iter_array[trial_number-1] = false
-                //         console.log('off')
-                //     }
-                // }
+                <h2>Game Walkthrough</h2>
+                <p>In order to safely land the quadrotor, the quadrotor has to land on the landing pad at a <b>speed below 15.0 m/s and attitude (tilt angle) within &#177;5&#176;</b>. This is categorized as a <b>safe landing</b>. If the quadrotor lands on the landing pad outside of the safe landing criteria, the landing will be categorized as an <b>unsafe landing</b>.</p>
+                <img src="{{ url_for('static', filename='images/instructions/Newer8.png') }}">
+                <p>If the quadrotor <b>hits the window bounds</b>, the quadrotor will crash. This is categorized as a <b>crash</b>.</p>
+                <img src="{{ url_for('static', filename='images/instructions/Newer9.png') }}">
+                <p>For your reference, live <b>speed and attitude</b> data is provided on the left side of the screen. Additionally, time is provided. You have <b>2 minutes</b> to land the quadrotor before the battery dies.</p>
+                <img src="{{ url_for('static', filename='images/instructions/Newer10.png') }}">
+                <p>Press Next to continue.</p>
+                <button onclick="goToInstructions3Page()">Next</button>
+                <p>Press Back to review the previous instructions.</p>
+                <button onclick="goToInstructions1Page()">Back</button>
+            </div>
+        </section>
 
-                // max sc and p
-                if (iter_score <= Performance_Thres_1){
-                    if (confVal<= Conf_Thres_2){
-                        iter_array[trial_number-1] = false
-                        console.log('on')
+        <section>
+            <div id="instructions3Page" style="display: none; padding-bottom: 30px;">
+                <h1>Instructions</h1>
+                <p>To start the game, press either the throttle (W or S keys) or tilt (left or right arrow keys).</p>
+                <p>You will play the game 20 times. You will receive feedback each time you play the game.</p>
+                <p>Each time you complete the game, press Next and you will be re-directed to play again.</p>
+                <p style="color: red;">Please maximize the screen before starting the game.</p>
+                <p>Press Next to continue.</p>
+                <button onclick="goToFirstGame()">Next</button>
+                <p>Press Back to review the previous instructions.</p>
+                <button onclick="goToInstructions2Page()">Back</button>
+            </div>
+        </section>
+
+        <section>
+            <div id="gamePage" style="display: none;">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+                <style>
+                    * {
+                        padding: 20;
+                        margin: 0;
                     }
-                    else{
-                        iter_array[trial_number-1] = false
-                        console.log('off')
-                    }
-                } 
                 
-                else if (iter_score > Performance_Thres_1 && iter_score <= Performance_Thres_2){
-                    if (confVal <= Conf_Thres_1){
-                        iter_array[trial_number-1] = false
-                        console.log('on')
-                    } 
-                    else{
-                        iter_array[trial_number-1] = false
-                        console.log('off')
+                    canvas {
+                        background-image: url("{{ url_for('static', filename='images/white_block.jpg') }}");
+                        background-repeat: no-repeat;
+                        background-size: 1250px 600px;
+                        display: block;
+                        margin: 0 auto;
+                        border: black 2px solid;
                     }
-                }
-                else{
-                        iter_array[trial_number-1] = false
-                        console.log('off')
-                }
-            }
-            else {
-                // console.log("Skip because already decided")
-                heuristic_input = false
-            }
-            
-            automation_input = iter_array[trial_number-1]
-            console.log(heuristic_input)
-            console.log(iter_array)
+                </style>
+                <p> Press either the throttle (W or S keys) or tilt (left or right arrow keys) to begin the game.</p>
+                <p>Use the throttle and tilt to land the quadrotor.</p>
+                <p>Press Next to continue once you complete the game.</p>
+                <button onclick="goToScorePage()">Next</button>
+            </div>
+        </section>
 
-            // automation_input = false
-
-
-            // if (dec_iter == true){
-            //     if (iter_score >= Performance_Thres){
-            //     automation_input = false
-            //     }
-            // else{
-            //     automation_input = true
-            //     }
-            // }
-            // if (trial_number >= 15){
-            //     automation_input = false
-            // }
-            // console.log(automation_input)
-            // console.log(iter_array)
-            score_last = iter_score
-
-
-            // console.log(automation_input)
-            window.restartGame(id, trial_number);
-            //console.log("theta" + theta_list[trial_it]);
-            //console.log(theta_k)
-
-            document.getElementById("gameSurvey").style.display = "none";
-            document.getElementById("gamePage").style.display = "block";
-        }
-        // console.log(trial_number);
-        // console.log(total_games);
-    }
-
-    function goToQualtrics() {
-        window.killGame();
-        document.getElementById("gameSurvey").style.display = "none";
-        document.getElementById("qualtricsPage").style.display = "block";
-    }
-
-</script>
-
-<script>
-    function goToGameScore() {
-        if (game_done == true) {
-            window.killGame();
-            document.getElementById("gamePage").style.display = "none";
-            document.getElementById("gameScorePage").style.display = "block";
-
-        }
-    }
-</script>
-
-<script>
-    function goToTrust() {
-        if (trial_number == total_games) {
-            document.getElementById("gameScorePage").style.display = "none";
-            document.getElementById("trustPage").style.display = "block";
-        } else {
-            document.getElementById("gameScorePage").style.display = "none";
-            document.getElementById("trustPage").style.display = "block";
-        }
-    }
-</script>
-
-<script>
-    function goBackConsent() {
-      document.getElementById("consentPage").style.display = "block";
-      document.getElementById("instruct1Page").style.display = "none";
-    }
-</script>
-
-<script>
-    function goToInstruct1() {
-      document.getElementById("consentPage").style.display = "none";
-      document.getElementById("instruct1Page").style.display = "block";
-    }
-</script>
-
-<script>
-    function goToInstruct2() {
-      document.getElementById("instruct2Page").style.display = "block";
-      document.getElementById("instruct1Page").style.display = "none";
-    }
-</script>
-  
-<script>
-function goBackInstruct1() {
-    document.getElementById("instruct2Page").style.display = "none";
-    document.getElementById("instruct1Page").style.display = "block";
-}
-</script>
-
-<script>
-function goToInstruct3() {
-    document.getElementById("instruct3Page").style.display = "block";
-    document.getElementById("instruct2Page").style.display = "none";
-}
-</script>
-  
-<script>
-function goBackInstruct2() {
-    document.getElementById("instruct2Page").style.display = "block";
-    document.getElementById("instruct3Page").style.display = "none";
-}
-</script>
-
-</body>
+        <section>
+            <div id="scorePage" style="display: none;">
+                <h1>Game Score</h1>
+            </div>
+    </body>
 </html>
