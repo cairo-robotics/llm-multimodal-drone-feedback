@@ -1,6 +1,8 @@
 from flask import Flask, render_template, request, jsonify, send_from_directory
 import os
+import feedback
 from datetime import datetime
+import pandas as pd
 
 app = Flask(__name__)
 
@@ -43,7 +45,7 @@ def process_trial_start():
 
     # create file for trial data
     with open(f"static/data/{user_id}/trial_{trial}/trajectory.csv", "w") as f:
-        f.write("x,y,vx,vy,u_1,u_2,phi,phi_dot\n")
+        f.write("x,y_js,vx,vy,phi,ux,uy_js\n")
 
     return jsonify({'message': "Trial started"})
 
@@ -77,10 +79,17 @@ def process_trajectory():
     with open(f"static/data/{user_id}/trial_{trial}/trajectory.csv", "a") as f:
         f.write(log)
 
+    # fix y positions
+    df = pd.read_csv(f"static/data/{user_id}/trial_{trial}/trajectory.csv")
+    df['y_py'] = -(df['y_js'] - 600)
+    df['uy_py'] = -df['uy_js']
+    df.to_csv(f"static/data/{user_id}/trial_{trial}/trajectory.csv", index=False)
+
     return jsonify({'message': "Trajectory data received"})
 
 @app.route('/get_trajectory_image/<user_id>/<trial>')
 def get_trajectory_image(user_id, trial):
+    feedback.main(user_id, trial)
     image_path = f'static/data/{user_id}/trial_{trial}/trajectory_with_feedback.png'
     return send_from_directory('static', image_path)
 
