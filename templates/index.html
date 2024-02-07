@@ -87,20 +87,25 @@
                     The feedback will be presented each time you complete the game.
                 </p>
 
-                <h2>Game Walkthrough</h2>
+                <h2 style="padding-top: 20px;">Game Walkthrough</h2>
                 <p>You will be interacting with a simulated training module to learn how to land a quadrotor.</p>
-                <img src="{{ url_for('static', filename='images/instructions/Newer1.png') }}">
+                <img src="{{ url_for('static', filename='images/instructions/instructions1.png') }}" style="width: 1250px;">
+                <br><br>
                 <p>The goal is to fly the quadrotor from the starting point to the landing pad.</p>
-                <img src="{{ url_for('static', filename='images/instructions/Newer2.png') }}">
+                <img src="{{ url_for('static', filename='images/instructions/instructions2.png') }}" style="width: 1250px;">
+                <br><br>
                 <p>You will control the quadrotor's <b>thrust force</b> and <b>attitude (tilt angle)</b> using your keyboard.</p>
-                <img src="{{ url_for('static', filename='images/instructions/Newer5.png') }}">
+                <img src="{{ url_for('static', filename='images/instructions/instructions3.png') }}" style="width: 1250px;">
+                <br><br>
                 <p>Pressing and holding "W" increases thrust force, causing the quadrotor to <b>accelerate</b>.</p>
                 <p>Pressing and holding "S" decreases thrust force, causing the quadrotor to <b>decelerate</b>.</p>
                 <p>If the thrust force is near zero, then <b>gravity is the only force acting on the quadrotor</b>.</p>
-                <img src="{{ url_for('static', filename='images/instructions/Newer6.png') }}">
+                <img src="{{ url_for('static', filename='images/instructions/instructions4.png') }}" style="width: 1250px;">
+                <br><br>
                 <p>Pressing and holding the <b>right arrow key</b> causes the quadrotor to rotate <b>clockwise</b>.</p>
                 <p>Pressing and holding the <b>left arrow key</b> causes the quadrotor to rotate <b>counter-clockwise</b>.</p>
-                <img src="{{ url_for('static', filename='images/instructions/Newer7.png') }}">
+                <img src="{{ url_for('static', filename='images/instructions/instructions5.png') }}" style="width: 1250px;">
+                <br><br>
                 <p>Press Next to continue.</p>
                 <button onclick="goToInstructions2Page()">Next</button>
             </div>
@@ -111,13 +116,16 @@
                 <h1>Instructions</h1>
                 <p>Your primary goal is to <b>land the quadrotor</b> as well as <b>minimize the time</b> it takes for you to successfully land the quadrotor. To accomplish these goals, aim to navigate the quadrotor to the landing pad in a controlled manner.</p>
                 
-                <h2>Game Walkthrough</h2>
+                <h2 style="padding-top: 20px;">Game Walkthrough</h2>
                 <p>In order to safely land the quadrotor, the quadrotor has to land on the landing pad at a <b>speed below 15.0 m/s and attitude (tilt angle) within &#177;5&#176;</b>. This is categorized as a <b>safe landing</b>. If the quadrotor lands on the landing pad outside of the safe landing criteria, the landing will be categorized as an <b>unsafe landing</b>.</p>
-                <img src="{{ url_for('static', filename='images/instructions/Newer8.png') }}">
+                <img src="{{ url_for('static', filename='images/instructions/instructions6.png') }}" style="width: 1250px;">
+                <br><br>
                 <p>If the quadrotor <b>hits the window bounds</b>, the quadrotor will crash. This is categorized as a <b>crash</b>.</p>
-                <img src="{{ url_for('static', filename='images/instructions/Newer9.png') }}">
+                <img src="{{ url_for('static', filename='images/instructions/instructions7.png') }}" style="width: 1250px;">
+                <br><br>
                 <p>For your reference, live <b>speed and attitude</b> data is provided on the left side of the screen. Additionally, time is provided. You have <b>2 minutes</b> to land the quadrotor before the battery dies.</p>
-                <img src="{{ url_for('static', filename='images/instructions/Newer10.png') }}">
+                <img src="{{ url_for('static', filename='images/instructions/instructions8.png') }}" style="width: 1250px;">
+                <br><br>
                 <p>Press Next to continue.</p>
                 <button onclick="goToInstructions3Page()">Next</button>
                 <p>Press Back to review the previous instructions.</p>
