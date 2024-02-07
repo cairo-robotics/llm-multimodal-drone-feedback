@@ -67,9 +67,12 @@ function goToFirstGame() {
 }
 
 function goToScorePage() {
-    document.getElementById("gamePage").style.display = "none";
-    document.getElementById("scorePage").style.display = "block";
-    save_trajectory();
+    if (game_done == true) {
+        window.killGame();
+        document.getElementById("gamePage").style.display = "none";
+        document.getElementById("scorePage").style.display = "block";
+        save_trajectory();
+    }
 }
 
 function save_trajectory() {
