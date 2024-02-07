@@ -84,3 +84,49 @@ function save_trajectory() {
         }
     })
 }
+
+function goToSurveyPage() {
+    document.getElementById("scorePage").style.display = "none";
+    document.getElementById("surveyPage").style.display = "block";
+}
+
+function goToGame() {
+    if (trial_number >= total_games) {
+        save_survey();
+        goToQualtrics();
+    } else {
+        save_survey();
+        trial_number += 1;
+
+        iter_score = tot_score
+        if (trial_number == 2){
+            score_last = iter_score
+        }
+        score_last = iter_score 
+        window.restartGame();
+
+        document.getElementById("surveyPage").style.display = "none";
+        document.getElementById("gamePage").style.display = "block";
+    }
+}
+
+function save_survey() {
+    fetch('/process_survey_responses', {
+        method: 'POST',
+        body: JSON.stringify({ user_id: user_id, trial: trial_number, 
+            motivation: document.getElementById("motivation").value,
+            manageable: document.getElementById("manageable").value,
+            actionable: document.getElementById("actionable").value,
+            timely: document.getElementById("timely").value,
+            reflection: document.getElementById("reflection").value}),
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    })
+}
+
+function goToQualtrics() {
+    window.killGame();
+    document.getElementById("surveyPage").style.display = "none";
+    document.getElementById("qualtricsPage").style.display = "block";
+}

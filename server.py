@@ -25,7 +25,7 @@ def process_user_id():
 
     # create file for survey responses
     with open(f"static/data/{user_id}/survey_responses.csv", "w") as f:
-        f.write("trial,survey1,survey2,survey3\n")
+        f.write("trial,motivation,manageable,actionable,timely,reflection\n")
 
     return jsonify({'message': "User ID processed"})
 
@@ -54,15 +54,17 @@ def process_survey_responses():
     data = request.json
     user_id = data['user_id']
     trial = data['trial']
-    trustVal = data['trust']
-    confVal = data['conf']
-    autoAgreeVal = data['autoAgree']
+    motivation = data['motivation']
+    manageable = data['manageable']
+    actionable = data['actionable']
+    timely = data['timely']
+    reflection = data['reflection']
 
     # start log file
     add_log_entry(user_id, f"Received survey responses")
 
     with open(f"static/data/{user_id}/survey_responses.csv", "a") as f:
-        f.write(f"{trial},{trustVal},{confVal},{autoAgreeVal}\n")
+        f.write(f"{trial},{motivation},{manageable},{actionable},{timely},{reflection}\n")
 
     return jsonify({'message': "Survey responses received"})
 

@@ -61,6 +61,7 @@
                     </div>
                     <input type="button" value="Next" onclick="goToConsentPage()">
                 </form>
+            </div>
         </section>
 
         <section>
@@ -176,6 +177,144 @@
         <section>
             <div id="scorePage" style="display: none;">
                 <h1>Game Score</h1>
+                <p>Press Next to continue to a survey on your performance feedback.</p>
+                <button onclick="goToSurveyPage()">Next</button>
             </div>
+        </section>
+
+        <section>
+            <div id="surveyPage" style="display: none;">
+                <style>
+                    .checkboxgroup {
+                      display: inline-block;
+                      text-align: left;
+                    }
+              
+                    .checkboxgroup label {
+                      display: block;
+                    }
+                </style>
+                <h1>Survey</h1>
+                <p>The following questions ask about the feedback you just received about your performance in the game.</p>
+                <br><br>
+                <p>The feedback motivated me to do better in future trials.</p>
+                <div id="motivationSlider">
+                    <div class="middle">
+                        <br>
+                        <div class="slider-container">
+                            <span class="bar"><span class="fill"></span></span>
+                            <input type="range" id="motivation" class="slider" min="1" max="5" value="3" step="1">
+                            <div class="sliderticks" style="font-family: Helvetica-Neue, Arial, sans-serif; font-size: 14px;">
+                                <p>1 Strongly Disagree</p>
+                                <p></p>
+                                <p>2</p>
+                                <p></p>
+                                <p>3 Neither agree nor disagree</p>
+                                <p> </p>
+                                <p>4</p>
+                                <p></p>
+                                <p>5 Strongly Agree</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <p>The feedback contained the right amount of information.</p>
+                <div id="manageableSlider">
+                    <div class="middle">
+                        <br>
+                        <div class="slider-container">
+                            <span class="bar"><span class="fill"></span></span>
+                            <input type="range" id="manageable" class="slider" min="1" max="5" value="3" step="1">
+                            <div class="sliderticks" style="font-family: Helvetica-Neue, Arial, sans-serif; font-size: 14px;">
+                                <p>1 Strongly Disagree</p>
+                                <p></p>
+                                <p>2</p>
+                                <p></p>
+                                <p>3 Neither agree nor disagree</p>
+                                <p> </p>
+                                <p>4</p>
+                                <p></p>
+                                <p>5 Strongly Agree</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <p>The feedback suggestions were actionable.</p>
+                <div id="actionableSlider">
+                    <div class="middle">
+                        <br>
+                        <div class="slider-container">
+                            <span class="bar"><span class="fill"></span></span>
+                            <input type="range" id="actionable" class="slider" min="1" max="5" value="3" step="1">
+                            <div class="sliderticks" style="font-family: Helvetica-Neue, Arial, sans-serif; font-size: 14px;">
+                                <p>1 Strongly Disagree</p>
+                                <p></p>
+                                <p>2</p>
+                                <p></p>
+                                <p>3 Neither agree nor disagree</p>
+                                <p> </p>
+                                <p>4</p>
+                                <p></p>
+                                <p>5 Strongly Agree</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <p>The feedback was presented at an appropriate frequency.</p>
+                <div id="timelySlider">
+                    <div class="middle">
+                        <br>
+                        <div class="slider-container">
+                            <span class="bar"><span class="fill"></span></span>
+                            <input type="range" id="timely" class="slider" min="1" max="5" value="3" step="1">
+                            <div class="sliderticks" style="font-family: Helvetica-Neue, Arial, sans-serif; font-size: 14px;">
+                                <p>1 Strongly Disagree</p>
+                                <p></p>
+                                <p>2</p>
+                                <p></p>
+                                <p>3 Neither agree nor disagree</p>
+                                <p> </p>
+                                <p>4</p>
+                                <p></p>
+                                <p>5 Strongly Agree</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <p>The feedback prompted me to reflect on my performance.</p>
+                <div id="reflectionSlider">
+                    <div class="middle">
+                        <br>
+                        <div class="slider-container">
+                            <span class="bar"><span class="fill"></span></span>
+                            <input type="range" id="reflection" class="slider" min="1" max="5" value="3" step="1">
+                            <div class="sliderticks" style="font-family: Helvetica-Neue, Arial, sans-serif; font-size: 14px;">
+                                <p>1 Strongly Disagree</p>
+                                <p></p>
+                                <p>2</p>
+                                <p></p>
+                                <p>3 Neither agree nor disagree</p>
+                                <p> </p>
+                                <p>4</p>
+                                <p></p>
+                                <p>5 Strongly Agree</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <p>Press Next to continue.</p>
+                <button onclick="goToGame()">Next</button>
+            </div>
+        </section>
+
+        <section>
+            <div id="qualtricsPage", style="display: none;">
+                <h1>Qualtrics Page</h1>
+            </div>
+        </section>
     </body>
 </html>

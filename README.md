@@ -12,6 +12,6 @@ How to run locally
 
 What to work on next
 - update consent form (consentPage)
-- update survey questions (gameSurvey) and change sendSurveyResponses()
 - update exit survey (qualtricsPage)
 - make new feedback page
+- make sure logs are comprehensive
