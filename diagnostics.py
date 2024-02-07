@@ -19,54 +19,54 @@ class Diagnostics:
 
     def robustness_left_boundary(self):
         """Compute the robustness of the safety property for left x boundary"""
-        # calculate distance to left boundary (x = -30) at every time point
-        # x position greater than -30 gives positive robustness
-        x_left = self.data['x'] + 30
+        # calculate distance to left boundary (x = 0) at every time point
+        # x position greater than 0 gives positive robustness
+        x_left = self.data['x']
 
         # calculate robustness
         self.robustness['left_boundary'] = x_left
 
     def robustness_right_boundary(self):
         """Compute the robustness of the safety property for right x boundary"""
-        # calculate distance to right boundary (x = 30) at every time point
-        # x position less than 30 gives positive robustness
-        x_right = 30 - self.data['x']
+        # calculate distance to right boundary (x = 1210) at every time point
+        # x position less than 1210 gives positive robustness
+        x_right = 1210 - self.data['x']
 
         # calculate robustness
         self.robustness['right_boundary'] = x_right
 
     def robustness_bottom_boundary(self):
         """Compute the robustness of the safety property for bottom y boundary"""
-        # calculate distance to bottom boundary (y = 0) at every time point
-        # y position greater than 0 gives positive robustness
-        y_bottom = self.data['y']
+        # calculate distance to bottom boundary (y_py = 25) at every time point
+        # y position greater than 25 gives positive robustness
+        y_bottom = self.data['y_py'] - 25
 
         # calculate robustness
         self.robustness['bottom_boundary'] = y_bottom
 
     def robustness_top_boundary(self):
         """Compute the robustness of the safety property for top y boundary"""
-        # calculate distance to top boundary (y = 33.75) at every time point
-        # y position less than 30 gives positive robustness
-        y_top = 33.75 - self.data['y']
+        # calculate distance to top boundary (y_py = 600) at every time point
+        # y position less than 600 gives positive robustness
+        y_top = 600 - self.data['y_py']
 
         # calculate robustness
         self.robustness['top_boundary'] = y_top
 
     def robustness_landing_left(self):
         """Compute the robustness of the landing property for left x boundary"""
-        # calculate distance to left boundary (x = -9.8) at every time point
-        # x position greater than -9.8 gives positive robustness
-        x_left = self.data['x'] + 9.8
+        # calculate distance to left boundary (x = 650) at every time point
+        # x position greater than 650 gives positive robustness
+        x_left = self.data['x'] - 650
 
         # calculate robustness
         self.robustness['landing_left'] = x_left
 
     def robustness_landing_right(self):
         """Compute the robustness of the landing property for right x boundary"""
-        # calculate distance to right boundary (x = 9.8) at every time point
-        # x position less than 9.8 gives positive robustness
-        x_right = 9.8 - self.data['x']
+        # calculate distance to right boundary (x = 850) at every time point
+        # x position less than 850 gives positive robustness
+        x_right = 850 - self.data['x']
 
         # calculate robustness
         self.robustness['landing_right'] = x_right
@@ -74,19 +74,19 @@ class Diagnostics:
     def robustness_landing_speed(self):
         """Compute the robustness of the landing property for speed"""
         # calculate speed at every time point
-        # speed less than 5 gives positive robustness
+        # vx should be less than 2 and vy should be less than 15 ~ 15 m/s 
+        # speed less than 15 gives positive robustness
         speed = (self.data['vx']**2 + self.data['vy']**2)**0.5
 
         # calculate robustness
-        self.robustness['landing_speed'] = 5 - speed
+        self.robustness['landing_speed'] = 15 - speed
 
     def robustness_landing_angle(self):
         """Compute the robustness of the landing property for angle"""
         # calculate angle at every time point
-        # angle less than 10 gives positive robustness
+        # angle less than 5 gives positive robustness
         angle = self.data['phi']
-        angle = (angle * 180 / pi).abs()
-        self.robustness['landing_angle'] = 10 - angle
+        self.robustness['landing_angle'] = 5 - angle.abs()
 
     def calculate_robustness(self):
         """Compute the robustness of all properties"""
@@ -104,12 +104,12 @@ class Diagnostics:
 
     def summary(self):
         """Print summary of what happened before a violation"""
-        summaryTable = pd.DataFrame(index=self.robustnessTerms+['thrust', 'roll'], columns=['average_all', 'min_all', 'average_end', 'min_end'])
-        self.robustness['thrust'] = self.data['u_1'].abs()
-        self.robustness['roll'] = self.data['u_2'].abs()
+        summaryTable = pd.DataFrame(index=self.robustnessTerms+['throttle', 'tilt'], columns=['average_all', 'min_all', 'average_end', 'min_end'])
+        self.robustness['throttle'] = self.data['uy_py'].abs()
+        self.robustness['tilt'] = self.data['ux'].abs()
 
         # summarize robustness over entire trajectory
-        summaryVars = self.robustnessTerms + ['thrust', 'roll']
+        summaryVars = self.robustnessTerms + ['throttle', 'tilt']
         summaryTable['average_all'] = self.robustness[summaryVars].mean().round(3)
         summaryTable['min_all'] = self.robustness[summaryVars].min().round(3)
         

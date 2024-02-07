@@ -50,11 +50,11 @@ def main(userid, trial):
 
   feedback_prompt += """
   Image Context:
-  1. The left vertical black line corresponds to x = -30.
-  2. The right vertical black line corresponds to x = 30.
-  3. The top horizontal black line corresponds to y = 33.75.
+  1. The left vertical black line corresponds to x = 0.
+  2. The right vertical black line corresponds to x = 1250.
+  3. The top horizontal black line corresponds to y = 600.
   4. The bottom horizontal black line corresponds to y = 0.
-  5. The gray rectangle is the landing pad with coordinates -9.8 < x < 9.8 and 0 < y < 1.8.
+  5. The gray rectangle is the landing pad with coordinates 650 < x < 850 and 0 < y < 30.
   6. The green asterisk is the starting position of the drone.
   7. The red asterisk is the ending position of the drone.
   8. The black curve is the trajectory of the drone as the pilot attempts to complete the target task.
@@ -62,8 +62,8 @@ def main(userid, trial):
   Target Task:
   1. The state variables are the drone's x position in meters (x), y position in meters (y), speed in meters per second (s), and attitude angle in degrees (\phi)
   2. The task is defined using signal temporal logic specifications, which are indicated using $…$
-  3. Safety component: $P_1 = x > -30 \land x < 30 \land y > 0 \land y < 33.75$
-  4. Landing component: $P_2 = x > -9.8 \land x < 9.8 \land y < 5 \land s < 5 \land \phi > -10 \land \phi < 10$
+  3. Safety component: $P_1 = x > 0 \land x < 1250 \land y > 0 \land y < 600$
+  4. Landing component: $P_2 = x > 650 \land x < 850 \land y < 35 \land s < 15 \land \phi > -5 \land \phi < 5$
   5. Complete task: $P_1 Until P_2$
   """
 
@@ -102,7 +102,7 @@ def main(userid, trial):
   feedback_prompt += """
   6. Replace {compliment} with one or two sentences describing a positive aspect of the pilot's performance relative to the target task. If {top_improvement} is smoothness or efficiency, congratulate the pilot on successfully completing the task. If {top_improvement} is landing, congratulate the pilot on avoiding a crash.
   7. Replace {improvement_area} with a description of which part of the target task the pilot can most improve in, which I identified as {top_improvement}. Specifically refer to a component of the task rather than an overall assessment of the performance.
-  8. Replace {actionable} with a specific control action strategy the pilot can make to improve in {top_improvement}. The possible control actions are throttle (moves the drone up or down) and roll (tilts the drone left or right). Only reference these control actions. Do not reference other control actions.
+  8. Replace {actionable} with a specific control action strategy the pilot can make to improve in {top_improvement}. The possible control actions are throttle (moves the drone up or down) and tilt (moves the drone left or right). Only reference these control actions. Do not reference other control actions.
   9. Replace {reflection} with a task or question that encourages the pilot to reflect on their performance and decide what they can improve on their next attempt.
   10. Replace {confidence} with one or two sentences expressing confidence in the pilot's abilities to achieve at a high level on the target task.
 

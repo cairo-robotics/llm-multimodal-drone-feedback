@@ -25,18 +25,18 @@ class VisualFeedback:
         trajectory = pd.read_csv(self.traj_file)
         _, ax = plt.subplots() 
 
-        ax.plot(trajectory["x"], trajectory["y"], 'k', linewidth=0.7) # whole trajectory
-        ax.plot(trajectory["x"].iloc[-1], trajectory["y"].iloc[-1], 'r*', markersize=8) # end point
-        ax.plot(trajectory["x"].iloc[0], trajectory["y"].iloc[0], 'g*', markersize=8) # start point
+        ax.plot(trajectory["x"], trajectory["y_py"], 'k', linewidth=0.7) # whole trajectory
+        ax.plot(trajectory["x"].iloc[-1], trajectory["y_py"].iloc[-1], 'r*', markersize=8) # end point
+        ax.plot(trajectory["x"].iloc[0], trajectory["y_py"].iloc[0], 'g*', markersize=8) # start point
 
         # plot a rectangle for landing pad
-        ax.fill([-9.8, -9.8, 9.8, 9.8], [0, 4.4, 4.4, 0], color='gray', alpha=0.5)
+        ax.fill([675, 675, 875, 875], [0, 31, 31, 0], color='gray', alpha=0.5)
 
         # set the display options
         ax.set_xlabel("x position")
         ax.set_ylabel("y position")
-        ax.set_xlim(-30, 30)
-        ax.set_ylim(0, 33.75)
+        ax.set_xlim(0, 1250)
+        ax.set_ylim(0, 600)
         # make axes equal
         ax.set_aspect('equal')
 
@@ -68,15 +68,15 @@ class VisualFeedback:
             worst_index = robustness[self.improvement_area][:-50].idxmin() # force end of trajectory
         else:
             # find highest total control effort
-            worst_index = (trajectory["u_1"].abs() + trajectory["u_2"].abs()).idxmax()
+            worst_index = (trajectory["ux"].abs() + trajectory["uy"].abs()).idxmax()
 
         # get x and y values at worst index from trajectory file
         x = trajectory["x"].iloc[worst_index]
-        y = trajectory["y"].iloc[worst_index]
+        y = trajectory["y_py"].iloc[worst_index]
 
         return (x, y)
 
-    def add_overlay(self, location, width=7, height=7):
+    def add_overlay(self, location, width=60, height=60):
         """
         Add an oval overlay to a plot.
 
