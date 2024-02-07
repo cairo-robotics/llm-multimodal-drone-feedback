@@ -12,7 +12,6 @@ How to run locally
 
 What to work on next
 - update consent form (consentPage)
-- update instruction slide 1 (instruct1Page) remove purdue logo
 - update survey questions (gameSurvey) and change sendSurveyResponses()
 - update exit survey (qualtricsPage)
 - make new feedback page
