@@ -15,3 +15,5 @@ What to work on next
 - update exit survey (qualtricsPage)
 - make new feedback page
 - make sure logs are comprehensive
+- make waiting page before feedback is generated
+- figure out MTurk logistics (completion code)
