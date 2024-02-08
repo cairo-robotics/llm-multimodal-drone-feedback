@@ -167,10 +167,18 @@
                         padding: 100;
                     }
                 </style>
-                <p> Press either the throttle (W or S keys) or tilt (left or right arrow keys) to begin the game.</p>
-                <p>Use the throttle and tilt to land the quadrotor.</p>
-                <p>Press Next to continue once you complete the game.</p>
-                <button onclick="goToScorePage()">Next</button>
+                <div id="gameInstructions">
+                    <p> Press either the throttle (W or S keys) or tilt (left or right arrow keys) to begin the game.</p>
+                    <p>Use the throttle and tilt to land the quadrotor.</p>
+                    <p>Press Generate Feedback to continue once you complete the game.</p>
+                </div>
+                
+                <button id="waitButton" onclick="waitToGoToScorePage()">Next</button>
+                <div id="postfeedbackgeneration" style="display: none;">
+                    <p>Press See Feedback to continue.</p>
+                    <button onclick="goToScorePage()">See Feedback</button>
+                </div>
+                
             </div>
         </section>
 

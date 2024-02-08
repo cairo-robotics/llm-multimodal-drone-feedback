@@ -67,12 +67,33 @@ function goToFirstGame() {
 }
 
 function goToScorePage() {
+    document.getElementById("gamePage").style.display = "none";
+    document.getElementById("scorePage").style.display = "block";
+}
+
+async function waitToGoToScorePage() {
     if (game_done == true) {
         window.killGame();
-        document.getElementById("gamePage").style.display = "none";
-        document.getElementById("scorePage").style.display = "block";
         save_trajectory();
+
+        document.getElementById("gameInstructions").style.display = "none";
+
+        document.getElementById("waitButton").textContent = "Wait...";
+
+        await wait();
+        
+        document.getElementById("waitButton").textContent = "Next";
+        document.getElementById("waitButton").style.display = "none";
+        document.getElementById("postfeedbackgeneration").style.display = "block";
     }
+}
+
+function wait() {
+    return new Promise((resolve) => {
+        setTimeout(() => {
+            resolve();
+        }, 3000);
+    });
 }
 
 function save_trajectory() {
