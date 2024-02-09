@@ -70,8 +70,8 @@
                 <p style="padding-top: 10px;"><b>Primary Investigators:</b> Emily Jensen, Dr. Bradley Hayes, and Dr. Sriram Sankaranarayanan</p>
                 <p>Department of Computer Science, University of Colorado Boulder</p>
                 <br>
-                <p>The link below will direct you to a new tab to read the research consent form. Please read the document carefully. After reading the form, return to this tab and press Next if you consent to participating in the study.</p>
-                <strong><a href="{{ url_for('static', filename='Consent Form - NSF CPS - online game.pdf') }}" target="_blank">Consent Form</a></strong>
+                <p>The link below will direct you to a new tab to read the research consent form. Please read the document carefully. After reading the form, return to this tab and press I Agree if you consent to participating in the study.</p>
+                <strong><a href="{{ url_for('static', filename='Exempt Remote Consent.pdf') }}" target="_blank">Consent Form</a></strong>
                 <br><br>
                 <p>If you have any questions or concerns about the information in the consent form, please send them to emily.jensen@colorado.edu</p>
                 <p>Press I Agree to continue.</p>
@@ -167,7 +167,7 @@
                         padding: 100;
                     }
                 </style>
-                <div id="gameInstructions">
+                <div id="gameInstructions" style="padding-top: 20px;">
                     <p> Press either the throttle (W or S keys) or tilt (left or right arrow keys) to begin the game.</p>
                     <p>Use the throttle and tilt to land the quadrotor.</p>
                     <p>Press Generate Feedback to continue once you complete the game.</p>
