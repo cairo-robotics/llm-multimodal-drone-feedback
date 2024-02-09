@@ -57,6 +57,7 @@ function goToInstructions3Page() {
 }
 
 function goToFirstGame() {
+    console.log("goToFirstGame")
     trial_number = 1;
     restartGame();
 
@@ -67,12 +68,15 @@ function goToFirstGame() {
 }
 
 function goToScorePage() {
+    console.log("goToScorePage")
     document.getElementById("gamePage").style.display = "none";
     document.getElementById("scorePage").style.display = "block";
 }
 
 async function waitToGoToScorePage() {
+    console.log("waitToGoToScorePage")
     if (game_done == true) {
+        console.log("game_done == true")
         window.killGame();
         save_trajectory();
 
@@ -83,12 +87,13 @@ async function waitToGoToScorePage() {
         await wait();
         
         document.getElementById("waitButton").textContent = "Next";
-        document.getElementById("waitButton").style.display = "none";
+        document.getElementById("waitButtonDiv").style.display = "none";
         document.getElementById("postfeedbackgeneration").style.display = "block";
     }
 }
 
 function wait() {
+    console.log("wait")
     return new Promise((resolve) => {
         setTimeout(() => {
             resolve();
@@ -97,6 +102,7 @@ function wait() {
 }
 
 function save_trajectory() {
+    console.log("save_trajectory")
     fetch('/process_trajectory', {
         method: 'POST',
         body: JSON.stringify({ user_id: user_id, trial: trial_number, log: log }),
@@ -107,15 +113,19 @@ function save_trajectory() {
 }
 
 function goToSurveyPage() {
+    console.log("goToSurveyPage")
     document.getElementById("scorePage").style.display = "none";
     document.getElementById("surveyPage").style.display = "block";
 }
 
 function goToGame() {
+    console.log("goToGame")
     if (trial_number >= total_games) {
+        console.log("trial_number >= total_games")
         save_survey();
         goToQualtrics();
     } else {
+        console.log("trial_number < total_games")
         save_survey();
         trial_number += 1;
 
@@ -128,10 +138,14 @@ function goToGame() {
 
         document.getElementById("surveyPage").style.display = "none";
         document.getElementById("gamePage").style.display = "block";
+        document.getElementById("postfeedbackgeneration").style.display = "none";
+        document.getElementById("gameInstructions").style.display = "block";
+        document.getElementById("waitButtonDiv").style.display = "block";
     }
 }
 
 function save_survey() {
+    console.log("save_survey")
     fetch('/process_survey_responses', {
         method: 'POST',
         body: JSON.stringify({ user_id: user_id, trial: trial_number, 

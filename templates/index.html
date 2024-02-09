@@ -167,13 +167,16 @@
                         padding: 100;
                     }
                 </style>
+
                 <div id="gameInstructions" style="padding-top: 20px;">
                     <p> Press either the throttle (W or S keys) or tilt (left or right arrow keys) to begin the game.</p>
                     <p>Use the throttle and tilt to land the quadrotor.</p>
                     <p>Press Generate Feedback to continue once you complete the game.</p>
                 </div>
+                <div id="waitButtonDiv">
+                    <button id="waitButton" onclick="waitToGoToScorePage()">Generate Feedback</button>
+                </div>
                 
-                <button id="waitButton" onclick="waitToGoToScorePage()">Next</button>
                 <div id="postfeedbackgeneration" style="display: none;">
                     <p>Press See Feedback to continue.</p>
                     <button onclick="goToScorePage()">See Feedback</button>
@@ -185,7 +188,7 @@
         <section>
             <div id="scorePage" style="display: none;">
                 <h1>Game Score</h1>
-                <p>Press Next to continue to a survey on your performance feedback.</p>
+                <p>Press Next to continue to a survey about the feedback you received.</p>
                 <button onclick="goToSurveyPage()">Next</button>
             </div>
         </section>
