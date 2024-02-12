@@ -57,7 +57,6 @@ function goToInstructions3Page() {
 }
 
 function goToFirstGame() {
-    console.log("goToFirstGame")
     trial_number = 1;
     restartGame();
 
@@ -68,15 +67,12 @@ function goToFirstGame() {
 }
 
 function goToScorePage() {
-    console.log("goToScorePage")
     document.getElementById("gamePage").style.display = "none";
     document.getElementById("scorePage").style.display = "block";
 }
 
 async function waitToGoToScorePage() {
-    console.log("waitToGoToScorePage")
     if (game_done == true) {
-        console.log("game_done == true")
         window.killGame();
         save_trajectory();
 
@@ -93,7 +89,6 @@ async function waitToGoToScorePage() {
 }
 
 function wait() {
-    console.log("wait")
     return new Promise((resolve) => {
         setTimeout(() => {
             resolve();
@@ -102,7 +97,6 @@ function wait() {
 }
 
 function save_trajectory() {
-    console.log("save_trajectory")
     fetch('/process_trajectory', {
         method: 'POST',
         body: JSON.stringify({ user_id: user_id, trial: trial_number, log: log }),
@@ -123,19 +117,15 @@ function goToFullFeedbackPage() {
 }
 
 function goToSurveyPage() {
-    console.log("goToSurveyPage")
     document.getElementById("fullFeedbackPage").style.display = "none";
     document.getElementById("surveyPage").style.display = "block";
 }
 
 function goToGame() {
-    console.log("goToGame")
     if (trial_number >= total_games) {
-        console.log("trial_number >= total_games")
         save_survey();
         goToQualtrics();
     } else {
-        console.log("trial_number < total_games")
         save_survey();
         trial_number += 1;
 
@@ -155,7 +145,6 @@ function goToGame() {
 }
 
 function save_survey() {
-    console.log("save_survey")
     fetch('/process_survey_responses', {
         method: 'POST',
         body: JSON.stringify({ user_id: user_id, trial: trial_number, 
