@@ -80,7 +80,7 @@ async function waitToGoToScorePage() {
 
         document.getElementById("waitButton").textContent = "Wait...";
 
-        await wait();
+        await waitForFeedback();
 
         // update text and images on feedback pages
         let textPath = "static/data/example_text.txt";
@@ -100,11 +100,23 @@ async function waitToGoToScorePage() {
     }
 }
 
-function wait() {
-    return new Promise((resolve) => {
-        setTimeout(() => {
-            resolve();
-        }, 3000);
+function waitForFeedback() {
+    return new Promise((resolve, reject) => {
+        fetch('/wait_for_feedback')
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.text();
+            })
+            .then(data => {
+                console.log('Feedback generated:', data);
+                resolve(data); // Resolve the promise with the data from the server
+            })
+            .catch(error => {
+                console.error('There has been a problem with your fetch operation:', error);
+                reject(error); // Reject the promise if there's an error
+            });
     });
 }
 

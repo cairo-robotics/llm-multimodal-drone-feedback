@@ -3,6 +3,7 @@ import os
 import feedback
 from datetime import datetime
 import pandas as pd
+import asyncio
 
 app = Flask(__name__)
 
@@ -95,9 +96,18 @@ def get_trajectory_image(user_id, trial):
     image_path = f'static/data/{user_id}/trial_{trial}/trajectory_with_feedback.png'
     return send_from_directory('static', image_path)
 
+@app.route('/wait_for_feedback')
+async def wait_for_feedback():
+    result = await wait()
+    return result
+
 def add_log_entry(user_id, entry):
     with open(f"static/data/{user_id}/log.txt", "a") as f:
         f.write(f"{datetime.now()}: {entry}\n")
+
+async def wait():
+    await asyncio.sleep(3)
+    return "Complete"
 
 
 if __name__ == '__main__':
