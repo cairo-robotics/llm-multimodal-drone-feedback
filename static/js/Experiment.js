@@ -81,7 +81,19 @@ async function waitToGoToScorePage() {
         document.getElementById("waitButton").textContent = "Wait...";
 
         await wait();
-        
+
+        // update text and images on feedback pages
+        let textPath = "static/data/example_text.txt";
+        let imagePath = "static/data/example_trajectory.png";
+        fetch(textPath)
+            .then(response => response.text())
+            .then(text => {
+                document.getElementById("textFeedbackText").textContent = text;
+                document.getElementById("fullFeedbackText").textContent = text;
+            });
+
+        document.getElementById("trajectoryGraph").src = imagePath;
+
         document.getElementById("waitButton").textContent = "Next";
         document.getElementById("waitButtonDiv").style.display = "none";
         document.getElementById("postfeedbackgeneration").style.display = "block";

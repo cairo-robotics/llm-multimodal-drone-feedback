@@ -196,6 +196,7 @@
         <section>
             <div id="textFeedbackPage" style="display: none;">
                 <h1>Text only feedback page</h1>
+                <p id="textFeedbackText" style="text-align: justify;">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque congue eros maximus tellus dictum, nec facilisis augue ultricies. In vitae metus posuere, maximus velit non, consectetur sem. Suspendisse venenatis nisi diam, vel venenatis ante dapibus in. Phasellus sodales velit ac sem fringilla, vel mollis dolor sagittis. In volutpat pellentesque elit sit amet accumsan. Cras mattis, turpis nec auctor dignissim, leo mauris eleifend massa, iaculis vehicula tortor sem in libero. Sed ut vestibulum felis, ut rhoncus massa. Donec ipsum tortor, maximus eget consequat vitae, vulputate at felis. Proin feugiat feugiat vestibulum.</p>
                 <p>Press next to continue to your full feedback</p>
                 <button onclick="goToFullFeedbackPage()">Next</button>
             </div>
@@ -204,6 +205,17 @@
         <section>
             <div id="fullFeedbackPage" style="display: none;">
                 <h1>Full feedback page</h1>
+                <div class="container">
+                    <div class="row align-items-center">
+                        <div class="col-4">
+                            <img id="trajectoryGraph" src="static/images/drone.png" alt="Trajectory Graph" style="width: 500px;">
+                        </div>
+        
+                        <div class="col-8">
+                            <p id="fullFeedbackText" style="text-align: justify;">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque congue eros maximus tellus dictum, nec facilisis augue ultricies. In vitae metus posuere, maximus velit non, consectetur sem. Suspendisse venenatis nisi diam, vel venenatis ante dapibus in. Phasellus sodales velit ac sem fringilla, vel mollis dolor sagittis. In volutpat pellentesque elit sit amet accumsan. Cras mattis, turpis nec auctor dignissim, leo mauris eleifend massa, iaculis vehicula tortor sem in libero. Sed ut vestibulum felis, ut rhoncus massa. Donec ipsum tortor, maximus eget consequat vitae, vulputate at felis. Proin feugiat feugiat vestibulum.</p>
+                        </div>
+                    </div>
+                </div>
                 <p>Press next to continue to the survey</p>
                 <button onclick="goToSurveyPage()">Next</button>
             </div>
