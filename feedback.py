@@ -141,3 +141,5 @@ def main(userid, trial):
   # save feedback to file
   with open(f"./static/data/{userid}/trial_{trial}/feedback.txt", "w") as f:
       f.write(output)
+
+  add_log_entry(userid, "Saved feedback to file")
