@@ -189,6 +189,22 @@
             <div id="scorePage" style="display: none;">
                 <h1>Game Score</h1>
                 <p>Press Next to continue to a survey about the feedback you received.</p>
+                <button onclick="goToTextFeedbackPage()">Next</button>
+            </div>
+        </section>
+
+        <section>
+            <div id="textFeedbackPage" style="display: none;">
+                <h1>Text only feedback page</h1>
+                <p>Press next to continue to your full feedback</p>
+                <button onclick="goToFullFeedbackPage()">Next</button>
+            </div>
+        </section>
+
+        <section>
+            <div id="fullFeedbackPage" style="display: none;">
+                <h1>Full feedback page</h1>
+                <p>Press next to continue to the survey</p>
                 <button onclick="goToSurveyPage()">Next</button>
             </div>
         </section>

@@ -12,7 +12,6 @@ How to run locally
 
 What to work on next
 - update consent form (consentPage)
-- update exit survey (qualtricsPage)
 - make new feedback page
 - make sure logs are comprehensive
 - make waiting page before feedback is generated

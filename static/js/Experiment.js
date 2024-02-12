@@ -112,9 +112,19 @@ function save_trajectory() {
     })
 }
 
+function goToTextFeedbackPage() {
+    document.getElementById("scorePage").style.display = "none";
+    document.getElementById("textFeedbackPage").style.display = "block";
+}
+
+function goToFullFeedbackPage() {
+    document.getElementById("textFeedbackPage").style.display = "none";
+    document.getElementById("fullFeedbackPage").style.display = "block";
+}
+
 function goToSurveyPage() {
     console.log("goToSurveyPage")
-    document.getElementById("scorePage").style.display = "none";
+    document.getElementById("fullFeedbackPage").style.display = "none";
     document.getElementById("surveyPage").style.display = "block";
 }
 
