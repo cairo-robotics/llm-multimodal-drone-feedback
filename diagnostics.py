@@ -1,5 +1,4 @@
 import pandas as pd
-from math import pi
 
 class Diagnostics:
     def __init__(self, userid, trial, preWindow=50):

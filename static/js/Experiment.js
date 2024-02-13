@@ -83,7 +83,7 @@ async function waitToGoToScorePage() {
 
         document.getElementById("gameInstructions").style.display = "none";
 
-        document.getElementById("waitButton").textContent = "Wait...";
+        document.getElementById("waitButton").textContent = "Please Wait...";
 
         await waitForFeedback();
 

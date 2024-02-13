@@ -28,18 +28,21 @@ class VisualFeedback:
         trajectory = pd.read_csv(self.traj_file)
         fig, ax = plt.subplots() 
 
-        ax.plot(trajectory["x"], trajectory["y_py"], 'k', linewidth=0.7) # whole trajectory
-        ax.plot(trajectory["x"].iloc[-1], trajectory["y_py"].iloc[-1], 'r*', markersize=8) # end point
-        ax.plot(trajectory["x"].iloc[0], trajectory["y_py"].iloc[0], 'g*', markersize=8) # start point
+        x = trajectory["x"]
+        y = trajectory["y_py"]
+
+        ax.plot(x, y, 'k', linewidth=0.7) # whole trajectory
+        ax.plot(x.iloc[-1], y.iloc[-1], 'r*', markersize=8) # end point
+        ax.plot(x.iloc[0], y.iloc[0], 'g*', markersize=8) # start point
 
         # plot a rectangle for landing pad
-        ax.fill([675, 675, 875, 875], [0, 31, 31, 0], color='gray', alpha=0.5)
+        ax.fill([660, 660, 850, 850], [0, 55, 55, 0], color='gray', alpha=0.5)
 
         # set the display options
         ax.set_xlabel("x position")
         ax.set_ylabel("y position")
-        ax.set_xlim(0, 1250)
-        ax.set_ylim(0, 600)
+        ax.set_xlim(0, 1210)
+        ax.set_ylim(25, 600)
         # make axes equal
         ax.set_aspect('equal')
 
