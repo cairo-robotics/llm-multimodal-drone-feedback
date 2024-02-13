@@ -1,6 +1,9 @@
 import matplotlib.pyplot as plt
 from matplotlib.patches import Ellipse
+import matplotlib
 import pandas as pd
+
+matplotlib.use('agg')
 
 class VisualFeedback:
     def __init__(self, userid, trial):
@@ -23,7 +26,7 @@ class VisualFeedback:
         """
 
         trajectory = pd.read_csv(self.traj_file)
-        _, ax = plt.subplots() 
+        fig, ax = plt.subplots() 
 
         ax.plot(trajectory["x"], trajectory["y_py"], 'k', linewidth=0.7) # whole trajectory
         ax.plot(trajectory["x"].iloc[-1], trajectory["y_py"].iloc[-1], 'r*', markersize=8) # end point
@@ -41,7 +44,7 @@ class VisualFeedback:
         ax.set_aspect('equal')
 
         # save plot for later
-        self.plot = ax
+        self.plot = (fig, ax)
         plt.savefig(f"./static/data/{self.userid}/trial_{self.trial}/trajectory.png")
 
     def calc_location(self):
@@ -94,7 +97,7 @@ class VisualFeedback:
         None. Saves new image to file.
         """
 
-        self.plot.add_patch(Ellipse(location, width, height, color='blue', alpha=0.35))
+        self.plot[1].add_patch(Ellipse(location, width, height, color='blue', alpha=0.35))
 
     def save_final_trajectory(self):
         """
@@ -102,7 +105,7 @@ class VisualFeedback:
         """
 
         plt.savefig(f"./static/data/{self.userid}/trial_{self.trial}/trajectory_with_feedback.png")
-        plt.close()
+        plt.close(self.plot[0])
 
     def generate_visual_feedback(self):
         # generate the trajectory plot
