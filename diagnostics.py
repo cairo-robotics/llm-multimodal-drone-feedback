@@ -134,14 +134,14 @@ class Diagnostics:
         """Heuristics for choosing important component"""
 
         # identify if there was boundary violation
-        # setting margin of error to 1
-        if (self.robustness['left_boundary'] <= 1).any():
+        # setting margin of error to 2
+        if (self.robustness['left_boundary'] <= 2).any():
             return 'left_boundary'
-        elif (self.robustness['right_boundary'] <= 1).any():
+        elif (self.robustness['right_boundary'] <= 2).any():
             return 'right_boundary'
-        elif (self.robustness['bottom_boundary'] <= 1).any():
+        elif (self.robustness['bottom_boundary'] <= 2).any():
             return 'bottom_boundary'
-        elif (self.robustness['top_boundary'] <= 1).any():
+        elif (self.robustness['top_boundary'] <= 2).any():
             return 'top_boundary'
         
         # identify if there was landing violation
