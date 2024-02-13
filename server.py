@@ -70,7 +70,7 @@ def process_survey_responses():
     return jsonify({'message': "Survey responses received"})
 
 @app.route('/process_trajectory', methods=['POST'])
-def process_trajectory():
+async def process_trajectory():
     data = request.json
     user_id = data['user_id']
     trial = data['trial']
@@ -90,23 +90,17 @@ def process_trajectory():
 
     return jsonify({'message': "Trajectory data received"})
 
-@app.route('/get_trajectory_image/<user_id>/<trial>')
-def get_trajectory_image(user_id, trial):
-    feedback.main(user_id, trial)
-    image_path = f'static/data/{user_id}/trial_{trial}/trajectory_with_feedback.png'
-    return send_from_directory('static', image_path)
-
-@app.route('/wait_for_feedback')
-async def wait_for_feedback():
-    result = await wait()
+@app.route('/wait_for_feedback/<userid>/<trial>')
+async def wait_for_feedback(userid, trial):
+    result = await wait(userid, trial)
     return result
 
 def add_log_entry(user_id, entry):
     with open(f"static/data/{user_id}/log.txt", "a") as f:
         f.write(f"{datetime.now()}: {entry}\n")
 
-async def wait():
-    await asyncio.sleep(3)
+async def wait(userid, trial):
+    await feedback.main(userid, trial)
     return "Complete"
 
 

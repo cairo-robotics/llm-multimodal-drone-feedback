@@ -11,8 +11,6 @@ How to run locally
 - open http:localhost:5000
 
 What to work on next
-- update consent form (consentPage)
-- make new feedback page
 - make sure logs are comprehensive
-- make waiting page before feedback is generated
-- figure out MTurk logistics (completion code)
+- debug improvement area heuristic
+- make feedback less wordy?

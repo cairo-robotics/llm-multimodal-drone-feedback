@@ -6,7 +6,7 @@ from diagnostics import *
 from visual_feedback import *
 from server import add_log_entry
 
-def main(userid, trial):
+async def main(userid, trial):
   # OpenAI API Key
   config = dotenv.dotenv_values(".env")
   api_key = config["OPENAI_API_KEY"]

@@ -74,7 +74,9 @@ function goToScorePage() {
 async function waitToGoToScorePage() {
     if (game_done == true) {
         window.killGame();
-        save_trajectory();
+
+        // this needs to be completed before we can move on
+        await save_trajectory();
 
         document.getElementById("gameInstructions").style.display = "none";
 
@@ -83,8 +85,8 @@ async function waitToGoToScorePage() {
         await waitForFeedback();
 
         // update text and images on feedback pages
-        let textPath = "static/data/example_text.txt";
-        let imagePath = "static/data/example_trajectory.png";
+        let textPath = "static/data/" + user_id + "/trial_" + trial_number + "/feedback.txt";
+        let imagePath = "static/data/" + user_id + "/trial_" + trial_number + "/trajectory_with_feedback.png";
         fetch(textPath)
             .then(response => response.text())
             .then(text => {
@@ -102,7 +104,7 @@ async function waitToGoToScorePage() {
 
 function waitForFeedback() {
     return new Promise((resolve, reject) => {
-        fetch('/wait_for_feedback')
+        fetch('/wait_for_feedback/' + user_id + '/' + trial_number)
             .then(response => {
                 if (!response.ok) {
                     throw new Error('Network response was not ok');
@@ -110,24 +112,32 @@ function waitForFeedback() {
                 return response.text();
             })
             .then(data => {
-                console.log('Feedback generated:', data);
                 resolve(data); // Resolve the promise with the data from the server
             })
             .catch(error => {
-                console.error('There has been a problem with your fetch operation:', error);
                 reject(error); // Reject the promise if there's an error
             });
     });
 }
 
 function save_trajectory() {
-    fetch('/process_trajectory', {
-        method: 'POST',
-        body: JSON.stringify({ user_id: user_id, trial: trial_number, log: log }),
-        headers: {
-            'Content-Type': 'application/json'
-        }
-    })
+    return new Promise((resolve, reject) => {
+        fetch('/process_trajectory', {
+            method: 'POST',
+            body: JSON.stringify({ user_id: user_id, trial: trial_number, log: log }),
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json(); // Assuming the server responds with JSON
+        })
+        .then(data => resolve(data)) // Resolve the promise with the response data
+        .catch(error => reject(error)); // Reject the promise if there's an error
+    });
 }
 
 function goToTextFeedbackPage() {
