@@ -431,7 +431,7 @@ var myGameArea = {
         clearInterval(this.interval);
         clearInterval(this.interval1);
         game_done = true;
-        //save_final();
+        save_final();
     }
 }
 // Now that I have supposedly made the background, let's try to add a "compnent" by making a component function (will eventuallly be a drone) to it.
