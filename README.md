@@ -14,4 +14,3 @@
 - debug improvement area heuristic
 - fix weird characters in the output
 - fix offsets in landing image
-- Change MTurk language to Prolific
