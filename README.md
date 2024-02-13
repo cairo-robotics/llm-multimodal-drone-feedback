@@ -15,4 +15,4 @@ What to work on next
 - fix weird characters in the output
 - put in score table
 - fix offsets in landing image
-- add text to close window at end of exit survey
+- Change MTurk language to Prolific
