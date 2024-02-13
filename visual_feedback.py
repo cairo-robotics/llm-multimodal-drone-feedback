@@ -71,7 +71,7 @@ class VisualFeedback:
             worst_index = robustness[self.improvement_area][:-50].idxmin() # force end of trajectory
         else:
             # find highest total control effort
-            worst_index = (trajectory["ux"].abs() + trajectory["uy"].abs()).idxmax()
+            worst_index = (trajectory["ux"].abs() + trajectory["uy_py"].abs()).idxmax()
 
         # get x and y values at worst index from trajectory file
         x = trajectory["x"].iloc[worst_index]

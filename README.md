@@ -11,6 +11,8 @@
 - open http:localhost:5000
 
 # What to work on next
-- debug improvement area heuristic
 - fix weird characters in the output
+- don't let output say top_improvement
+- change improvement areas to say crash instead of boundary
 - fix offsets in landing image
+- log instruction pages from website

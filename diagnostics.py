@@ -37,9 +37,9 @@ class Diagnostics:
 
     def robustness_bottom_boundary(self):
         """Compute the robustness of the safety property for bottom y boundary"""
-        # calculate distance to bottom boundary (y_py = 25) at every time point
-        # y position greater than 25 gives positive robustness
-        y_bottom = self.data['y_py'] - 25
+        # calculate distance to bottom boundary (y_py = 26) at every time point
+        # y position greater than 26 gives positive robustness
+        y_bottom = self.data['y_py'] - 26
 
         # calculate robustness
         self.robustness['bottom_boundary'] = y_bottom
@@ -134,13 +134,14 @@ class Diagnostics:
         """Heuristics for choosing important component"""
 
         # identify if there was boundary violation
-        if (self.robustness['left_boundary'] <= 0).any():
+        # setting margin of error to 1
+        if (self.robustness['left_boundary'] <= 1).any():
             return 'left_boundary'
-        elif (self.robustness['right_boundary'] <= 0).any():
+        elif (self.robustness['right_boundary'] <= 1).any():
             return 'right_boundary'
-        elif (self.robustness['bottom_boundary'] <= 0).any():
+        elif (self.robustness['bottom_boundary'] <= 1).any():
             return 'bottom_boundary'
-        elif (self.robustness['top_boundary'] <= 0).any():
+        elif (self.robustness['top_boundary'] <= 1).any():
             return 'top_boundary'
         
         # identify if there was landing violation
