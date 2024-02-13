@@ -1,9 +1,8 @@
-from flask import Flask, render_template, request, jsonify, send_from_directory
+from flask import Flask, render_template, request, jsonify
 import os
 import feedback
 from datetime import datetime
 import pandas as pd
-import asyncio
 
 app = Flask(__name__)
 
@@ -15,14 +14,23 @@ def index():
 def process_user_id():
     data = request.json
     user_id = data['user_id']
+    condition = data['condition']
 
     # make folder for user data
     user_path = f"static/data/{user_id}"
     if not os.path.isdir(user_path):
         os.mkdir(user_path)
 
+    # save condition
+    condition_path = "static/data/conditions.csv"
+    if not os.path.isfile(condition_path):
+        with open(condition_path, "w") as f:
+            f.write("user_id,condition\n")
+    with open(condition_path, "a") as f:
+        f.write(f"{user_id},{condition}\n")
+
     # start log file
-    add_log_entry(user_id, "Received user ID, start log")
+    add_log_entry(user_id, "Received user ID and condition, start log")
 
     # create file for survey responses
     with open(f"static/data/{user_id}/survey_responses.csv", "w") as f:

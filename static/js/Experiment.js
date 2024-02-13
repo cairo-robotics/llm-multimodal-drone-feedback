@@ -1,6 +1,9 @@
 var user_id;
 var trial_number = 1;
 var log;
+var condition = "full";
+// var condition = "score";
+// var condition = "text";
 
 function goToScreenTest() {
     document.getElementById("startPage").style.display = "none";
@@ -19,17 +22,17 @@ function goToConsentPage() {
     else {
         // send user id to server
         user_id = document.getElementById("workerID").value;
-        sendUserId(user_id);
+        sendUserId(user_id, condition);
 
         document.getElementById("workerIDPage").style.display = "none";
         document.getElementById("consentPage").style.display = "block";
     }
 }
 
-function sendUserId(id) {
+function sendUserId(id, condition) {
     fetch('/process_user_id', {
         method: 'POST',
-        body: JSON.stringify({ user_id: id }),
+        body: JSON.stringify({ user_id: id, condition: condition }),
         headers: {
             'Content-Type': 'application/json'
         }
