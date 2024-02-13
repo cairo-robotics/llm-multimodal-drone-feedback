@@ -26,6 +26,7 @@ function goToConsentPage() {
 
         document.getElementById("workerIDPage").style.display = "none";
         document.getElementById("consentPage").style.display = "block";
+        sendLog("Open consent page");
     }
 }
 
@@ -44,6 +45,7 @@ function goToInstructions1Page() {
     document.getElementById("instructions2Page").style.display = "none";
     document.getElementById("instructions1Page").style.display = "block";
     window.scrollTo(0, 0); // scroll to top of page
+    sendLog("Open instructions 1 page");
 }
 
 function goToInstructions2Page() {
@@ -51,12 +53,14 @@ function goToInstructions2Page() {
     document.getElementById("instructions3Page").style.display = "none";
     document.getElementById("instructions2Page").style.display = "block";
     window.scrollTo(0, 0); // scroll to top of page
+    sendLog("Open instructions 2 page");
 }
 
 function goToInstructions3Page() {
     document.getElementById("instructions3Page").style.display = "block";
     document.getElementById("instructions2Page").style.display = "none";
     window.scrollTo(0, 0); // scroll to top of page
+    sendLog("Open instructions 3 page");
 }
 
 function goToFirstGame() {
@@ -196,8 +200,20 @@ function save_survey() {
     })
 }
 
+function sendLog(message) {
+    fetch('/process_log', {
+        method: 'POST',
+        body: JSON.stringify({ user_id: user_id, message: message }),
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    })
+
+}
+
 function goToQualtrics() {
     window.killGame();
     document.getElementById("surveyPage").style.display = "none";
     document.getElementById("qualtricsPage").style.display = "block";
+    sendLog("Open qualtrics page");
 }

@@ -12,6 +12,16 @@ def index():
         os.mkdir("static/data")
     return render_template('index.html')
 
+@app.route('/process_log', methods=['POST'])
+def process_log():
+    data = request.json
+    user_id = data['user_id']
+    message = data['message']
+    
+    add_log_entry(user_id, message)
+
+    return jsonify({'message': "Log received"})
+
 @app.route('/process_user_id', methods=['POST'])
 def process_user_id():
     data = request.json

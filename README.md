@@ -14,5 +14,3 @@
 - fix weird characters in the output
 - don't let output say top_improvement
 - change improvement areas to say crash instead of boundary
-- fix offsets in landing image
-- log instruction pages from website
