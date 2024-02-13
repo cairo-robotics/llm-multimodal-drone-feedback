@@ -342,7 +342,7 @@ var myGameArea = {
         this.context.fillText("Date : " + mySystemDate(), 20, 60);
         this.context.fillText("Time : " + myTime(), 20, 80);
         this.context.fillText("Position (x,y) :" + "(" + dronePosition() + ")", 20, 100);
-        this.context.fillText("Speed (x,y) :" + "(" + Number(XSpeed).toFixed(2) + "," + Number(YSpeed).toFixed(2) + ")", 20, 120);
+        this.context.fillText("Speed (x,y) :" + "(" + Number(XSpeed).toFixed(2) + "," + Number(YSpeed/2).toFixed(2) + ")", 20, 120);
         this.context.fillText("Attitude :" + "(" + droneAngle() + ")", 20, 140);
         
 
@@ -415,14 +415,14 @@ var myGameArea = {
         [dx, dy] = dronePosition();
         //this.context.fillText("Position (x,y) :" + "(" + dronePosition() + ")", 20, 100);
         this.context.fillText("Position (x,y) :" + "(" + dx + "," + dy + ")", 20, 100);
-        this.context.fillText("Speed (x,y) :" + "(" + Number(XSpeed).toFixed(2) + "," + Number(YSpeed).toFixed(2) + ")", 20, 120);
+        this.context.fillText("Speed (x,y) :" + "(" + Number(XSpeed).toFixed(2) + "," + Number(YSpeed/2).toFixed(2) + ")", 20, 120);
         this.context.fillText("Attitude :" + "(" + droneAngle() + ")", 20, 140);
         // if (arrowY != 0 || arrowX != 0){
         //     start_check == true;
         // }
         da = droneAngle();
 
-        log += dx + "," + dy + "," + Number(XSpeed).toFixed(3) + "," + Number(YSpeed).toFixed(3) + "," + da + "," + Number(inputX).toFixed(3) + "," + Number(inputY).toFixed(3) + "\n";
+        log += dx + "," + dy + "," + Number(XSpeed).toFixed(3) + "," + Number(YSpeed/2).toFixed(3) + "," + da + "," + Number(inputX).toFixed(3) + "," + Number(inputY).toFixed(3) + "\n";
 
         landingZone.update();
         myGameDrone.update();
@@ -567,7 +567,7 @@ function component(width, height, color, x, y, type) { //We can change the param
         // var crash = true
         if (mybottom >= othertop) { //condition the drone touches the landing pad
             if ((myright < otherright) && (myleft > otherleft)) { // ensure its within 
-                if ((Math.abs(XSpeed) < 2) && (Math.abs(YSpeed) < 15) && Math.abs(droneAngle()) <= 5) {
+                if ((Math.abs(XSpeed) < 2) && (Math.abs(YSpeed/2) < 15) && Math.abs(droneAngle()) <= 5) {
                     // console.log("You have successfully landed the drone!!!");
                     var crash = false
                     ctx.fillStyle = "#660019";
@@ -1167,7 +1167,7 @@ function save_final() {
     rec_trial = trial_number;
     rec_time = parseFloat((time_count / 100)).toPrecision(3);
     // rec_vel = parseFloat([XSpeed.toFixed(2), YSpeed.toFixed(2)]);
-    rec_vel = Math.sqrt(XSpeed**2+YSpeed**2).toPrecision(3);
+    rec_vel = Math.sqrt(XSpeed**2+(YSpeed/2)**2).toPrecision(3);
     rec_att = parseFloat(droneAngle());
     
     if (success_land == 1){
@@ -1187,7 +1187,7 @@ function save_final() {
     // rmse = compute_rmse("")
     t_score = compute_score_t(time_count/100, success_land)
     p_score = compute_score_p(myGameDronex,myGameDroney,success_land)
-    v_score = compute_score_v(XSpeed, YSpeed)
+    v_score = compute_score_v(XSpeed, YSpeed/2)
     a_score = compute_score_a(droneAngle())
     tot_score = compute_score_total(t_score,p_score,v_score,a_score)
     // console.log("score")
