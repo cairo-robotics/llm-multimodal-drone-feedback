@@ -14,3 +14,8 @@ What to work on next
 - make sure logs are comprehensive
 - debug improvement area heuristic
 - make feedback less wordy?
+- save condition to log
+- fix matplotlib gui warning
+- fix weird characters in the output
+- put in score table
+- fix offsets in landing image
