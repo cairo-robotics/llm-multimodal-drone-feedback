@@ -8,6 +8,8 @@ app = Flask(__name__)
 
 @app.route('/')
 def index():
+    if not os.path.isdir("static/data"):
+        os.mkdir("static/data")
     return render_template('index.html')
 
 @app.route('/process_user_id', methods=['POST'])
