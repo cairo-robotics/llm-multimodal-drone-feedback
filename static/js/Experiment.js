@@ -97,8 +97,11 @@ async function waitToGoToScorePage() {
         fetch(textPath)
             .then(response => response.text())
             .then(text => {
-                document.getElementById("textFeedbackText").textContent = text;
-                document.getElementById("fullFeedbackText").textContent = text;
+                // replace special characters
+                let processedText = text.replace(/\u2013|\u2014/g, "&#x2d;")
+                                        .replace(/\u2019|\u2032/g, "&#x27;");
+                document.getElementById("textFeedbackText").textContent = processedText;
+                document.getElementById("fullFeedbackText").textContent = processedText;
             });
 
         document.getElementById("trajectoryGraph").src = imagePath;

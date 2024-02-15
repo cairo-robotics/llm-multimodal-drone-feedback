@@ -55,8 +55,8 @@ async def main(userid, trial):
   3. The top horizontal black line corresponds to y = 600.
   4. The bottom horizontal black line corresponds to y = 0.
   5. The gray rectangle is the landing pad with coordinates 650 < x < 850 and 0 < y < 30.
-  6. The green asterisk is the starting position of the drone.
-  7. The red asterisk is the ending position of the drone.
+  6. The green star is the starting position of the drone.
+  7. The red star is the ending position of the drone.
   8. The black curve is the trajectory of the drone as the pilot attempts to complete the target task.
 
   Target Task:
@@ -133,6 +133,14 @@ async def main(userid, trial):
 
   response = requests.post("https://api.openai.com/v1/chat/completions", headers=headers, json=payload)
   output = response.json()['choices'][0]['message']['content']
+  output = output.replace('\u2014', '-')
+  output = output.replace('\u2019', "'")
+
+  # catch any other unicode characters
+  try:
+    output.encode('ascii')
+  except UnicodeEncodeError as e:
+    print(e)
 
   # generate visual feedback
   visuals.improvement_area = diagnostics.improvement_area

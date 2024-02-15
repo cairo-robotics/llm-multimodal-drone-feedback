@@ -11,6 +11,6 @@
 - open http:localhost:5000
 
 # What to work on next
-- fix weird characters in the output
-- don't let output say top_improvement
-- change improvement areas to say crash instead of boundary
+- don't let output say "top_improvement"
+- change improvement areas to say "crash" instead of boundary
+- add explicit sentence in full feedback condition to reference generated image
