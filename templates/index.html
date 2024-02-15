@@ -81,7 +81,7 @@
 
         <section>
             <div id="instructions1Page" style="display: none; padding-bottom: 30px;">
-                <h1>Instructions</h1>
+                <h1>Instructions 1/3</h1>
                 <p>Your task in this study is to improve your proficiency at playing a quadrotor (drone) landing game.
                     In the game, you are tasked with navigating a quadrotor to a landing pad.
                     A feature of this game is that it includes feedback to help you improve your skill in the game.
@@ -114,7 +114,7 @@
 
         <section>
             <div id="instructions2Page" style="display: none; padding-bottom: 30px;">
-                <h1>Instructions</h1>
+                <h1>Instructions 2/3</h1>
                 <p>Your primary goal is to <b>land the quadrotor</b> as well as <b>minimize the time</b> it takes for you to successfully land the quadrotor. To accomplish these goals, aim to navigate the quadrotor to the landing pad in a controlled manner.</p>
                 
                 <h2 style="padding-top: 20px;">Game Walkthrough</h2>
@@ -136,7 +136,7 @@
 
         <section>
             <div id="instructions3Page" style="display: none; padding-bottom: 30px;">
-                <h1>Instructions</h1>
+                <h1>Instructions 3/3</h1>
                 <p>To start the game, press either the throttle (W or S keys) or tilt (left or right arrow keys).</p>
                 <p>You will play the game 20 times. You will receive feedback each time you play the game.</p>
                 <p>Each time you complete the game, press Next and you will be re-directed to play again.</p>
@@ -169,11 +169,11 @@
                 </style>
 
                 <div id="gameInstructions" style="padding-top: 20px;">
-                    <p> Press either the throttle (W or S keys) or tilt (left or right arrow keys) to begin the game.</p>
+                    <p>Press either the throttle (W or S keys) or tilt (left or right arrow keys) to begin the game.</p>
                     <p>Use the throttle and tilt to land the quadrotor.</p>
                     <p>Press Generate Feedback to continue once you complete the game.</p>
                 </div>
-                <div id="waitButtonDiv">
+                <div id="waitButtonDiv" style="padding-top: 30px;">
                     <button id="waitButton" onclick="waitToGoToScorePage()">Generate Feedback</button>
                 </div>
                 
@@ -187,7 +187,7 @@
 
         <section>
             <div id="scorePage" style="display: none;">
-                <h1>Game Score</h1>
+                <h1>Performance Feedback</h1>
 
                 <div class="container">
                     <div class="row">
@@ -385,7 +385,7 @@
 
         <section>
             <div id="textFeedbackPage" style="display: none;">
-                <h1>Text only feedback page</h1>
+                <h1>Performance Feedback</h1>
                 <p id="textFeedbackText" style="text-align: justify;">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque congue eros maximus tellus dictum, nec facilisis augue ultricies. In vitae metus posuere, maximus velit non, consectetur sem. Suspendisse venenatis nisi diam, vel venenatis ante dapibus in. Phasellus sodales velit ac sem fringilla, vel mollis dolor sagittis. In volutpat pellentesque elit sit amet accumsan. Cras mattis, turpis nec auctor dignissim, leo mauris eleifend massa, iaculis vehicula tortor sem in libero. Sed ut vestibulum felis, ut rhoncus massa. Donec ipsum tortor, maximus eget consequat vitae, vulputate at felis. Proin feugiat feugiat vestibulum.</p>
                 <p>Press Next to continue to a survey about the feedback you received.</p>
                 <button onclick="goToNextFeedbackPage('text')">Next</button>
@@ -394,7 +394,7 @@
 
         <section>
             <div id="fullFeedbackPage" style="display: none;">
-                <h1>Full feedback page</h1>
+                <h1>Performance Feedback</h1>
                 <div class="container">
                     <div class="row align-items-center">
                         <div class="col-4">
@@ -423,7 +423,7 @@
                       display: block;
                     }
                 </style>
-                <h1>Survey</h1>
+                <h1>Feedback Survey</h1>
                 <p>The following questions ask about the feedback you just received about your performance in the game.</p>
                 <br><br>
                 <p>The feedback motivated me to do better in future trials.</p>

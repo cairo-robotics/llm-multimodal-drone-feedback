@@ -13,4 +13,3 @@
 # What to work on next
 - don't let output say "top_improvement"
 - add explicit sentence in full feedback condition to reference generated image
-- make sure headers are consistent throughout
