@@ -1,9 +1,10 @@
 var user_id;
 var trial_number = 1;
 var log;
-var condition = "full";
-// var condition = "score";
-// var condition = "text";
+//var condition = "full";
+//var condition = "score";
+var condition = "text";
+//var condition = "demo";
 
 function goToScreenTest() {
     document.getElementById("startPage").style.display = "none";
@@ -73,9 +74,16 @@ function goToFirstGame() {
     document.getElementById("gamePage").style.display = "block"; 
 }
 
-function goToScorePage() {
+function goToFeedbackPage() {
     document.getElementById("gamePage").style.display = "none";
-    document.getElementById("scorePage").style.display = "block";
+
+    if (condition == "full") {
+        document.getElementById("fullFeedbackPage").style.display = "block";
+    } else if (condition == "score" || condition == "demo") {
+        document.getElementById("scorePage").style.display = "block";
+    } else if (condition == "text") {
+        document.getElementById("textFeedbackPage").style.display = "block";
+    }
 }
 
 async function waitToGoToScorePage() {
@@ -150,19 +158,36 @@ function save_trajectory() {
     });
 }
 
-function goToTextFeedbackPage() {
-    document.getElementById("scorePage").style.display = "none";
-    document.getElementById("textFeedbackPage").style.display = "block";
-}
-
-function goToFullFeedbackPage() {
-    document.getElementById("textFeedbackPage").style.display = "none";
-    document.getElementById("fullFeedbackPage").style.display = "block";
-}
-
-function goToSurveyPage() {
-    document.getElementById("fullFeedbackPage").style.display = "none";
-    document.getElementById("surveyPage").style.display = "block";
+function goToNextFeedbackPage(current) {
+    if (current == 'full') {
+        document.getElementById("fullFeedbackPage").style.display = "none";
+        document.getElementById("surveyPage").style.display = "block";
+    } else if (current == 'text') {
+        if (condition == 'text') {
+            document.getElementById("textFeedbackPage").style.display = "none";
+            document.getElementById("surveyPage").style.display = "block";
+        } else if (condition == "demo") {
+            document.getElementById("textFeedbackPage").style.display = "none";
+            document.getElementById("fullFeedbackPage").style.display = "block";
+        }
+    } else if (current == 'score') {
+        if (condition == 'score') {
+            document.getElementById("scorePage").style.display = "none";
+            document.getElementById("surveyPage").style.display = "block";
+        } else if (condition == "demo") {
+            document.getElementById("scorePage").style.display = "none";
+            document.getElementById("textFeedbackPage").style.display = "block";
+        }
+    } else if (current == 'game') {
+        document.getElementById("gamePage").style.display = "none";
+        if (condition == "full") {
+            document.getElementById("fullFeedbackPage").style.display = "block";
+        } else if (condition == "score" || condition == "demo") {
+            document.getElementById("scorePage").style.display = "block";
+        } else if (condition == "text") {
+            document.getElementById("textFeedbackPage").style.display = "block";
+        }
+    }
 }
 
 function goToGame() {

@@ -179,7 +179,7 @@
                 
                 <div id="postfeedbackgeneration" style="display: none;">
                     <p>Press See Feedback to continue.</p>
-                    <button onclick="goToScorePage()">See Feedback</button>
+                    <button onclick="goToNextFeedbackPage('game')">See Feedback</button>
                 </div>
                 
             </div>
@@ -379,7 +379,7 @@
                 </div>
 
                 <p>Press Next to continue to a survey about the feedback you received.</p>
-                <button onclick="goToTextFeedbackPage()">Next</button>
+                <button onclick="goToNextFeedbackPage('score')">Next</button>
             </div>
         </section>
 
@@ -388,7 +388,7 @@
                 <h1>Text only feedback page</h1>
                 <p id="textFeedbackText" style="text-align: justify;">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque congue eros maximus tellus dictum, nec facilisis augue ultricies. In vitae metus posuere, maximus velit non, consectetur sem. Suspendisse venenatis nisi diam, vel venenatis ante dapibus in. Phasellus sodales velit ac sem fringilla, vel mollis dolor sagittis. In volutpat pellentesque elit sit amet accumsan. Cras mattis, turpis nec auctor dignissim, leo mauris eleifend massa, iaculis vehicula tortor sem in libero. Sed ut vestibulum felis, ut rhoncus massa. Donec ipsum tortor, maximus eget consequat vitae, vulputate at felis. Proin feugiat feugiat vestibulum.</p>
                 <p>Press Next to continue to a survey about the feedback you received.</p>
-                <button onclick="goToFullFeedbackPage()">Next</button>
+                <button onclick="goToNextFeedbackPage('text')">Next</button>
             </div>
         </section>
 
@@ -407,7 +407,7 @@
                     </div>
                 </div>
                 <p>Press Next to continue to a survey about the feedback you received.</p>
-                <button onclick="goToSurveyPage()">Next</button>
+                <button onclick="goToNextFeedbackPage('full')">Next</button>
             </div>
         </section>
 
