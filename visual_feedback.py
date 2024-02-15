@@ -68,7 +68,7 @@ class VisualFeedback:
         trajectory = pd.read_csv(self.traj_file)
 
         # get index of worst robustness value for improvement area column
-        if "boundary" in self.improvement_area:
+        if "crash" in self.improvement_area:
             worst_index = -1
         elif "landing" in self.improvement_area:
             worst_index = robustness[self.improvement_area][:-50].idxmin() # force end of trajectory

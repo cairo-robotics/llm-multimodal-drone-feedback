@@ -135,13 +135,13 @@ class Diagnostics:
         # identify if there was boundary violation
         # setting margin of error to 2
         if (self.robustness['left_boundary'] <= 2).any():
-            return 'left_boundary'
+            return 'crashed_left'
         elif (self.robustness['right_boundary'] <= 2).any():
-            return 'right_boundary'
+            return 'crashed_right'
         elif (self.robustness['bottom_boundary'] <= 2).any():
-            return 'bottom_boundary'
+            return 'crashed_bottom'
         elif (self.robustness['top_boundary'] <= 2).any():
-            return 'top_boundary'
+            return 'crashed_top'
         
         # identify if there was landing violation
         if self.robustness['landing_left'].iloc[-1] <= 0:
