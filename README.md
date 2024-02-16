@@ -11,3 +11,8 @@
 - open http:localhost:5000
 
 # What to work on next
+- send new cost estimate to Sriram
+- submit PV form
+- get public server working
+- finalize Prolific study details online
+- figure out how to not time-out on GPT when running participants
