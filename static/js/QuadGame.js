@@ -1171,16 +1171,20 @@ function save_final() {
     rec_att = parseFloat(droneAngle());
     
     if (success_land == 1){
-        rec_sof = "Safe"
+        rec_sof = "Safe";
+        trial_outcome = "Safe";
     }
     else if (success_land == 2) {
-        rec_sof = "Unsafe"
+        rec_sof = "Unsafe";
+        trial_outcome = "Unsafe";
     }
     else if (success_land == 3) {
-        rec_sof = "Time"
+        rec_sof = "Time";
+        trial_outcome = "Time";
     }
     else {
         rec_sof = "Crash"
+        trial_outcome = "Crash";
     }
 
     // SCORE CALCULATIONS HERE

@@ -1,6 +1,7 @@
 var user_id;
 var trial_number = 1;
 var log;
+var trial_outcome;
 //var condition = "full";
 //var condition = "score";
 var condition = "text";
@@ -66,6 +67,7 @@ function goToInstructions3Page() {
 
 function goToFirstGame() {
     trial_number = 1;
+    document.getElementById("trialnumber").innerHTML = trial_number;
     restartGame();
 
     score_last = tot_score
@@ -114,7 +116,7 @@ async function waitToGoToScorePage() {
 
         document.getElementById("trajectoryGraph").src = imagePath;
 
-        document.getElementById("waitButton").textContent = "Next";
+        document.getElementById("waitButton").textContent = "Generate Feedback";
         document.getElementById("waitButtonDiv").style.display = "none";
         document.getElementById("postfeedbackgeneration").style.display = "block";
     }
@@ -197,6 +199,7 @@ function goToGame() {
     } else {
         save_survey();
         trial_number += 1;
+        document.getElementById("trialnumber").innerHTML = trial_number;
 
         iter_score = tot_score
         if (trial_number == 2){
@@ -214,6 +217,13 @@ function goToGame() {
 }
 
 function save_survey() {
+    // reset all sliders to 3
+    document.getElementById("motivation").value = 3;
+    document.getElementById("manageable").value = 3;
+    document.getElementById("actionable").value = 3;
+    document.getElementById("timely").value = 3;
+    document.getElementById("reflection").value = 3;
+
     fetch('/process_survey_responses', {
         method: 'POST',
         body: JSON.stringify({ user_id: user_id, trial: trial_number, 
@@ -221,7 +231,8 @@ function save_survey() {
             manageable: document.getElementById("manageable").value,
             actionable: document.getElementById("actionable").value,
             timely: document.getElementById("timely").value,
-            reflection: document.getElementById("reflection").value}),
+            reflection: document.getElementById("reflection").value,
+            outcome: trial_outcome}),
         headers: {
             'Content-Type': 'application/json'
         }

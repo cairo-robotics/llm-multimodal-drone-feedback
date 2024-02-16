@@ -46,7 +46,7 @@ def process_user_id():
 
     # create file for survey responses
     with open(f"static/data/{user_id}/survey_responses.csv", "w") as f:
-        f.write("trial,motivation,manageable,actionable,timely,reflection\n")
+        f.write("trial,motivation,manageable,actionable,timely,reflection,outcome\n")
 
     return jsonify({'message': "User ID processed"})
 
@@ -80,12 +80,13 @@ def process_survey_responses():
     actionable = data['actionable']
     timely = data['timely']
     reflection = data['reflection']
+    outcome = data['outcome']
 
     # start log file
     add_log_entry(user_id, f"Received survey responses")
 
     with open(f"static/data/{user_id}/survey_responses.csv", "a") as f:
-        f.write(f"{trial},{motivation},{manageable},{actionable},{timely},{reflection}\n")
+        f.write(f"{trial},{motivation},{manageable},{actionable},{timely},{reflection},{outcome}\n")
 
     return jsonify({'message': "Survey responses received"})
 

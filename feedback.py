@@ -20,7 +20,6 @@ async def main(userid, trial):
   diagnostics = Diagnostics(userid, trial)
   diagnostics.run()
   add_log_entry(userid, f"Improvement area: {diagnostics.improvement_area}")
-  #print(diagnostics.robustness_summary)
 
   visuals = VisualFeedback(userid, trial)
   visuals.plot_trajectory()
@@ -40,21 +39,13 @@ async def main(userid, trial):
   Give feedback to a drone pilot in the following format:
   {compliment} {improvement_area} {actionable} {reflection} {confidence}
   """
-
-
-  #{
-  #    "area of improvement": "{top_improvement}",
-  #    "violations": "{violations}",
-  #    "feedback": "{compliment} {improvement_area} {actionable} {reflection} {confidence}"
-  #}
-
   feedback_prompt += """
   Image Context:
   1. The left vertical black line corresponds to x = 0.
   2. The right vertical black line corresponds to x = 1250.
   3. The top horizontal black line corresponds to y = 600.
   4. The bottom horizontal black line corresponds to y = 0.
-  5. The gray rectangle is the landing pad with coordinates 650 < x < 850 and 0 < y < 30.
+  5. The gray rectangle is the landing pad with coordinates 650 < x < 850 and 0 < y < 55.
   6. The green star is the starting position of the drone.
   7. The red star is the ending position of the drone.
   8. The black curve is the trajectory of the drone as the pilot attempts to complete the target task.
@@ -66,26 +57,6 @@ async def main(userid, trial):
   4. Landing component: $P_2 = x > 650 \land x < 850 \land y < 35 \land s < 15 \land \phi > -5 \land \phi < 5$
   5. Complete task: $P_1 Until P_2$
   """
-
-  # Performance Summary:
-  # 1. The summary starts with [start of summary] and ends with [end of summary].
-  # 2. The summary includes a table of robustness values for each component of the task. Robustness is calculated using the specifications given in the target task. Negative robustness means the component was violated and positive robustness means the component was satisfied.
-  # 3. For each component, the average robustness is calculated over the entire trajectory (all) and the end of the trajectory. The minimum (worst) robustness is calculated over the entire trajectory and the end of the end of the trajectory.
-  # 4. The range of possible robustness values for each component is:
-  #     - left_boundary: [0, 60] 
-  #     - right_boundary: [0, 60] 
-  #     - top_boundary: [0, 33.75] 
-  #     - bottom_boundary: [0, 33.75] 
-  #     - landing_left: [-20.2, 39.8] 
-  #     - landing_right: [-20.2, 39.8] 
-  #     - landing_speed: [-40, 5] 
-  #     - landing_angle: [-180, 10]
-  # 5. Thrust inputs are in the range [-1, 1] and roll inputs are in the range [-1, 1].
-  # 6. A component is violated if the min_end entry in the table below is 0 or negative.
-  # 7. Evaluate smoothness by looking at the trajectory and the average thrust and roll inputs. A smooth trajectory is one that does not have sharp turns or sudden changes in speed.
-  # 8. Evaluate efficiency by looking at the trajectory and the average thrust and roll inputs. An efficient trajectory is one that does not have unnecessary movements or large deviations from the target task.
-
-  #feedback_prompt += "\n" + diagnostics.robustness_summary + "\n"
 
   feedback_prompt += """
   Rules:
@@ -134,6 +105,7 @@ async def main(userid, trial):
   response = requests.post("https://api.openai.com/v1/chat/completions", headers=headers, json=payload)
   output = response.json()['choices'][0]['message']['content']
   output = output.replace('\u2014', '-')
+  output = output.replace('\u2013', '-')
   output = output.replace('\u2019', "'")
 
   # catch any other unicode characters
