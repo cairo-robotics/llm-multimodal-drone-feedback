@@ -77,7 +77,7 @@ async def main(userid, trial):
   9. Replace {reflection} with a task or question that encourages the pilot to reflect on their performance and decide what they can improve on their next attempt.
   10. Replace {confidence} with one or two sentences expressing confidence in the pilot's abilities to achieve at a high level on the target task.
 
-  Remember, your feedback should be in the form of a paragraph.
+  Remember, your feedback should be in the form of a paragraph. Do not use the phrase "top_improvement" or "{top_improvement}" in your feedback. Replace these with the actual improvement area you identified.
   """
 
   payload = {

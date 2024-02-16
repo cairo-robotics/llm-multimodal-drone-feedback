@@ -11,4 +11,3 @@
 - open http:localhost:5000
 
 # What to work on next
-- don't let output say "top_improvement"
