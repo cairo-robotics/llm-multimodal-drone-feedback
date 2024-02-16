@@ -198,6 +198,7 @@ function goToGame() {
         goToQualtrics();
     } else {
         save_survey();
+        resetSurveySliders();
         trial_number += 1;
         document.getElementById("trialnumber").innerHTML = trial_number;
 
@@ -217,13 +218,6 @@ function goToGame() {
 }
 
 function save_survey() {
-    // reset all sliders to 3
-    document.getElementById("motivation").value = 3;
-    document.getElementById("manageable").value = 3;
-    document.getElementById("actionable").value = 3;
-    document.getElementById("timely").value = 3;
-    document.getElementById("reflection").value = 3;
-
     fetch('/process_survey_responses', {
         method: 'POST',
         body: JSON.stringify({ user_id: user_id, trial: trial_number, 
@@ -237,6 +231,15 @@ function save_survey() {
             'Content-Type': 'application/json'
         }
     })
+}
+
+function resetSurveySliders() {
+    // reset all sliders to 3
+    document.getElementById("motivation").value = 3;
+    document.getElementById("manageable").value = 3;
+    document.getElementById("actionable").value = 3;
+    document.getElementById("timely").value = 3;
+    document.getElementById("reflection").value = 3;
 }
 
 function sendLog(message) {
