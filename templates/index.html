@@ -95,7 +95,7 @@
                 <p>The goal is to fly the quadrotor from the starting point to the landing pad.</p>
                 <img src="{{ url_for('static', filename='images/instructions/instructions2.png') }}" style="width: 1250px;">
                 <br><br>
-                <p>You will control the quadrotor's <b>thrust force</b> and <b>attitude (tilt angle)</b> using your keyboard.</p>
+                <p>You will control the quadrotor's <b>thrust force</b> and <b>tilt angle</b> using your keyboard.</p>
                 <img src="{{ url_for('static', filename='images/instructions/instructions3.png') }}" style="width: 1250px;">
                 <br><br>
                 <p>Pressing and holding "W" increases thrust force, causing the quadrotor to <b>accelerate</b>.</p>
@@ -118,13 +118,13 @@
                 <p>Your primary goal is to <b>land the quadrotor</b> as well as <b>minimize the time</b> it takes for you to successfully land the quadrotor. To accomplish these goals, aim to navigate the quadrotor to the landing pad in a controlled manner.</p>
                 
                 <h2 style="padding-top: 20px;">Game Walkthrough</h2>
-                <p>In order to safely land the quadrotor, the quadrotor has to land on the landing pad at a <b>speed below 15.0 m/s and attitude (tilt angle) within &#177;5&#176;</b>. This is categorized as a <b>safe landing</b>. If the quadrotor lands on the landing pad outside of the safe landing criteria, the landing will be categorized as an <b>unsafe landing</b>.</p>
+                <p>In order to safely land the quadrotor, the quadrotor has to land on the landing pad at a <b>speed below 15.0 m/s and tilt angle within &#177;5&#176;</b>. This is categorized as a <b>safe landing</b>. If the quadrotor lands on the landing pad outside of the safe landing criteria, the landing will be categorized as an <b>unsafe landing</b>.</p>
                 <img src="{{ url_for('static', filename='images/instructions/instructions6.png') }}" style="width: 1250px;">
                 <br><br>
                 <p>If the quadrotor <b>hits the window bounds</b>, the quadrotor will crash. This is categorized as a <b>crash</b>.</p>
                 <img src="{{ url_for('static', filename='images/instructions/instructions7.png') }}" style="width: 1250px;">
                 <br><br>
-                <p>For your reference, live <b>speed and attitude</b> data is provided on the left side of the screen. Additionally, time is provided. You have <b>2 minutes</b> to land the quadrotor before the battery dies.</p>
+                <p>For your reference, live <b>speed and tilt</b> data is provided on the left side of the screen. Additionally, time is provided. You have <b>2 minutes</b> to land the quadrotor before the battery dies.</p>
                 <img src="{{ url_for('static', filename='images/instructions/instructions8.png') }}" style="width: 1250px;">
                 <br><br>
                 <p>Press Next to continue.</p>
@@ -137,9 +137,9 @@
         <section>
             <div id="instructions3Page" style="display: none; padding-bottom: 30px;">
                 <h1>Instructions 3/3</h1>
-                <p>To start the game, press either the throttle (W or S keys) or tilt (left or right arrow keys).</p>
+                <p>To start the game, press either the thrust (W or S keys) or tilt (left or right arrow keys).</p>
                 <p>You will play the game 20 times. You will receive feedback each time you play the game.</p>
-                <p>Each time you complete the game, press Next and you will be re-directed to play again.</p>
+                <p>Each time you receive feedback, you will be re-directed to play again.</p>
                 <p style="color: red;">Please maximize the screen before starting the game.</p>
                 <p>Press Next to continue.</p>
                 <button onclick="goToFirstGame()">Next</button>
@@ -170,8 +170,8 @@
 
                 <div id="gameInstructions" style="padding-top: 20px;">
                     <p>This is trial <span id="trialnumber"></span> out of 20.</p>
-                    <p>Press either the throttle (W or S keys) or tilt (left or right arrow keys) to begin the game.</p>
-                    <p>Use the throttle and tilt to land the quadrotor.</p>
+                    <p>Press either the thrust (W or S keys) or tilt (left or right arrow keys) to begin the game and land the quadrotor.</p>
+                    <p>A landing is safe if your speed is below 15.0 m/s and your tilt angle is within &#177;5&#176;.</p>
                     <p>Press Generate Feedback to continue once you complete the game.</p>
                 </div>
                 <div id="waitButtonDiv" style="padding-top: 30px;">
@@ -180,7 +180,7 @@
                 
                 <div id="postfeedbackgeneration" style="display: none;">
                     <p>Press See Feedback to continue.</p>
-                    <button onclick="goToNextFeedbackPage('game')">See Feedback</button>
+                    <button onclick="goToNextFeedbackPage('game')" style="background-color: cornflowerblue;">See Feedback</button>
                 </div>
                 
             </div>
@@ -200,7 +200,7 @@
                                         <th scope="col">Trial No. </th>
                                         <th scope="col">Total Time (seconds) </th>
                                         <th scope="col">Final Velocity (m/s) </th>
-                                        <th scope="col">Final Attitude (&deg)</th>
+                                        <th scope="col">Final Angle (&deg)</th>
                                         <th scope="col">Landing</th>
                                         <th scope="col">Score</th>
                                     </tr>
@@ -450,7 +450,7 @@
                     </div>
                 </div>
 
-                <p>The feedback contained the right amount of information.</p>
+                <p>How much information did the feedback give?</p>
                 <div id="manageableSlider">
                     <div class="middle">
                         <br>
@@ -458,15 +458,15 @@
                             <span class="bar"><span class="fill"></span></span>
                             <input type="range" id="manageable" class="slider" min="1" max="5" value="3" step="1">
                             <div class="sliderticks" style="font-family: Helvetica-Neue, Arial, sans-serif; font-size: 14px;">
-                                <p>1 Strongly Disagree</p>
+                                <p>1 Much too little</p>
                                 <p></p>
                                 <p>2</p>
                                 <p></p>
-                                <p>3 Neither agree nor disagree</p>
+                                <p>3 Just right</p>
                                 <p> </p>
                                 <p>4</p>
                                 <p></p>
-                                <p>5 Strongly Agree</p>
+                                <p>5 Much too much</p>
                             </div>
                         </div>
                     </div>
@@ -494,7 +494,7 @@
                     </div>
                 </div>
 
-                <p>The feedback was presented at an appropriate frequency.</p>
+                <p>How often was the feedback presented?</p>
                 <div id="timelySlider">
                     <div class="middle">
                         <br>
@@ -502,15 +502,15 @@
                             <span class="bar"><span class="fill"></span></span>
                             <input type="range" id="timely" class="slider" min="1" max="5" value="3" step="1">
                             <div class="sliderticks" style="font-family: Helvetica-Neue, Arial, sans-serif; font-size: 14px;">
-                                <p>1 Strongly Disagree</p>
+                                <p>1 Much too infrequent</p>
                                 <p></p>
                                 <p>2</p>
                                 <p></p>
-                                <p>3 Neither agree nor disagree</p>
+                                <p>3 Just enough</p>
                                 <p> </p>
                                 <p>4</p>
                                 <p></p>
-                                <p>5 Strongly Agree</p>
+                                <p>5 Much too often</p>
                             </div>
                         </div>
                     </div>

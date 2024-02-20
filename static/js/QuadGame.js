@@ -339,11 +339,12 @@ var myGameArea = {
         // this.context.fillStyle = "#ff0000";
         this.context.fillStyle = "#660019";
         this.context.fillText("Input Device: Arrow Keys", 20, 40);
-        this.context.fillText("Date : " + mySystemDate(), 20, 60);
-        this.context.fillText("Time : " + myTime(), 20, 80);
-        this.context.fillText("Position (x,y) :" + "(" + dronePosition() + ")", 20, 100);
-        this.context.fillText("Speed (x,y) :" + "(" + Number(XSpeed).toFixed(2) + "," + Number(YSpeed/2).toFixed(2) + ")", 20, 120);
-        this.context.fillText("Attitude :" + "(" + droneAngle() + ")", 20, 140);
+        this.context.fillText("Date: " + mySystemDate(), 20, 60);
+        this.context.fillText("Time: " + myTime(), 20, 80);
+        this.context.fillText("Position (x,y): " + "(" + dronePosition() + ")", 20, 100);
+        let speed = Math.sqrt((XSpeed * XSpeed) + (YSpeed * YSpeed / 4));
+        this.context.fillText("Speed: " + Number(speed).toFixed(2), 20, 120);
+        this.context.fillText("Tilt Angle: " + Number(droneAngle()).toFixed(2), 20, 140);
         
 
         landingZone.update();
@@ -409,14 +410,15 @@ var myGameArea = {
         this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
         this.context.fillStyle = "#660019";
         this.context.fillText("Input Device: Arrow Keys", 20, 40);
-        this.context.fillText("Date : " + mySystemDate(), 20, 60);
+        this.context.fillText("Date: " + mySystemDate(), 20, 60);
         // this.context.fillText("Time : " + myTime(), 20, 80);
-        this.context.fillText("Time : " + time_count / 100 , 20, 80);
+        this.context.fillText("Time: " + time_count / 100 , 20, 80);
         [dx, dy] = dronePosition();
         //this.context.fillText("Position (x,y) :" + "(" + dronePosition() + ")", 20, 100);
-        this.context.fillText("Position (x,y) :" + "(" + dx + "," + dy + ")", 20, 100);
-        this.context.fillText("Speed (x,y) :" + "(" + Number(XSpeed).toFixed(2) + "," + Number(YSpeed/2).toFixed(2) + ")", 20, 120);
-        this.context.fillText("Attitude :" + "(" + droneAngle() + ")", 20, 140);
+        this.context.fillText("Position (x,y): " + "(" + Number(dx).toFixed(2) + "," + Number(dy).toFixed(2) + ")", 20, 100);
+        let speed = Math.sqrt((XSpeed * XSpeed) + (YSpeed * YSpeed / 4));
+        this.context.fillText("Speed: " + Number(speed).toFixed(2), 20, 120);
+        this.context.fillText("Tilt Angle: " + Number(droneAngle()).toFixed(2), 20, 140);
         // if (arrowY != 0 || arrowX != 0){
         //     start_check == true;
         // }

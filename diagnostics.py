@@ -103,12 +103,12 @@ class Diagnostics:
 
     def summary(self):
         """Print summary of what happened before a violation"""
-        summaryTable = pd.DataFrame(index=self.robustnessTerms+['throttle', 'tilt'], columns=['average_all', 'min_all', 'average_end', 'min_end'])
-        self.robustness['throttle'] = self.data['uy_py'].abs()
+        summaryTable = pd.DataFrame(index=self.robustnessTerms+['thrust', 'tilt'], columns=['average_all', 'min_all', 'average_end', 'min_end'])
+        self.robustness['thrust'] = self.data['uy_py'].abs()
         self.robustness['tilt'] = self.data['ux'].abs()
 
         # summarize robustness over entire trajectory
-        summaryVars = self.robustnessTerms + ['throttle', 'tilt']
+        summaryVars = self.robustnessTerms + ['thrust', 'tilt']
         summaryTable['average_all'] = self.robustness[summaryVars].mean().round(3)
         summaryTable['min_all'] = self.robustness[summaryVars].min().round(3)
         

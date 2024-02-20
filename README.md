@@ -31,4 +31,5 @@
 # What to work on next
 - get public server working
 - finalize Prolific study details online
-- figure out how to not time-out on GPT when running participants
+- make prompt less wordy
+- refine compliment conditions

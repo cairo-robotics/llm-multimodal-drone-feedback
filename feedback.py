@@ -51,7 +51,7 @@ async def main(userid, trial):
   8. The black curve is the trajectory of the drone as the pilot attempts to complete the target task.
 
   Target Task:
-  1. The state variables are the drone's x position in meters (x), y position in meters (y), speed in meters per second (s), and attitude angle in degrees (\phi)
+  1. The state variables are the drone's x position in meters (x), y position in meters (y), speed in meters per second (s), and tilt angle in degrees (\phi)
   2. The task is defined using signal temporal logic specifications, which are indicated using $…$
   3. Safety component: $P_1 = x > 0 \land x < 1250 \land y > 0 \land y < 600$
   4. Landing component: $P_2 = x > 650 \land x < 850 \land y < 35 \land s < 15 \land \phi > -5 \land \phi < 5$
@@ -73,7 +73,7 @@ async def main(userid, trial):
   feedback_prompt += """
   6. Replace {compliment} with one or two sentences describing a positive aspect of the pilot's performance relative to the target task. If {top_improvement} is smoothness or efficiency, congratulate the pilot on successfully completing the task. If {top_improvement} is landing, congratulate the pilot on avoiding a crash.
   7. Replace {improvement_area} with a description of which part of the target task the pilot can most improve in, which I identified as {top_improvement}. Specifically refer to a component of the task rather than an overall assessment of the performance.
-  8. Replace {actionable} with a specific control action strategy the pilot can make to improve in {top_improvement}. The possible control actions are throttle (moves the drone up or down) and tilt (moves the drone left or right). Only reference these control actions. Do not reference other control actions.
+  8. Replace {actionable} with a specific control action strategy the pilot can make to improve in {top_improvement}. The possible control actions are thrust (moves the drone up or down) and tilt (moves the drone left or right). Only reference these control actions. Do not reference other control actions.
   9. Replace {reflection} with a task or question that encourages the pilot to reflect on their performance and decide what they can improve on their next attempt.
   10. Replace {confidence} with one or two sentences expressing confidence in the pilot's abilities to achieve at a high level on the target task.
 

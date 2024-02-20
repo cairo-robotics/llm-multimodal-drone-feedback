@@ -108,7 +108,7 @@ class VisualFeedback:
         """
 
         plt.savefig(f"./static/data/{self.userid}/trial_{self.trial}/trajectory_with_feedback.png")
-        plt.close(self.plot[0])
+        plt.close('all')
 
     def generate_visual_feedback(self):
         # generate the trajectory plot

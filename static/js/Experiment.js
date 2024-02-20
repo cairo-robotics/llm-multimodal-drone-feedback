@@ -3,8 +3,8 @@ var trial_number = 1;
 var log;
 var trial_outcome;
 //var condition = "full";
-//var condition = "score";
-var condition = "text";
+var condition = "score";
+//var condition = "text";
 //var condition = "demo";
 
 function goToScreenTest() {
