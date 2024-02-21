@@ -33,3 +33,4 @@
 - finalize Prolific study details online
 - make prompt less wordy
 - refine compliment conditions
+- start on analysis scripts
