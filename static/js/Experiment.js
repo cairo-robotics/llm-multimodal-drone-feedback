@@ -3,9 +3,9 @@ var trial_number = 1;
 var log;
 var trial_outcome;
 //var condition = "full";
-var condition = "score";
+//var condition = "score";
 //var condition = "text";
-//var condition = "demo";
+var condition = "demo";
 
 function goToScreenTest() {
     document.getElementById("startPage").style.display = "none";
@@ -96,7 +96,7 @@ async function waitToGoToScorePage() {
         await save_trajectory();
 
         document.getElementById("gameInstructions").style.display = "none";
-
+        document.getElementById("waitText").style.display = "block";
         document.getElementById("waitButton").textContent = "Please Wait...";
 
         await waitForFeedback();
