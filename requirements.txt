@@ -4,3 +4,4 @@ pandas
 requests
 python-dotenv
 ipykernel
+urllib3>=1.26.5,<2.0
