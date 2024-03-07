@@ -2,9 +2,9 @@ import base64
 import requests
 import dotenv
 
+from datetime import datetime
 from diagnostics import *
 from visual_feedback import *
-from server import add_log_entry
 
 async def main(userid, trial):
   # OpenAI API Key
@@ -19,7 +19,8 @@ async def main(userid, trial):
   # Path to files
   diagnostics = Diagnostics(userid, trial)
   diagnostics.run()
-  add_log_entry(userid, f"Improvement area: {diagnostics.improvement_area}")
+  with open(f"./static/data/{userid}/log.txt", "a") as f:
+      f.write(f"{datetime.now()}: Improvement area is {diagnostics.improvement_area}")
 
   visuals = VisualFeedback(userid, trial)
   visuals.plot_trajectory()
@@ -122,4 +123,5 @@ async def main(userid, trial):
   with open(f"./static/data/{userid}/trial_{trial}/feedback.txt", "w") as f:
       f.write(output)
 
-  add_log_entry(userid, "Saved feedback to file")
+  with open(f"./static/data/{userid}/log.txt", "a") as f:
+      f.write(f"{datetime.now()}: Saved feedback to file.")
