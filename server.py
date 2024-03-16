@@ -37,9 +37,9 @@ def process_user_id():
     condition_path = "./static/data/conditions.csv"
     if not os.path.isfile(condition_path):
         with open(condition_path, "w") as f:
-            f.write("user_id,condition\n")
+            f.write("time,user_id,condition\n")
     with open(condition_path, "a") as f:
-        f.write(f"{user_id},{condition}\n")
+        f.write(f"{datetime.now()},{user_id},{condition}\n")
 
     # start log file
     add_log_entry(user_id, "Received user ID and condition, start log")
