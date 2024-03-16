@@ -20,7 +20,7 @@ async def main(userid, trial):
   diagnostics = Diagnostics(userid, trial)
   diagnostics.run()
   with open(f"./static/data/{userid}/log.txt", "a") as f:
-      f.write(f"{datetime.now()}: Improvement area is {diagnostics.improvement_area}")
+      f.write(f"{datetime.now()}: Improvement area is {diagnostics.improvement_area}\n")
 
   visuals = VisualFeedback(userid, trial)
   visuals.plot_trajectory()
@@ -124,4 +124,4 @@ async def main(userid, trial):
       f.write(output)
 
   with open(f"./static/data/{userid}/log.txt", "a") as f:
-      f.write(f"{datetime.now()}: Saved feedback to file.")
+      f.write(f"{datetime.now()}: Saved feedback to file.\n")
