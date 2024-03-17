@@ -100,7 +100,8 @@ gunicorn --workers 3 --bind 0.0.0.0:5000 wsgi:app --log-file /home/emje6419/myfl
 ```
 If you are feeling really fancy, you can try to create a service that will automatically run this. I gave up after struggling with SELinux policy permissions for several hours.
 
-4. Check you can access your project at `https://dronefeedback.colorado.edu`. Congrats, you did it!
+4. Detatch from your tmux session using `CTRL+B` then `d`. You can attach later using `tmux attach -t mysession`.
+5. Check you can access your project at `https://dronefeedback.colorado.edu`. Congrats, you did it!
 
 # What to work on next
 - finalize Prolific study details online
