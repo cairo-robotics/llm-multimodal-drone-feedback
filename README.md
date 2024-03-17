@@ -1,5 +1,7 @@
 This README outlines the steps to deploy a Flask application on a Red Hat Linux instance using Gunicorn on port 5000 and Nginx as a reverse proxy. Follow these instructions to set up your project environment, deploy your Flask application, ensure it runs successfully with Gunicorn, and configure Nginx.
 
+**Warning**: These steps make it look a lot easier than I experienced trying to get this set up the first time. I tried to distill my multiple false starts into a coherent document. You may need to try rearranging some steps or reloading the firewall/Nginx multiple times to get things working. Hopefully your journey will be easier than mine!
+
 # Preliminary Steps
 1. [Request a managed instance](https://www.colorado.edu/cs/content/managed-cloud-instance-request) from the CS IT team. Make sure you ask them to make a SSL certificate and key for you. The instance should be public (not internal). For the rest of the steps, I will assume the instance is called `dronefeedback.colorado.edu`.
 2. While on the UCB VPN, log into your instance. For the rest of the steps, I will assume the identikey is `emje6419`.
