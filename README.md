@@ -1,49 +1,107 @@
-# Set up
-After cloning and in this repo:
-- Set up virtual environment: 
-    + `python -m venv ./venv` (Windows and Linux).
-- Activate virtual environment: 
-    + `venv/Scripts/activate` (Windows) or 
-    + `source venv/bin/activate` (Linux).
-- Update pip: 
-    + `venv/Scripts/python.exe -m pip install --upgrade pip` (Windows) or 
-    + `/home/emje6419/llm-multimodal-drone-feedback/venv/bin/python -m pip install --upgrade pip` (Linux)
-- Install packages: 
-    + `pip install -r requirements.txt` (Windows and Linux)
-- In the same directory as the script(s), create a .env file that sets the OPENAI_API_KEY variable to your OpenAI API key.
-    + use a text editor (Windows) or 
-    + `echo OPENAI_API_KEY="XXXXXX" >> .env` (Linux)
+This README outlines the steps to deploy a Flask application on a Red Hat Linux instance using Gunicorn on port 5000 and Nginx as a reverse proxy. Follow these instructions to set up your project environment, deploy your Flask application, ensure it runs successfully with Gunicorn, and configure Nginx.
 
-# How to run locally (Windows)
-- activate virtual environment
-- in this directory, run `python server.py`
-- open http:localhost:5000
+# Preliminary Steps
+1. [Request a managed instance](https://www.colorado.edu/cs/content/managed-cloud-instance-request) from the CS IT team. Make sure you ask them to make a SSL certificate and key for you. The instance should be public (not internal). For the rest of the steps, I will assume the instance is called `dronefeedback.colorado.edu`.
+2. While on the UCB VPN, log into your instance. For the rest of the steps, I will assume the identikey is `emje6419`.
+```
+ssh emje6419@dronefeedback.colorado.edu
+```
 
-# How to make public server (Linux)
-- request managed instance from CS IT team (ADD LINK TO FORM)
-- connect to UCB VPN 
-- log into instance `emje6419@dronefeedback.colorado.edu`
-- install git `sudo yum install git`
-- install [Github CLI](https://github.com/cli/cli/blob/trunk/docs/install_linux.md#fedora-centos-red-hat-enterprise-linux-dnf)
-- create [personal access token](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens#creating-a-personal-access-token-classic). Make sure you have enabled 'repo', 'read:org', and 'workflow' scopes.
-- log in to github using personal access token `gh auth login`
-- clone this repo `git clone https://github.com/cairo-robotics/llm-multimodal-drone-feedback.git`
-- do setup instructions above
-- install NGINX (based on [here](https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/8/html/deploying_different_types_of_servers/setting-up-and-configuring-nginx_deploying-different-types-of-servers))
-    + check there is an available module `yum module list nginx`
-    + install the package `sudo yum install nginx`
-    + open ports `sudo firewall-cmd --permanent --add-port=80/tcp` and `sudo firewall-cmd --permanent --add-port=443/tcp`
-    + reload firewall `sudo firewall-cmd --reload`
-    + enable the service `sudo systemctl enable nginx`
-    + start the service `sudo systemctl start nginx`
-    + get instance IP address `curl -4 icanhazip.com`
-    + you should get a successful test page if you navigate to `http://<ip_address>`
+# System Update and Package Installation
+Update system packages and get python set up:
+```
+sudo yum update -y
+sudo yum install git python3-devel -y
+sudo yum groupinstall 'Development Tools' -y
+pip3 install virtualenv
+```
+
+# Configure Github CLI
+1. Install the [Github CLI package](https://github.com/cli/cli/blob/trunk/docs/install_linux.md#fedora-centos-red-hat-enterprise-linux-dnf):
+```
+sudo dnf install gh
+sudo dnf update gh
+```
+2. Create a [personal access token](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens#creating-a-personal-access-token-classic). Make sure you have enabled 'repo', 'read:org', and 'workflow' scopes.
+3. Log in to GitHub using personal access token 
+```
+gh auth login
+```
+# Set Up Flask Project
+1. Set up your virtual environment in your project directory
+```
+pip3 install virtualenv
+mkdir myflaskapp
+cd myflaskapp
+python3 -m virtualenv venv
+source venv/bin/activate
+```
+2. Clone this repository and install dependencies
+```
+git clone https://github.com/cairo-robotics/llm-multimodal-drone-feedback.git
+cd llm-multimodal-drone-feedback
+pip install -r requirements.txt
+```
+3. Set up your OpenAI key (replace XXX with your key)
+```
+echo OPENAI_API_KEY="XXX" >> .env
+```
+4. Connect Flask and Gunicorn. 
+```
+export FLASK_ENV=development
+export FLASK_APP = server.py
+gunicorn --workers 3 --bind 0.0.0.0:5000 wsgi:app --log-file /home/emje6419/myflaskapp/mygunicorn.log
+```
+5. Check that you can access your project at `http://<server-ip>:5000`. You can get your server IP using `curl -4 icanhazip.com`
+
+6. Shut down server for now using `CTRL+C`.
+
+# Set up Nginx
+Instructions are based off of [this website](https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/8/html/deploying_different_types_of_servers/setting-up-and-configuring-nginx_deploying-different-types-of-servers).
+
+1. Install Nginx package
+```
+sudo yum install nginx
+```
+
+2. Move the configuration file from this repo to the Nginx directory. Make sure to update `server_name` with your specific name and the SSL certificate/key locations.
+```
+mv myflaskapp.conf /etc/nginx/conf.d
+```
+
+3. Test and Start Nginx
+```
+sudo systemctl enable nginx
+sudo systemctl start nginx
+```
+
+4. Open relevant ports and reload firewall
+```
+sudo firewall-cmd --permanent --add-port=80/tcp
+sudo firewall-cmd --permanent --add-port=443/tcp
+sudo firewall-cmd --zone=public --add-port=5000/tcp --permanent
+sudo firewall-cmd --reload
+```
+
+5. Check that you can see the system test page by navigating to `http://<server-ip>`.
+
+# Final Steps
+1. Start a tmux session
+```
+sudo yum install tmux -y
+tmux new -s mysession
+```
+2. Make sure the experiment is set to the appropriate feedback condition in the `Experiment.js` file.
+3. Start your server in the tmux session (your virtual environment should already be activated)
+```
+gunicorn --workers 3 --bind 0.0.0.0:5000 wsgi:app --log-file /home/emje6419/myflaskapp/mygunicorn.log
+```
+If you are feeling really fancy, you can try to create a service that will automatically run this. I gave up after struggling with SELinux policy permissions for several hours.
+
+4. Check you can access your project at `https://dronefeedback.colorado.edu`. Congrats, you did it!
 
 # What to work on next
-- get public server working
-    + get ssl certificate info from Adam
-    + set up port 443
 - finalize Prolific study details online
-- make prompt less wordy
-- refine compliment conditions
 - start on analysis scripts
+- make prompt less wordy?
+- refine compliment conditions?
