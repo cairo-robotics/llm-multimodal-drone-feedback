@@ -2,10 +2,10 @@ var user_id;
 var trial_number = 1;
 var log;
 var trial_outcome;
-//var condition = "full";
+var condition = "full";
 //var condition = "score";
 //var condition = "text";
-var condition = "demo";
+//var condition = "demo";
 
 function goToScreenTest() {
     document.getElementById("startPage").style.display = "none";

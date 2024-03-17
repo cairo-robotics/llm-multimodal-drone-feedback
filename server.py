@@ -8,8 +8,8 @@ app = Flask(__name__)
 
 @app.route('/')
 def index():
-    if not os.path.isdir("static/data"):
-        os.mkdir("static/data")
+    if not os.path.isdir("./static/data"):
+        os.mkdir("./static/data")
     return render_template('index.html')
 
 @app.route('/process_log', methods=['POST'])
@@ -29,23 +29,23 @@ def process_user_id():
     condition = data['condition']
 
     # make folder for user data
-    user_path = f"static/data/{user_id}"
+    user_path = f"./static/data/{user_id}"
     if not os.path.isdir(user_path):
         os.mkdir(user_path)
 
     # save condition
-    condition_path = "static/data/conditions.csv"
+    condition_path = "./static/data/conditions.csv"
     if not os.path.isfile(condition_path):
         with open(condition_path, "w") as f:
-            f.write("user_id,condition\n")
+            f.write("time,user_id,condition\n")
     with open(condition_path, "a") as f:
-        f.write(f"{user_id},{condition}\n")
+        f.write(f"{datetime.now()},{user_id},{condition}\n")
 
     # start log file
     add_log_entry(user_id, "Received user ID and condition, start log")
 
     # create file for survey responses
-    with open(f"static/data/{user_id}/survey_responses.csv", "w") as f:
+    with open(f"./static/data/{user_id}/survey_responses.csv", "w") as f:
         f.write("trial,motivation,manageable,actionable,timely,reflection,outcome\n")
 
     return jsonify({'message': "User ID processed"})
@@ -57,7 +57,7 @@ def process_trial_start():
     trial = data['trial']
 
     # make folder for trial data
-    trial_path = f"static/data/{user_id}/trial_{trial}"
+    trial_path = f"./static/data/{user_id}/trial_{trial}"
     if not os.path.isdir(trial_path):
         os.mkdir(trial_path)
 
@@ -65,7 +65,7 @@ def process_trial_start():
     add_log_entry(user_id, f"Trial {trial} started")
 
     # create file for trial data
-    with open(f"static/data/{user_id}/trial_{trial}/trajectory.csv", "w") as f:
+    with open(f"./static/data/{user_id}/trial_{trial}/trajectory.csv", "w") as f:
         f.write("x,y_js,vx,vy,phi,ux,uy_js\n")
 
     return jsonify({'message': "Trial started"})
@@ -85,7 +85,7 @@ def process_survey_responses():
     # start log file
     add_log_entry(user_id, f"Received survey responses")
 
-    with open(f"static/data/{user_id}/survey_responses.csv", "a") as f:
+    with open(f"./static/data/{user_id}/survey_responses.csv", "a") as f:
         f.write(f"{trial},{motivation},{manageable},{actionable},{timely},{reflection},{outcome}\n")
 
     return jsonify({'message': "Survey responses received"})
@@ -100,24 +100,24 @@ async def process_trajectory():
     # start log file
     add_log_entry(user_id, f"Received trajectory data")
 
-    with open(f"static/data/{user_id}/trial_{trial}/trajectory.csv", "a") as f:
+    with open(f"./static/data/{user_id}/trial_{trial}/trajectory.csv", "a") as f:
         f.write(log)
 
     # fix y positions
-    df = pd.read_csv(f"static/data/{user_id}/trial_{trial}/trajectory.csv")
+    df = pd.read_csv(f"./static/data/{user_id}/trial_{trial}/trajectory.csv")
     df['y_py'] = -(df['y_js'] - 600)
     df['uy_py'] = -df['uy_js']
-    df.to_csv(f"static/data/{user_id}/trial_{trial}/trajectory.csv", index=False)
+    df.to_csv(f"./static/data/{user_id}/trial_{trial}/trajectory.csv", index=False)
 
     return jsonify({'message': "Trajectory data received"})
 
 @app.route('/wait_for_feedback/<userid>/<trial>')
 async def wait_for_feedback(userid, trial):
-    result = await wait(userid, trial)
-    return result
+    await wait(userid, trial)
+    return "Complete"
 
 def add_log_entry(user_id, entry):
-    with open(f"static/data/{user_id}/log.txt", "a") as f:
+    with open(f"./static/data/{user_id}/log.txt", "a") as f:
         f.write(f"{datetime.now()}: {entry}\n")
 
 async def wait(userid, trial):
