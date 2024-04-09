@@ -32,7 +32,6 @@ gh auth login
 # Set Up Flask Project
 1. Set up your virtual environment in your project directory
 ```
-pip3 install virtualenv
 mkdir myflaskapp
 cd myflaskapp
 python3 -m virtualenv venv
@@ -103,8 +102,7 @@ If you are feeling really fancy, you can try to create a service that will autom
 4. Detatch from your tmux session using `CTRL+B` then `d`. You can attach later using `tmux attach -t mysession`.
 5. Check you can access your project at `https://dronefeedback.colorado.edu`. Congrats, you did it!
 
-# What to work on next
-- finalize Prolific study details online
-- start on analysis scripts
+# Thoughts to improve feedback
 - make prompt less wordy?
 - refine compliment conditions?
+- how to change frequency/content over time?
