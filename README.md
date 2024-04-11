@@ -102,6 +102,14 @@ If you are feeling really fancy, you can try to create a service that will autom
 4. Detatch from your tmux session using `CTRL+B` then `d`. You can attach later using `tmux attach -t mysession`.
 5. Check you can access your project at `https://dronefeedback.colorado.edu`. Congrats, you did it!
 
+# Transfer Data Back to Windows
+1. Open Git Bash
+2. Make a folder on Windows where you want your data to be stored
+3. Use SCP to copy files
+```
+scp -r emje6419@dronefeedback.colorado.edu:/home/emje6419/myflaskapp/llm-multimodal-drone-feedback/static/data 'C:/Users/Emily Jensen/OneDrive - UCB-O365/Drone Feedback Data'
+```
+
 # Thoughts to improve feedback
 - make prompt less wordy?
 - refine compliment conditions?
