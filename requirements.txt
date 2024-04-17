@@ -6,3 +6,5 @@ python-dotenv
 ipykernel
 urllib3>=1.26.5,<2.0
 gunicorn
+scipy
+scikit-posthocs
