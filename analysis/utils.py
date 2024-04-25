@@ -1,6 +1,9 @@
 import pandas as pd
 import os
 import shutil
+import scikit_posthocs as sp
+import scipy.stats as stats
+from statsmodels.miscmodels.ordinal_model import OrderedModel
 
 data_dir = 'C:/Users/Emily Jensen/OneDrive - UCB-O365/Drone Feedback Data/data/'
 
@@ -338,7 +341,7 @@ def copy_images(ids):
             shutil.copy(processed_image, data_dir + 'images/processed/' + user + '_' + trials + '_processed.png')
 
 # run basic stats for methods section
-def run_basic_stats(part_file, trial_file):
+def run_basic_stats(part_file):
     n_participants = len(part_file)
     count_cols = ['condition', 'gender', 'drone_experience', 'video_game_experience', 'feedback_helped', 'feedback_helped_collapsed']
 
@@ -353,3 +356,54 @@ def run_basic_stats(part_file, trial_file):
     for c in describe_cols:
         print(f"\n{c}:")
         print(part_file[c].describe().round(2))
+
+# fits ordered model with specified dependent and independent variables
+def run_ordered_model(dep_var, ind_vars, df):
+    model = OrderedModel(df[dep_var],
+                         df[ind_vars],
+                         distr='logit')
+    results = model.fit(method='bfgs')
+    print(results.summary())
+
+# runs Kruskal-Wallis test to see if distributions are different between groups
+def run_kruskal(var, df):
+    distribution = df.groupby('condition')[var].value_counts(normalize=True).unstack().round(2).sort_index()
+    print(distribution)
+
+    grouped_data = [group for group in df.groupby('condition')[var].apply(list)]
+    result = stats.kruskal(*grouped_data)
+    print(result)
+
+    if result.pvalue < 0.05:
+        # run Dunn's posthoc test to see which groups are different
+        print(sp.posthoc_dunn(df, val_col=var, group_col='condition', p_adjust='bonferroni'))
+
+# run one-way anova to see if there are differences between groups (parameterized version of Kruskal-Wallis)
+def run_anova(var, df):
+    grouped_data = [group for group in df.groupby('condition')[var].apply(list)]
+    result = stats.f_oneway(*grouped_data)
+    print(result)
+
+    if result.pvalue < 0.05:
+        # run Dunn's posthoc test to see which groups are different
+        print(sp.posthoc_dunn(df, val_col=var, group_col='condition', p_adjust='bonferroni'))
+
+# runs ttest on variable to see differences in splits of trials
+def run_ttest_quantiles(var, splits, part_file, trial_file, idx=None):
+    n_trials = 20
+    split1 = splits[0] * n_trials
+    trials1 = trial_file[trial_file['trial'] <= split1]
+    outcomes1 = pd.merge(trials1.groupby('prolific_id')['outcome'].value_counts().unstack(), part_file[['prolific_id', 'condition']], left_index=True, right_on='prolific_id')
+
+    split2 = splits[1] * n_trials
+    trials2 = trial_file[trial_file['trial'] > split2]
+    outcomes2 = pd.merge(trials2.groupby('prolific_id')['outcome'].value_counts().unstack(), part_file[['prolific_id', 'condition']], left_index=True, right_on='prolific_id')
+
+    if idx is None:
+        # do it on all conditions
+        result = stats.ttest_ind(outcomes1[var], outcomes2[var])
+    else:
+        # do it for just condition idx provided
+        result = stats.ttest_ind(outcomes1.loc[outcomes1['prolific_id'].isin(idx), var], outcomes2.loc[outcomes2['prolific_id'].isin(idx), var])
+    
+    print(result)
