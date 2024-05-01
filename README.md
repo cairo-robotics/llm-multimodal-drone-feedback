@@ -21,11 +21,13 @@ pip3 install virtualenv
 # Configure Github CLI
 1. Install the [Github CLI package](https://github.com/cli/cli/blob/trunk/docs/install_linux.md#fedora-centos-red-hat-enterprise-linux-dnf):
 ```
+sudo dnf install 'dnf-command(config-manager)'
+sudo dnf config-manager --add-repo https://cli.github.com/packages/rpm/gh-cli.repo
 sudo dnf install gh
 sudo dnf update gh
 ```
-2. Create a [personal access token](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens#creating-a-personal-access-token-classic). Make sure you have enabled 'repo', 'read:org', and 'workflow' scopes.
-3. Log in to GitHub using personal access token 
+2. Create a (Classic) [personal access token](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens#creating-a-personal-access-token-classic). Make sure you have enabled 'repo', 'read:org', and 'workflow' scopes.
+3. Log in to GitHub using personal access token. When prompted, choose "github.com", "HTTPS", and authenticate using authentication token. 
 ```
 gh auth login
 ```
@@ -47,15 +49,26 @@ pip install -r requirements.txt
 ```
 echo OPENAI_API_KEY="XXX" >> .env
 ```
-4. Connect Flask and Gunicorn. 
+
+4. Open relevant ports and reload firewall
+```
+sudo firewall-cmd --permanent --add-port=80/tcp
+sudo firewall-cmd --permanent --add-port=443/tcp
+sudo firewall-cmd --zone=public --add-port=5000/tcp --permanent
+sudo firewall-cmd --reload
+```
+
+5. Get your server's IP address using `curl -4 icanhazip.com`
+
+6. Connect Flask and Gunicorn. 
 ```
 export FLASK_ENV=development
-export FLASK_APP = server.py
+export FLASK_APP=server.py
 gunicorn --workers 3 --bind 0.0.0.0:5000 wsgi:app --log-file /home/emje6419/myflaskapp/mygunicorn.log
 ```
-5. Check that you can access your project at `http://<server-ip>:5000`. You can get your server IP using `curl -4 icanhazip.com`
+7. Check that you can access your project at `http://<server-ip>:5000`.
 
-6. Shut down server for now using `CTRL+C`.
+8. Shut down server for now using `CTRL+C`.
 
 # Set up Nginx
 Instructions are based off of [this website](https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/8/html/deploying_different_types_of_servers/setting-up-and-configuring-nginx_deploying-different-types-of-servers).
@@ -76,15 +89,7 @@ sudo systemctl enable nginx
 sudo systemctl start nginx
 ```
 
-4. Open relevant ports and reload firewall
-```
-sudo firewall-cmd --permanent --add-port=80/tcp
-sudo firewall-cmd --permanent --add-port=443/tcp
-sudo firewall-cmd --zone=public --add-port=5000/tcp --permanent
-sudo firewall-cmd --reload
-```
-
-5. Check that you can see the system test page by navigating to `http://<server-ip>`.
+4. Check that you can see the system test page by navigating to `http://<server-ip>`.
 
 # Final Steps
 1. Start a tmux session
