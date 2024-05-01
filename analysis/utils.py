@@ -152,6 +152,9 @@ def load_data():
                   '63ba10de73415d047e1d6731', '643c6175d46d41e74033994f', 
                   '65cba99c92b362b45e414da7']
     
+    # remove participants that did not put in any effort
+    remove_ids += ['63026a8fd8429b224cd2a134', '637d4196c70a66e28ecede34', '5f90581950d8520e8c7d3890']
+    
     merged_filtered = merged[~merged['prolific_id'].isin(remove_ids)]
 
     # calculate time participants spent on whole experiment
