@@ -60,7 +60,7 @@ sudo firewall-cmd --reload
 
 5. Get your server's IP address using `curl -4 icanhazip.com`
 
-6. Connect Flask and Gunicorn. 
+6. Connect Flask and Gunicorn. You will know the server is running if the command line blinks like it is busy and you can't enter other commands. If nothing seems to happen or other issues come up, you can check the log file you specified for details.
 ```
 export FLASK_ENV=development
 export FLASK_APP=server.py
@@ -69,6 +69,25 @@ gunicorn --workers 3 --bind 0.0.0.0:5000 wsgi:app --log-file /home/emje6419/myfl
 7. Check that you can access your project at `http://<server-ip>:5000`.
 
 8. Shut down server for now using `CTRL+C`.
+
+# Generate SSL Certificate
+We have had inconsistent luck getting CS IT to generate an SSL certificate. If they direct you to use campus OIT, then follow these steps.
+
+1. [Request an SSL certificate](https://oit.colorado.edu/services/web-content-applications/ssl-certificates) through OIT's website.
+2. You will get an email that instructs you to go to Sectigo. It will have other steps as well. You'll fill out a form that asks for a CSR (Certificate Signing Request). This is a file that has information about your system. If it doesn't exist on your system, you will have to generate one.
+3. To find out if there is one already, go to your root directory and enter: `sudo find / -type f -name "*.csr"`
+4. If there is no result, you have to create one. To make one, first generate a private key on the remote server:
+```
+sudo yum install openssl
+openssl genrsa -out mydomain.key 2048
+```
+5. Generate the CSR on the remote server: `openssl req -new -key mydomain.key -out mydomain.csr`. It will ask for your Country Name (2 letter code) which here is `US`. When you generate the challenge password, make sure you make note of it! you will need it later when you get your ssl certificate.
+6. To securely copy the csr to your local machine so that you can upload it to Sectigo, locate the csr on your host: `sudo find / -type f -name "*.csr"`. This will give the path for the file.
+7. Then open a _local terminal window_ (try using Git Bash) and copy the file.
+```
+scp emje6419@dronefeedback.colorado.edu:<path for csr file.csr> 'C:/Users...<local destination folder>'
+```
+8. You can then upload the CSR to the Sectigo form.
 
 # Set up Nginx
 Instructions are based off of [this website](https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/8/html/deploying_different_types_of_servers/setting-up-and-configuring-nginx_deploying-different-types-of-servers).
