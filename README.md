@@ -91,24 +91,28 @@ scp emje6419@dronefeedback.colorado.edu:<path for csr file.csr> 'C:/Users...<loc
 
 # Set up Nginx
 Instructions are based off of [this website](https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/8/html/deploying_different_types_of_servers/setting-up-and-configuring-nginx_deploying-different-types-of-servers).
-
-1. Install Nginx package
+1. Restart your flask app
+```
+source venv/bin/activate
+gunicorn --workers 3 --bind 0.0.0.0:5000 wsgi:app --log-file /home/emje6419/myflaskapp/mygunicorn.log
+```
+2. Install Nginx package
 ```
 sudo yum install nginx
 ```
 
-2. Move the configuration file from this repo to the Nginx directory. Make sure to update `server_name` with your specific name and the SSL certificate/key locations.
+3. Move the configuration file from this repo to the Nginx directory. Make sure to update `server_name` with your specific name and the SSL certificate/key locations.
 ```
-mv myflaskapp.conf /etc/nginx/conf.d
+sudo mv myflaskapp.conf /etc/nginx/conf.d
 ```
 
-3. Test and Start Nginx
+4. Test and Start Nginx
 ```
 sudo systemctl enable nginx
 sudo systemctl start nginx
 ```
 
-4. Check that you can see the system test page by navigating to `http://<server-ip>`.
+5. Check that you can see the system test page by navigating to `http://<server-ip>`.
 
 # Final Steps
 1. Start a tmux session
