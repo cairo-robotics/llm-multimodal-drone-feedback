@@ -251,6 +251,9 @@ def load_data():
     all_responses['trial_time_seconds'] = all_responses['trial_time'].dt.total_seconds()
     all_responses['feedback_time_seconds'] = all_responses['feedback_time'].dt.total_seconds()
 
+    # remove trials where time is over 99th percentile
+    all_responses = all_responses[(all_responses['trial_time_seconds'] <= 123.46) & (all_responses['feedback_time_seconds'] <= 184.71)]
+
     # calculate average trial and feedback times for each participant and merge into participant file
     avg_trial_time = all_responses.groupby('prolific_id')['trial_time'].mean()
     avg_feedback_time = all_responses.groupby('prolific_id')['feedback_time'].mean()
