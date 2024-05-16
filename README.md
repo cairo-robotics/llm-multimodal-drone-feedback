@@ -1,15 +1,33 @@
+# How to cite this software
+The 2D quadrotor landing game is implemented in JavaScript and can be added to any website. In this repo, the website is served using a Python Flask application. Various versions of the game have been used in the following projects:
+- Emily's project
+- Madi has at least 2 projects
+- Sooyung has other projects?
+
+If you use this software in your own project, please use the following citation:
+```
+@misc{quadrotor-game,
+  author = {Byeon, Sooyung and Jensen, Emily and Yuh, Madeleine S. and Hwang, Inseok and Jain, Neera and Sankaranarayanan, Sriram},
+  title = {Quadrotor Landing Game},
+  year  = {2024},
+  url   = {https://github.com/cairo-robotics/llm-multimodal-drone-feedback},
+}
+```
+
+# Using this repo
+
 This README outlines the steps to deploy a Flask application on a Red Hat Linux instance using Gunicorn on port 5000 and Nginx as a reverse proxy. Follow these instructions to set up your project environment, deploy your Flask application, ensure it runs successfully with Gunicorn, and configure Nginx.
 
 **Warning**: These steps make it look a lot easier than I experienced trying to get this set up the first time. I tried to distill my multiple false starts into a coherent document. You may need to try rearranging some steps or reloading the firewall/Nginx multiple times to get things working. Hopefully your journey will be easier than mine!
 
-# Preliminary Steps
+## Preliminary Steps
 1. [Request a managed instance](https://www.colorado.edu/cs/content/managed-cloud-instance-request) from the CS IT team. Make sure you ask them to make a SSL certificate and key for you. The instance should be public (not internal). For the rest of the steps, I will assume the instance is called `dronefeedback.colorado.edu`.
 2. While on the UCB VPN, log into your instance. For the rest of the steps, I will assume the identikey is `emje6419`.
 ```
 ssh emje6419@dronefeedback.colorado.edu
 ```
 
-# System Update and Package Installation
+## System Update and Package Installation
 Update system packages and get python set up:
 ```
 sudo yum update -y
@@ -18,7 +36,7 @@ sudo yum groupinstall 'Development Tools' -y
 pip3 install virtualenv
 ```
 
-# Configure Github CLI
+## Configure Github CLI
 1. Install the [Github CLI package](https://github.com/cli/cli/blob/trunk/docs/install_linux.md#fedora-centos-red-hat-enterprise-linux-dnf):
 ```
 sudo dnf install 'dnf-command(config-manager)'
@@ -31,7 +49,7 @@ sudo dnf update gh
 ```
 gh auth login
 ```
-# Set Up Flask Project
+## Set Up Flask Project
 1. Set up your virtual environment in your project directory
 ```
 mkdir myflaskapp
@@ -70,7 +88,7 @@ gunicorn --workers 3 --bind 0.0.0.0:5000 wsgi:app --log-file /home/emje6419/myfl
 
 8. Shut down server for now using `CTRL+C`.
 
-# Generate SSL Certificate
+## Generate SSL Certificate
 We have had inconsistent luck getting CS IT to generate an SSL certificate. If they direct you to use campus OIT, then follow these steps.
 
 1. [Request an SSL certificate](https://oit.colorado.edu/services/web-content-applications/ssl-certificates) through OIT's website.
@@ -89,7 +107,7 @@ scp emje6419@dronefeedback.colorado.edu:<path for csr file.csr> 'C:/Users...<loc
 ```
 8. You can then upload the CSR to the Sectigo form.
 
-# Set up Nginx
+## Set up Nginx
 Instructions are based off of [this website](https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/8/html/deploying_different_types_of_servers/setting-up-and-configuring-nginx_deploying-different-types-of-servers).
 1. Restart your flask app
 ```
@@ -114,7 +132,7 @@ sudo systemctl start nginx
 
 5. Check that you can see the system test page by navigating to `http://<server-ip>`.
 
-# Final Steps
+## Final Steps
 1. Start a tmux session
 ```
 sudo yum install tmux -y
@@ -130,7 +148,7 @@ If you are feeling really fancy, you can try to create a service that will autom
 4. Detatch from your tmux session using `CTRL+B` then `d`. You can attach later using `tmux attach -t mysession`.
 5. Check you can access your project at `https://dronefeedback.colorado.edu`. Congrats, you did it!
 
-# Transfer Data Back to Windows
+## Transfer Data Back to Windows
 1. Open Git Bash
 2. Make a folder on Windows where you want your data to be stored
 3. Use SCP to copy files
