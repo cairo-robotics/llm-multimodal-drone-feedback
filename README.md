@@ -1,14 +1,14 @@
 # How to cite this software
-The 2D quadrotor landing game is implemented in JavaScript and can be added to any website. In this repo, the website is served using a Python Flask application. Various versions of the game have been used in the following projects:
+The 2D quadrotor landing simulation is implemented in JavaScript and can be added to any website. In this repo, the website is served using a Python Flask application. Various versions of the simulation have been used in the following projects:
 - Emily's project
 - Madi has at least 2 projects
 - Sooyung has other projects?
 
 If you use this software in your own project, please use the following citation:
 ```
-@misc{quadrotor-game,
-  author = {Byeon, Sooyung and Jensen, Emily and Yuh, Madeleine S. and Hwang, Inseok and Jain, Neera and Sankaranarayanan, Sriram},
-  title = {Quadrotor Landing Game},
+@misc{quadrotor-simulation,
+  author = {Byeon, Sooyung and Jensen, Emily and Yuh, Madeleine S. and Sankaranarayanan, Sriram and Jain, Neera and Hwang, Inseok},
+  title = {Quadrotor Landing Simulation},
   year  = {2024},
   url   = {https://github.com/cairo-robotics/llm-multimodal-drone-feedback},
 }
