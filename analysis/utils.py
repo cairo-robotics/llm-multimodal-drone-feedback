@@ -415,9 +415,11 @@ def run_ordered_model(dep_var, ind_vars, df):
 # runs Kruskal-Wallis test to see if distributions are different between groups
 def run_kruskal(var, df):
     distribution = df.groupby('condition')[var].value_counts(normalize=True).unstack().round(2).sort_index()
+    distribution = distribution.drop('demo')
     print(distribution)
 
     grouped_data = [group for group in df.groupby('condition')[var].apply(list)]
+    grouped_data.remove([]) # sometimes empty demo shows up in conditions?
     result = stats.kruskal(*grouped_data)
     print(result)
 
@@ -428,6 +430,7 @@ def run_kruskal(var, df):
 # run one-way anova to see if there are differences between groups (parameterized version of Kruskal-Wallis)
 def run_anova(var, df):
     grouped_data = [group for group in df.groupby('condition')[var].apply(list)]
+    grouped_data.remove([])
     result = stats.f_oneway(*grouped_data)
     print(result)
 
