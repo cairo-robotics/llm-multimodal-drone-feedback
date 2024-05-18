@@ -62,10 +62,54 @@ def load_data():
     exit_survey_file = data_dir + 'exit_survey.csv'
     exit_survey = pd.read_csv(exit_survey_file)
 
-    # remove test data from conditions file
+    # remove participants that restarted after the first 5 trials
+    remove_ids = ['5ef9f528c7ae587afa25fe9b', '6105c41aa4fe602501d5a8cc', 
+                  '610796f1301fccdca446af57', '631f1b608af38f654d2a3b1f', 
+                  '63ba10de73415d047e1d6731', '643c6175d46d41e74033994f', 
+                  '65cba99c92b362b45e414da7']
+    
+    # remove participants that did not put in any effort
+    remove_ids += ['63026a8fd8429b224cd2a134', '637d4196c70a66e28ecede34', 
+                   '5f90581950d8520e8c7d3890', '60706b67613f243aabd7f7bf']
+
+    # remove participants that returned the study
+    remove_ids += ['5f84d512acba571a2bdda680', '61036bbd791964fafe65236a',
+                   '6113a1bd2592fc45dff695a2', '612e41fb25de530ea83df0bc',
+                   '654d0bd1f4ba143e0503a02f', '611291090e626fdfde536f38',
+                   '5f5fa5d24b9f98028f4090e7', '65087d8f2ba136783598dcc8',
+                   '5700be5c8a49c7000e0c768f', '626966a12d29060d48439d01',
+                   '63b4a880e615d21a58306118', '5de6766e89d6b4000f71bc0d',
+                   '5f35cd449bf003039842077f', '64d8bb260860973a90493f15',
+                   '65172a5accd4f7b31d650d6f', '64358f9eb05899a85826382d',
+                   '6435816b3f5be1197802bcd5', '6266b4ea9408fc167507d923',
+                   '5b0fa626bd9c310001568d6c', '5b564fb0162d5d00011039c7',
+                   '64dbb43e8bfa212e6da507e5', '655f9d1c94dedff4c7b786e8',
+                   '63ea5b93d1c6d38e1f57dcfa', '65a5372ee7a6f4f7ed04f2e6',
+                   '65a4333efc75f965e7fc0cb5', '5f5834134283933a1c3b42d0',
+                   '559d9916fdf99b1e2b2dc6b8', '60fdf01326f76cc0c5be3d2f',
+                   '5c4ea7c3889752000156ddc5', '6537d3aef0f4a4896f7c3ae9',
+                   '591648cf6ddd3b00016424ca', '630d42ab004b0f34fcf4b52e',
+                   '5bc934c69427200001dd4ef2', '641361334c91a0c6ff4c5b79',
+                   '5deaa726df55eb1cc1b9474f', '6580563ab7a54f1d93ec09f3',
+                   '5b6a87d2cda8590001db8e07', '5f4825050fc6402cb19feade',
+                   '58ee956a575c01000180b080', '60fefe875a7f07ec491382f7',
+                   '61735e55ab7dfe9f9e48cb87', '6433027685899f1cfc35e39e',
+                   '5f88877885e51d02acd71b12', '5c48f00f37da740001e8969c',
+                   '66040ad49b997f5f15078f82', '640cd020656929eeb856a443',
+                   '5f8001ebabc31a000c257ccc', '579983292fc0d400012c8937',
+                   '5c952f252e2e320019b1aa7b', '5f2eebd9d21e322a9ed68f09',
+                   '5fce736898fa590803b3b0d8', '62732854d22b38dbdae3ef9c',
+                   '5f68ec6d717b8c090ca23ee3', '5c7ee0e760ad890001151526']
+    
+    # remove participants that timed out of the study
+    remove_ids += ['62dc761564191bc28a87e7c7', '5cb5f1e080ba1c0001790399',
+                   '65626ad03999ef1271a16c61']
+    
+    # remove participants that did not complete 20 trials
+    remove_ids += ['65ac0e221c79ea32da32b5ed', '60bae0529aff11d81b7bd7ee']
+    
+    # clean up columns in conditions file
     conditions['time'] = pd.to_datetime(conditions['time'])
-    conditions = conditions[conditions['time'] >= '2024-04-10 11:15:00']
-    conditions = conditions[~conditions['user_id'].str.contains('emily')]
     conditions['condition'] = pd.Categorical(conditions['condition'])
 
     # clean up columns and dtypes in exit survey file
@@ -94,12 +138,17 @@ def load_data():
     exit_survey['is_finished'] = exit_survey['is_finished'].astype(bool)
     exit_survey['age'] = pd.to_numeric(exit_survey['age'])
 
-    # remove test data from exit survey file
+    # remove test data and excluded participants
     exit_survey = exit_survey[exit_survey['start_date'] >= '2024-04-10 11:15:00']
+    exit_survey = exit_survey[exit_survey['prolific_id'].str.startswith(('5','6'))]
+    conditions = conditions[conditions['time'] >= '2024-04-10 11:15:00']
+    conditions = conditions[conditions['user_id'].str.startswith(('5','6'))]
+    
+    conditions = conditions[~conditions['user_id'].isin(remove_ids)]
+    exit_survey = exit_survey[~exit_survey['prolific_id'].isin(remove_ids)]
 
     # process categorical data
     exit_survey['gender'] = pd.Categorical(exit_survey['gender'])
-    exit_survey = exit_survey[~exit_survey['prolific_id'].str.contains('emily')]
 
     drone_map = {'I have never flown a drone': "None", 
                 'I have tried flying a drone a few times': "Some", 
@@ -146,18 +195,8 @@ def load_data():
     participant_file = data_dir + 'participant_info.csv'
     merged.to_csv(participant_file, index=False)
 
-    # remove participants that restarted after the first 5 trials
-    remove_ids = ['5ef9f528c7ae587afa25fe9b', '6105c41aa4fe602501d5a8cc', 
-                  '610796f1301fccdca446af57', '631f1b608af38f654d2a3b1f', 
-                  '63ba10de73415d047e1d6731', '643c6175d46d41e74033994f', 
-                  '65cba99c92b362b45e414da7']
-    
-    # remove participants that did not put in any effort
-    remove_ids += ['63026a8fd8429b224cd2a134', '637d4196c70a66e28ecede34', '5f90581950d8520e8c7d3890']
-    
-    merged_filtered = merged[~merged['prolific_id'].isin(remove_ids)]
-
     # calculate time participants spent on whole experiment
+    merged_filtered = merged # do this because I changed how we are filtering and I'm too lazy to rename everything at the moment
     merged_filtered['total_time'] = merged_filtered['prolific_id'].apply(calculate_total_time)
 
     # calculate total number of each type of landing
@@ -252,7 +291,9 @@ def load_data():
     all_responses['feedback_time_seconds'] = all_responses['feedback_time'].dt.total_seconds()
 
     # remove trials where time is over 99th percentile
-    all_responses = all_responses[(all_responses['trial_time_seconds'] <= 123.46) & (all_responses['feedback_time_seconds'] <= 184.71)]
+    trial_quantile = all_responses['trial_time_seconds'].quantile(.99)
+    feedback_quantile = all_responses['feedback_time_seconds'].quantile(.99)
+    all_responses = all_responses[(all_responses['trial_time_seconds'] <= trial_quantile) & (all_responses['feedback_time_seconds'] <= feedback_quantile)]
 
     # calculate average trial and feedback times for each participant and merge into participant file
     avg_trial_time = all_responses.groupby('prolific_id')['trial_time'].mean()
