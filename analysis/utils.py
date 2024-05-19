@@ -4,6 +4,7 @@ import shutil
 import scikit_posthocs as sp
 import scipy.stats as stats
 from statsmodels.miscmodels.ordinal_model import OrderedModel
+import numpy as np
 
 data_dir = 'C:/Users/Emily Jensen/OneDrive - UCB-O365/Drone Feedback Data/data/'
 
@@ -411,6 +412,10 @@ def run_ordered_model(dep_var, ind_vars, df):
                          distr='logit')
     results = model.fit(method='bfgs')
     print(results.summary())
+
+    odds_ratios = np.exp(results.params)
+    print("\nOdds Ratios:")
+    print(odds_ratios)
 
 # runs Kruskal-Wallis test to see if distributions are different between groups
 def run_kruskal(var, df):
