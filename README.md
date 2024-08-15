@@ -155,8 +155,3 @@ If you are feeling really fancy, you can try to create a service that will autom
 ```
 scp -r emje6419@dronefeedback.colorado.edu:/home/emje6419/myflaskapp/llm-multimodal-drone-feedback/static/data 'C:/Users/Emily Jensen/OneDrive - UCB-O365/Drone Feedback Data'
 ```
-
-# Thoughts to improve feedback
-- make prompt less wordy?
-- refine compliment conditions?
-- how to change frequency/content over time?
