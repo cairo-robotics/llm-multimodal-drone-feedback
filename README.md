@@ -1,6 +1,6 @@
 # How to cite this software
 The 2D quadrotor landing simulation is implemented in JavaScript and can be added to any website. In this repo, the website is served using a Python Flask application. Various versions of the simulation have been used in the following projects:
-- Emily's project
+- Emily Jensen, Sriram Sankaranarayanan, and Bradley Hayes. 2024. Automated Assessment and Adaptive Multimodal Formative Feedback Improves Psychomotor Skills Training Outcomes in Quadrotor Teleoperation. _International Conference on Human-Agent Interaction (HAI '24)_. https://doi.org/10.1145/3687272.3688322
 - Madi has at least 2 projects
 - Sooyung has other projects?
 
