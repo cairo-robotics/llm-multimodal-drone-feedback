@@ -1,8 +1,8 @@
 # How to cite this software
 The 2D quadrotor landing simulation is implemented in JavaScript and can be added to any website. In this repo, the website is served using a Python Flask application. Various versions of the simulation have been used in the following projects:
 - Emily Jensen, Sriram Sankaranarayanan, and Bradley Hayes. 2024. Automated Assessment and Adaptive Multimodal Formative Feedback Improves Psychomotor Skills Training Outcomes in Quadrotor Teleoperation. _International Conference on Human-Agent Interaction (HAI '24)_. https://doi.org/10.1145/3687272.3688322
+- Madeleine S. Yuh, Ethan Rabb, Adam Thorpe, and Neera Jain. 2024. Using Reward Shaping to Train Cognitive–based Control Policies for Intelligent Tutoring Systems. _2024 American Control Conference (ACC)_.
 - Sooyung Byeon, Dawei Sun, and Inseok Hwang. 2021. Skill-level-based Hybrid Shared Control for Human-Automation Systems. _2021 IEEE International Conference on Systems, Man, and Cybernetics (SMC)_. https://doi.org/10.1109/SMC52423.2021.9658994
-- Madi has at least 2 projects
 
 If you use this software in your own project, please use the following citation:
 ```
