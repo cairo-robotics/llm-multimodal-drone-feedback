@@ -52,11 +52,11 @@ async def main(userid, trial):
   8. The black curve is the trajectory of the drone as the pilot attempts to complete the target task.
 
   Target Task:
-  1. The state variables are the drone's x position in meters (x), y position in meters (y), speed in meters per second (s), and tilt angle in degrees (\phi)
-  2. The task is defined using signal temporal logic specifications, which are indicated using $…$
-  3. Safety component: $P_1 = x > 0 \land x < 1250 \land y > 0 \land y < 600$
-  4. Landing component: $P_2 = x > 650 \land x < 850 \land y < 35 \land s < 15 \land \phi > -5 \land \phi < 5$
-  5. Complete task: $P_1 Until P_2$
+  1. The state variables are the drone's x position in meters (x), y position in meters (y), speed in meters per second (s), and tilt angle in degrees (phi)
+  2. The task is defined using signal temporal logic specifications, defined below
+  3. Safety component: P_1 = x > 0 and x < 1250 and y > 0 and y < 600
+  4. Landing component: P_2 = x > 650 and x < 850 and y < 35 and s < 15 and phi > -5 and phi < 5$
+  5. Complete task: P_1 Until P_2
   """
 
   feedback_prompt += """
@@ -82,7 +82,7 @@ async def main(userid, trial):
   """
 
   payload = {
-      "model": "gpt-4-vision-preview",
+      "model": "gpt-4o",
       "messages": [
         {
           "role": "user",
@@ -104,6 +104,7 @@ async def main(userid, trial):
   }
 
   response = requests.post("https://api.openai.com/v1/chat/completions", headers=headers, json=payload)
+  print(response)
   output = response.json()['choices'][0]['message']['content']
   output = output.replace('\u2014', '-')
   output = output.replace('\u2013', '-')
