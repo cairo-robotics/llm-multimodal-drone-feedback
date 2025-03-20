@@ -20,6 +20,21 @@ This README outlines the steps to deploy a Flask application on a Red Hat Linux 
 
 **Warning**: These steps make it look a lot easier than I experienced trying to get this set up the first time. I tried to distill my multiple false starts into a coherent document. You may need to try rearranging some steps or reloading the firewall/Nginx multiple times to get things working. Hopefully your journey will be easier than mine!
 
+## To get it working locally
+If you just want to test it on your computer, pick and choose the steps from the following sections.
+
+Just the first time:
+- Make the `myflaskapp` directory and make the virtual environment
+- In the `myflaskapp` directory, clone this repo and activate the environment
+- Install the required packages
+
+Whenever you want to test:
+- Go into `myflaskapp` and activate the environment
+- Go into the project repo
+- Run the command `python3 server.py`
+- Click on the link it generates, which will open the site. Whenever you save changes, the server will reload and you can just refresh the page.
+
+
 ## Preliminary Steps
 1. [Request a managed instance](https://www.colorado.edu/cs/content/managed-cloud-instance-request) from the CS IT team. Make sure you ask them to make a SSL certificate and key for you. The instance should be public (not internal). For the rest of the steps, I will assume the instance is called `dronefeedback.colorado.edu`.
 2. While on the UCB VPN, log into your instance. For the rest of the steps, I will assume the identikey is `emje6419`.
