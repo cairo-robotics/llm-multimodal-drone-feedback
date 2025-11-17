@@ -30,6 +30,7 @@ Just the first time:
 
 Whenever you want to test:
 - Go into `myflaskapp` and activate the environment
+  + On unix systems, `source venv/bin/activate`
 - Go into the project repo
 - Run the command `python3 server.py`
 - Click on the link it generates, which will open the site. Whenever you save changes, the server will reload and you can just refresh the page.
